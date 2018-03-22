@@ -214,8 +214,24 @@ handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
 
   render() {
     const panes = [
-      { menuItem: 'Tab 1', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
-      { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+      { menuItem: 'All News', render: () => 
+        <Tab.Pane>
+           <Switch>
+            <Route exact path="/" render={(props)=><NewsCard  labelsLoading = { this.state.labelsLoading } 
+                                                              fetchArticles = { this.fetchArticles } 
+                                                              fetchSearchResults = { this.fetchSearchResults }
+                                                              newsHeadlines = { this.state.newsHeadlines } 
+                                                              match = { props.match } />}
+                                                        />
+            <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
+                                                                      fetchSearchResults= { this.fetchSearchResults } 
+                                                                      loading={ this.state.isLoading }
+                                                                      match = { props.match }
+                                                                      results = { this.state.results } />}
+                                                        />
+          </Switch>
+        </Tab.Pane> },
+      { menuItem: 'Positive News', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
       { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
     ]
 
@@ -245,13 +261,14 @@ handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
                 </Message>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row columns="three">
+            <Grid.Row columns="two">
               <Grid.Column>
                 <Search   results={ this.state.results } 
                           loading={ this.state.isLoading } 
                           value={ this.state.value } 
                           onResultSelect={ this.openLink}
-                          onSearchChange={ _.debounce((event)=>this.fetchSearchResults(event.target.value), 500, { leading: true })}/>
+                          onSearchChange={ _.debounce((event)=>this.fetchSearchResults(event.target.value), 500, { leading: true })}
+                      />
               </Grid.Column>
               <Grid.Column>
                 <Pagination
@@ -268,28 +285,13 @@ handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
                   nextItem={showPreviousAndNextNav ? undefined : null}
                 />
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
               <Grid.Column>
                 <Tab menu={{ secondary: true }} panes={panes} />
-
               </Grid.Column>
             </Grid.Row>
           </Grid>
-            
-          <Switch>
-            <Route exact path="/" render={(props)=><NewsCard  labelsLoading = { this.state.labelsLoading } 
-                                                              fetchArticles = { this.fetchArticles } 
-                                                              fetchSearchResults = { this.fetchSearchResults }
-                                                              newsHeadlines = { this.state.newsHeadlines } 
-                                                              match = { props.match } />}
-                                                        />
-            <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
-                                                                      fetchSearchResults= { this.fetchSearchResults } 
-                                                                      loading={ this.state.isLoading }
-                                                                      value={ this.state.value } 
-                                                                      match = { props.match }
-                                                                      results = { this.state.results } />}
-                                                        />
-          </Switch>
         </Container>
       </div>
     )
