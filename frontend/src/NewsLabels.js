@@ -25,7 +25,7 @@ class NewsLabels extends Component {
         else {
             let politicalJSX = label.map(position => {
                 return <NavLink key = { new ObjectID() } to={ '/search/' + position }>
-                            <Label style={ labelStyle } color = { label.length - 1 === label.indexOf(position) ? "green" : "grey" }> 
+                            <Label style={labelStyle } color = { label.length - 1 === label.indexOf(position) ? "green" : "grey" }> 
                             { position } </Label> 
                         </NavLink>
             });
@@ -33,19 +33,19 @@ class NewsLabels extends Component {
             let sentimentJSX;
             if (sentiment > 0.5){
                 sentimentJSX =  <NavLink to={ '/search/positive' }>
-                                    <Label style={ labelStyle } basic color = "green"> Positive </Label>
+                                    <Label style={labelStyle } basic color = "green"> Positive </Label>
                                 </NavLink>
             };
 
             if (sentiment < 0.5){
                 sentimentJSX = <NavLink to={ '/search/negative' }>
-                                    <Label style={ labelStyle } basic color = "orange" > Negative</Label>
+                                    <Label style={labelStyle } basic color = "orange" > Negative</Label>
                                 </NavLink>
             };
 
             let keywordsJSX = keywords.map(keyword => {
                  return <NavLink to={ '/search/' + keyword } key = { new ObjectID() }>
-                            <Label  style={ labelStyle } circular basic color = "black"> { keyword } </Label>
+                            <Label  style={labelStyle } circular basic color = "black"> { keyword } </Label>
                         </NavLink>
              });
 

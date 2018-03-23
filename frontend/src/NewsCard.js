@@ -62,7 +62,7 @@ class NewsCard extends Component {
                     return <Grid.Column key = { new ObjectID() }>
                                 <Segment compact text-align="center" style={cardStyle} className='card--padded'>
                                     <Card       centered link fluid
-                                    style={ cardStyle }
+                                                style={ cardStyle }
                                                 target="_blank"
                                                 description = { prop.description }
                                                 image = { prop.urlToImage }

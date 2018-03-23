@@ -38,7 +38,7 @@ class App extends Component {
 
   fetchArticles() {
     const newsHeadlinesUrl = 'https://newsapi.org/v2/everything';
-    const indicoPoliticalUrl = 'https://apiv2.indico.io/political';
+    const indicoPoliticalUrl = 'https://apiv2.indico.io/political/batch';
     const indicoSentimentUrl = 'https://apiv2.indico.io/sentiment/batch';
     const indicoKeywordsUrl = 'https://apiv2.indico.io/keywords/batch?version=2';
 
@@ -52,7 +52,7 @@ class App extends Component {
         page: 1,
         from: moment().isoWeek(),
         to: moment().isoWeek(),
-        q: '(politics or political or technology or tech or policy or environment or social or society or internet or "social media")',
+        q: '(politics or political or technology or tech or policy or environment or social or society or internet)',
         sortBy: 'popularity'
       }
     };
@@ -255,26 +255,7 @@ handlePaginationChange(event, { activePage }){
                                                         />
           </Switch>
         </Tab.Pane> },
-      { menuItem: 'Positive', render: () => 
-        <Tab.Pane>
-          <Switch>
-            <Route exact path="/" render={(props)=><NewsCard  labelsLoading = { this.state.labelsLoading }
-                                                              activeFilter = { this.state.activeFilter }
-                                                              handleTabChange = { this.handleTabChange } 
-                                                              fetchArticles = { this.fetchArticles } 
-                                                              fetchSearchResults = { this.fetchSearchResults }
-                                                              newsHeadlines = { this.state.newsHeadlines } 
-                                                              match = { props.match } />}
-                                                        />
-            <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading }
-                                                                      activeFilter = { this.state.activeFilter }
-                                                                      handleTabChange = { this.handleTabChange }
-                                                                      loading={ this.state.isLoading }
-                                                                      match = { props.match }
-                                                                      results = { this.state.results } />}
-                                                        />
-          </Switch>
-        </Tab.Pane> },
+      { menuItem: 'Positive', render: () => <Tab.Pane> </Tab.Pane> },
       { menuItem: 'Negative', render: () => <Tab.Pane> </Tab.Pane> },
       { menuItem: 'Liberal', render: () => <Tab.Pane></Tab.Pane> },
       { menuItem: 'Conservative', render: () => <Tab.Pane></Tab.Pane> },
