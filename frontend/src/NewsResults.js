@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Segment, Label, Dimmer, Loader, Grid, Card } from 'semantic-ui-react';
+import { Label, Grid, Card, Button } from 'semantic-ui-react';
 import { ObjectID } from 'bson';
 import axios from 'axios';
 import _ from 'lodash';
 import config from './config.json';
+import { NavLink } from 'react-router-dom';
 
 class NewsResults extends Component {
     constructor() {
@@ -16,7 +17,6 @@ class NewsResults extends Component {
     }
     componentDidMount() {
         let { match } = this.props;
-        console.log(match.params.term); 
    
         let targetValue = match.params.term;
         
@@ -70,15 +70,7 @@ class NewsResults extends Component {
         let resultsJSX = [];
 
         if (!this.state.results){
-          resultsJSX = <Grid padded>
-                            <Grid.Row stretched>
-                                <Grid.Column>
-                                    <Dimmer active>
-                                        <Loader  content='Loading Results' size='big' active/>
-                                    </Dimmer>
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
+          resultsJSX = null
         }
         else {  
             let searchResults = this.state.results;
@@ -88,7 +80,7 @@ class NewsResults extends Component {
                         <Card   centered link fluid
                                 target="_blank"
                                 key = { new ObjectID() }
-                                description = { result.site_type }
+                                description = "Fact-Check"
                                 header = { result.title }
                                 href = { result.url }
                                 meta = { result.description }
@@ -100,7 +92,7 @@ class NewsResults extends Component {
                         <Card   centered link fluid
                                 target="_blank"
                                 key = { new ObjectID() }
-                                description = { result.site_type }
+                                description = "Claim"
                                 header = { result.title }
                                 href = { result.url }
                                 meta = { result.description }
@@ -109,13 +101,20 @@ class NewsResults extends Component {
                 }
             })
             resultsJSX = <div>
-                            <Grid columns="two" padded>        
+                            <Grid.Row>
                                 <Grid.Column>
-                                    { factArticlesJSX } 
+                                    <NavLink to={ '/' }><Button labelPosition='left' icon='left chevron' content='Back' /></NavLink>
                                 </Grid.Column>
-                                <Grid.Column>
-                                    { claimArticlesJSX }
-                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid columns="two" padded>
+                                <Grid.Row>        
+                                    <Grid.Column>
+                                        { factArticlesJSX } 
+                                    </Grid.Column>
+                                    <Grid.Column>
+                                        { claimArticlesJSX }
+                                    </Grid.Column>
+                                </Grid.Row>
                             </Grid>
                         </div>
         }

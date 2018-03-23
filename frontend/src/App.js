@@ -18,24 +18,27 @@ class App extends Component {
       value: '',
       results: [],
       isLoading: false,
-      activePage: 5,
+      tabData: {},
+      activeFilter: 'All News',
+      activePage: 1,
       boundaryRange: 1,
       siblingRange: 1,
       showEllipsis: true,
       showFirstAndLastNav: true,
       showPreviousAndNextNav: true,
-      totalPages: 50,
+      totalPages: 10,
     }
     this.fetchArticles = this.fetchArticles.bind(this);
     this.fetchSearchResults = this.fetchSearchResults.bind(this);
     this.resetComponent = this.resetComponent.bind(this);
     this.openLink = this.openLink.bind(this);
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
+    this.handleTabChange = this.handleTabChange.bind(this);
   }
 
   fetchArticles() {
     const newsHeadlinesUrl = 'https://newsapi.org/v2/everything';
-    const indicoPoliticalUrl = 'https://apiv2.indico.io/political/batch';
+    const indicoPoliticalUrl = 'https://apiv2.indico.io/political';
     const indicoSentimentUrl = 'https://apiv2.indico.io/sentiment/batch';
     const indicoKeywordsUrl = 'https://apiv2.indico.io/keywords/batch?version=2';
 
@@ -56,6 +59,7 @@ class App extends Component {
 
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
+        console.log(results.data.articles)
         let updatedHeadlines = results.data.articles
         let updatedUrls = []
         updatedHeadlines.forEach(article => {
@@ -65,6 +69,7 @@ class App extends Component {
           newsHeadlines: updatedHeadlines,
           labelsLoading: true
         });
+        console.log(updatedUrls)
         return axios.post(indicoPoliticalUrl, JSON.stringify({
           api_key: config.indicoKey,
           data: updatedUrls,
@@ -206,33 +211,77 @@ class App extends Component {
   };
 
   openLink(event, result){
-    let url = result.result.url
+    let url = '/search/' + result.result.title
+    console.log(result.result);
     window.open(url, '_blank');
 };
 
-handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
+// filterResults(value){
+
+// }
+
+handleTabChange(event, data){
+  let index = data.activeIndex;
+  let filterTerm = data.panes[index].menuItem
+  this.setState({ 
+    tabData: data,
+    activeFilter: filterTerm
+   })
+};
+
+handlePaginationChange(event, { activePage }){
+  this.setState({ activePage })
+};
 
   render() {
     const panes = [
       { menuItem: 'All News', render: () => 
         <Tab.Pane>
            <Switch>
-            <Route exact path="/" render={(props)=><NewsCard  labelsLoading = { this.state.labelsLoading } 
+            <Route exact path="/" render={(props)=><NewsCard  labelsLoading = { this.state.labelsLoading }
+                                                              handleTabChange = { this.handleTabChange }
+                                                              activeFilter = { this.state.activeFilter }
                                                               fetchArticles = { this.fetchArticles } 
                                                               fetchSearchResults = { this.fetchSearchResults }
                                                               newsHeadlines = { this.state.newsHeadlines } 
                                                               match = { props.match } />}
                                                         />
             <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
-                                                                      fetchSearchResults= { this.fetchSearchResults } 
+                                                                      activeFilter = { this.state.activeFilter }
+                                                                      handleTabChange = { this.handleTabChange }
                                                                       loading={ this.state.isLoading }
                                                                       match = { props.match }
                                                                       results = { this.state.results } />}
                                                         />
           </Switch>
         </Tab.Pane> },
-      { menuItem: 'Positive News', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-      { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+      { menuItem: 'Positive', render: () => 
+        <Tab.Pane>
+          <Switch>
+            <Route exact path="/" render={(props)=><NewsCard  labelsLoading = { this.state.labelsLoading }
+                                                              activeFilter = { this.state.activeFilter }
+                                                              handleTabChange = { this.handleTabChange } 
+                                                              fetchArticles = { this.fetchArticles } 
+                                                              fetchSearchResults = { this.fetchSearchResults }
+                                                              newsHeadlines = { this.state.newsHeadlines } 
+                                                              match = { props.match } />}
+                                                        />
+            <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading }
+                                                                      activeFilter = { this.state.activeFilter }
+                                                                      handleTabChange = { this.handleTabChange }
+                                                                      loading={ this.state.isLoading }
+                                                                      match = { props.match }
+                                                                      results = { this.state.results } />}
+                                                        />
+          </Switch>
+        </Tab.Pane> },
+      { menuItem: 'Negative', render: () => <Tab.Pane> </Tab.Pane> },
+      { menuItem: 'Liberal', render: () => <Tab.Pane></Tab.Pane> },
+      { menuItem: 'Conservative', render: () => <Tab.Pane></Tab.Pane> },
+      { menuItem: 'Green', render: () => <Tab.Pane></Tab.Pane> },
+      { menuItem: 'Libertarian', render: () => <Tab.Pane></Tab.Pane> },
+      { menuItem: 'Claims', render: () => <Tab.Pane></Tab.Pane> },
+      { menuItem: 'Fact-Check', render: () => <Tab.Pane></Tab.Pane> },
     ]
 
     const {
@@ -288,7 +337,7 @@ handlePaginationChange = (e, { activePage }) => this.setState({ activePage })
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
-                <Tab menu={{ secondary: true }} panes={panes} />
+                <Tab menu={{ secondary: true }} panes={panes} onTabChange={ this.handleTabChange }/>
               </Grid.Column>
             </Grid.Row>
           </Grid>
