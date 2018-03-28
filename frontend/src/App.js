@@ -52,8 +52,8 @@ class App extends Component {
         page: 1,
         from: moment().isoWeek(),
         to: moment().isoWeek(),
-        q: '(politics or political or technology or tech or policy or environment or social or society or internet)',
-        sortBy: 'popularity'
+        q: '(politics OR political OR policy OR social OR society OR environment OR economy OR threat OR law AND truth OR false OR fake OR fact)',
+        sortBy: 'relevancy'
       }
     };
 
