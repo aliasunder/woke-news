@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.2.1",
+    "autoresponsive-react": "^1.1.30",
     "axios": "^0.18.0",
     "bson": "^2.0.4",
     "decimal": "0.0.2",

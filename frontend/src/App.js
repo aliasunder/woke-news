@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NewsCard from './NewsCard';
+import NewsCardContainer from './NewsCardContainer';
 import './App.css';
 import axios from 'axios';
 import config from './config.json';
@@ -238,7 +238,7 @@ handlePaginationChange(event, { activePage }){
       { menuItem: 'All News', render: () => 
         <Tab.Pane>
            <Switch>
-            <Route exact path="/" render={(props)=><NewsCard  labelsLoading = { this.state.labelsLoading }
+            <Route exact path="/" render={(props)=><NewsCardContainer  labelsLoading = { this.state.labelsLoading }
                                                               handleTabChange = { this.handleTabChange }
                                                               activeFilter = { this.state.activeFilter }
                                                               fetchArticles = { this.fetchArticles } 
@@ -316,12 +316,13 @@ handlePaginationChange(event, { activePage }){
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
+            </Grid>
+          
+           
                 <Tab menu={{ secondary: true }} panes={panes} onTabChange={ this.handleTabChange }/>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+             
+           
+          
         </Container>
       </div>
     )
