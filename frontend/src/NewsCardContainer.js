@@ -4,12 +4,6 @@ import NewsCard from './NewsCard';
 import './NewsCardContainer.css';
 import AutoResponsive from 'autoresponsive-react';
 
-const containerStyle = {
-    alignContent: 'flex-start',
-    alignItems: 'flex-start',
-    display: 'flex'
-}
-
 class NewsCardContainer extends Component {
     
     componentDidMount() {
@@ -19,7 +13,6 @@ class NewsCardContainer extends Component {
     render() { 
         let newsHeadlines = this.props.newsHeadlines;
         let filterOption = this.props.activeFilter;
-        let newsHeadlinesJSX;
 
         let filteredNews = newsHeadlines.filter(article => {
             if (filterOption === 'Positive'){
@@ -60,7 +53,7 @@ class NewsCardContainer extends Component {
                          newsHeadlines.length > 0 ? (
                             filteredNews.map((prop)=>{
                                 return <NewsCard    key = { new ObjectID() } 
-                                                    style={{ width:"150px" }} 
+                                                    style={{ width:"250px" }} 
                                                     className="item"
                                                     description = { prop.description }
                                                     image = { prop.urlToImage }

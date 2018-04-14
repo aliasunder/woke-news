@@ -64,11 +64,10 @@ class NewsLabels extends Component {
         }
             
         return ( 
-            <div>
                 <Segment padded>
                     { labelsJSX }
                 </Segment>  
-            </div>
+          
          )
     }
 }

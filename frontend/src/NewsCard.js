@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
 import NewsLabels from './NewsLabels';
 
 const cardStyle = {
@@ -12,24 +12,23 @@ class NewsCard extends Component {
 
     render() { 
         return ( 
-            <div>
-                <Card   centered link fluid
-                        style={ cardStyle }
+                <Card   link   
+                        // style={ cardStyle }
                         target="_blank"
-                        description = { this.props.description }
-                        image = { this.props.image}
-                        header = { this.props.title}
-                        href = { this.props.url }
-                        meta = { this.props.meta}
-                /> 
-                <NewsLabels loading = { this.props.loading} 
-                            label = { this.props.label ? this.props.label : null } 
-                            sentiment = { this.props.sentiment ? this.props.sentiment : null }
-                            keywords = { this.props.keywords ? this.props.keywords : null }
-                            match = { this.props.match }
-                            fetchSearchResults = { this.props.fetchSearchResults }
-                />
-            </div>
+                        href={ this.props.url }
+                > 
+                    <Card.Content> <Image src= { this.props.image } /> </Card.Content>
+                    <Card.Content header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />
+                    <Card.Content extra>
+                        <NewsLabels loading = { this.props.loading} 
+                                    label = { this.props.label ? this.props.label : null } 
+                                    sentiment = { this.props.sentiment ? this.props.sentiment : null }
+                                    keywords = { this.props.keywords ? this.props.keywords : null }
+                                    match = { this.props.match }
+                                    fetchSearchResults = { this.props.fetchSearchResults }
+                            />
+                    </Card.Content>
+                </Card>
          )
     }
 }
