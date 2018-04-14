@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
 import './NewsCardContainer.css';
+import StackGrid from "react-stack-grid";
 
 const containerStyle = {
     display: 'flex',
     flexFlow: 'row wrap',
-    alignContent: 'flex-start'
+    alignContent: 'flex-start',
+    alignItems: 'flex-start'
 }
 
 class NewsCardContainer extends Component {
@@ -51,12 +53,11 @@ class NewsCardContainer extends Component {
            
 
         return ( 
-                    <div style= { containerStyle }>
+                    <StackGrid columnWidth= { 350 }>
                     { 
                          newsHeadlines.length > 0 ? (
                             filteredNews.map((prop)=>{
                                 return <NewsCard    key = { new ObjectID() } 
-                                                    style={ {width: '45%'} } 
                                                     className="item"
                                                     description = { prop.description }
                                                     image = { prop.urlToImage }
@@ -79,7 +80,7 @@ class NewsCardContainer extends Component {
                             (null)
     
                      }
-                    </div>
+                    </StackGrid>
         )
     }
 };
