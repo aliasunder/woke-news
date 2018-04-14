@@ -4,13 +4,6 @@ import NewsCard from './NewsCard';
 import './NewsCardContainer.css';
 import StackGrid from "react-stack-grid";
 
-const containerStyle = {
-    display: 'flex',
-    flexFlow: 'row wrap',
-    alignContent: 'flex-start',
-    alignItems: 'flex-start'
-}
-
 class NewsCardContainer extends Component {
     
     componentDidMount() {
@@ -53,7 +46,7 @@ class NewsCardContainer extends Component {
            
 
         return ( 
-                    <StackGrid columnWidth= { 350 }>
+                    <StackGrid columnWidth= { 475 } >
                     { 
                          newsHeadlines.length > 0 ? (
                             filteredNews.map((prop)=>{
