@@ -2,18 +2,11 @@ import React, { Component } from 'react';
 import { Card, Image } from 'semantic-ui-react'
 import NewsLabels from './NewsLabels';
 
-const cardStyle = {
-    marginBottom: '2%',
-    marginTop: '2%',
-    flexGrow: '2'
-}
-
 class NewsCard extends Component {
 
     render() { 
         return ( 
-                <Card   link   
-                        // style={ cardStyle }
+                <Card   link centered fluid
                         target="_blank"
                         href={ this.props.url }
                         style={ this.props.style }

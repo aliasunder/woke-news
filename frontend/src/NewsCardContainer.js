@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
 import './NewsCardContainer.css';
-import AutoResponsive from 'autoresponsive-react';
+
+const containerStyle = {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    alignContent: 'flex-start'
+}
 
 class NewsCardContainer extends Component {
     
@@ -46,14 +51,12 @@ class NewsCardContainer extends Component {
            
 
         return ( 
-            <div>
-              
-                    <AutoResponsive ref="container" verticalDirection="top" horizontalDirection="left" containerHeight={ null } gridWidth={ 100 } itemClassName="item" itemMargin={ 10 } containerWidth={ null } prefixClassName="rc-autoresponsive">
+                    <div style= { containerStyle }>
                     { 
                          newsHeadlines.length > 0 ? (
                             filteredNews.map((prop)=>{
                                 return <NewsCard    key = { new ObjectID() } 
-                                                    style={{ width:"400px" }} 
+                                                    style={ {width: '45%'} } 
                                                     className="item"
                                                     description = { prop.description }
                                                     image = { prop.urlToImage }
@@ -76,9 +79,7 @@ class NewsCardContainer extends Component {
                             (null)
     
                      }
-                    </AutoResponsive>
-               
-            </div>
+                    </div>
         )
     }
 };

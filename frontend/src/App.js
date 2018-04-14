@@ -316,10 +316,9 @@ handlePaginationChange(event, { activePage }){
                 />
               </Grid.Column>
             </Grid.Row>
-            </Grid>
-            </Container>
-                <Tab menu={{ secondary: true }} panes={panes} onTabChange={ this.handleTabChange }/>
-       
+          </Grid>
+          <Tab menu={{ secondary: true }} panes={panes} onTabChange={ this.handleTabChange }/>
+        </Container>
       </div>
     )
   }
