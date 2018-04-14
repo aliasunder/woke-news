@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
-import './NewsCardContainer.css';
 import StackGrid from "react-stack-grid";
 
 class NewsCardContainer extends Component {
