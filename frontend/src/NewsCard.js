@@ -9,7 +9,6 @@ class NewsCard extends Component {
                 <Card   link fluid centered
                         target="_blank"
                         href={ this.props.url }
-                        style={{ margin: '2%' }}
                 > 
                     <Card.Content> <Image src= { this.props.image } /> </Card.Content>
                     <Card.Content header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />
