@@ -236,7 +236,7 @@ handlePaginationChange(event, { activePage }){
   render() {
     const panes = [
       { menuItem: 'All News', render: () => 
-        <Tab.Pane>
+        <Tab.Pane as="div">
            <Switch>
             <Route exact path="/" render={(props)=><NewsCardContainer  labelsLoading = { this.state.labelsLoading }
                                                               handleTabChange = { this.handleTabChange }
@@ -317,13 +317,9 @@ handlePaginationChange(event, { activePage }){
               </Grid.Column>
             </Grid.Row>
             </Grid>
-          
-           
+            </Container>
                 <Tab menu={{ secondary: true }} panes={panes} onTabChange={ this.handleTabChange }/>
-             
-           
-          
-        </Container>
+       
       </div>
     )
   }

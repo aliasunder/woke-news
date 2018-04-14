@@ -16,6 +16,7 @@ class NewsCard extends Component {
                         // style={ cardStyle }
                         target="_blank"
                         href={ this.props.url }
+                        style={ this.props.style }
                 > 
                     <Card.Content> <Image src= { this.props.image } /> </Card.Content>
                     <Card.Content header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />

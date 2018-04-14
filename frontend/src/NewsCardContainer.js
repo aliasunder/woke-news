@@ -53,7 +53,7 @@ class NewsCardContainer extends Component {
                          newsHeadlines.length > 0 ? (
                             filteredNews.map((prop)=>{
                                 return <NewsCard    key = { new ObjectID() } 
-                                                    style={{ width:"250px" }} 
+                                                    style={{ width:"400px" }} 
                                                     className="item"
                                                     description = { prop.description }
                                                     image = { prop.urlToImage }
