@@ -16,7 +16,7 @@ class NewsCardContainer extends Component {
         const { width, height } = this.props.size;
     
  
-        if (this.props.activeFilter === ! 'All News'){
+
         let filteredNews = newsHeadlines.filter(article => {
             if (filterOption === 'Positive'){
                 return article.sentiment === 'Positive'
@@ -46,7 +46,6 @@ class NewsCardContainer extends Component {
                 return newsHeadlines;    
             }
         })
-        }
            
 
         return ( 
