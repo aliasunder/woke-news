@@ -15,8 +15,6 @@ class NewsCardContainer extends Component {
         let filterOption = this.props.activeFilter;
         const { width, height } = this.props.size;
     
- 
-
         let filteredNews = newsHeadlines.filter(article => {
             if (filterOption === 'Positive'){
                 return article.sentiment === 'Positive'
