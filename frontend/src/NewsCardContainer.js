@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
-import StackGrid from "react-stack-grid";
+import StackGrid from 'react-stack-grid';
+import sizeMe from 'react-sizeme';
 
 class NewsCardContainer extends Component {
     
@@ -9,9 +10,18 @@ class NewsCardContainer extends Component {
         this.props.fetchArticles()
     }
 
+    componentDidUpdate(prevProps, prevState) {
+       if (this.props.activeFilter ===! 'All News'){
+           
+       }
+    }
+
     render() { 
         let newsHeadlines = this.props.newsHeadlines;
         let filterOption = this.props.activeFilter;
+        const { width, height } = this.props.size;
+    
+ 
 
         let filteredNews = newsHeadlines.filter(article => {
             if (filterOption === 'Positive'){
@@ -45,7 +55,7 @@ class NewsCardContainer extends Component {
            
 
         return ( 
-                    <StackGrid columnWidth= { '40%' } gutterWidth={ 15 } gutterHeight={ 15 } >
+                <StackGrid columnWidth= {  width <= 768 ? '90%' : '37%' } gutterWidth={ 15 } gutterHeight={ 15 } >
                     { 
                          newsHeadlines.length > 0 ? (
                             filteredNews.map((prop)=>{
@@ -71,10 +81,10 @@ class NewsCardContainer extends Component {
                         :
                             (null)
     
-                     }
-                    </StackGrid>
+                    }
+                </StackGrid>
         )
     }
 };
  
-export default NewsCardContainer;
+export default sizeMe({ monitorWidth: true })(NewsCardContainer);

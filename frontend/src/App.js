@@ -216,10 +216,6 @@ class App extends Component {
     window.open(url, '_blank');
 };
 
-// filterResults(value){
-
-// }
-
 handleTabChange(event, data){
   let index = data.activeIndex;
   let filterTerm = data.panes[index].menuItem
@@ -255,7 +251,17 @@ handlePaginationChange(event, { activePage }){
                                                         />
           </Switch>
         </Tab.Pane> },
-      { menuItem: 'Positive', render: () => <Tab.Pane> </Tab.Pane> },
+      { menuItem: 'Positive', render: (props) => 
+        <Tab.Pane> 
+          <NewsCardContainer  labelsLoading = { this.state.labelsLoading }
+                                                              handleTabChange = { this.handleTabChange }
+                                                              activeFilter = { this.state.activeFilter }
+                                                              fetchArticles = { this.fetchArticles } 
+                                                              fetchSearchResults = { this.fetchSearchResults }
+                                                              newsHeadlines = { this.state.newsHeadlines } 
+                                                              match = { props.match }
+                                                        />
+      </Tab.Pane> },
       { menuItem: 'Negative', render: () => <Tab.Pane> </Tab.Pane> },
       { menuItem: 'Liberal', render: () => <Tab.Pane></Tab.Pane> },
       { menuItem: 'Conservative', render: () => <Tab.Pane></Tab.Pane> },
