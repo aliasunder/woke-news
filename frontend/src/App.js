@@ -24,7 +24,7 @@ class App extends Component {
       boundaryRange: 1,
       siblingRange: 1,
       showEllipsis: true,
-      showFirstAndLastNav: true,
+      showFirstAndLastNav: false,
       showPreviousAndNextNav: true,
       totalPages: 10,
     }
@@ -223,9 +223,6 @@ handleTabChange(event, data){
     tabData: data,
     activeFilter: filterTerm
    })
-   console.log(data.panes)
-
-
 };
 
 handlePaginationChange(event, { activePage }){
@@ -234,9 +231,9 @@ handlePaginationChange(event, { activePage }){
 
   render() {
     const panes = [
-      { menuItem: 'All News', render: (props) => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Positive', render: () => <Tab.Pane as="div"> </Tab.Pane> },
-      { menuItem: 'Negative', render: () => <Tab.Pane as="div"> </Tab.Pane> },
+      { menuItem: 'All News', render: () => <Tab.Pane as="div"></Tab.Pane> },
+      { menuItem: 'Positive', render: () => <Tab.Pane as="div"></Tab.Pane> },
+      { menuItem: 'Negative', render: () => <Tab.Pane as="div"></Tab.Pane> },
       { menuItem: 'Liberal', render: () => <Tab.Pane as="div"></Tab.Pane> },
       { menuItem: 'Conservative', render: () => <Tab.Pane as="div"> </Tab.Pane> },
       { menuItem: 'Green', render: () => <Tab.Pane as="div"></Tab.Pane> },
@@ -258,7 +255,7 @@ handlePaginationChange(event, { activePage }){
     return (
       <div className="App">
         <Container>
-          <Grid padded>
+          <Grid padded stackable>
             <Grid.Row>
               <Grid.Column>
                 <Message color="black" size="massive">
@@ -271,7 +268,7 @@ handlePaginationChange(event, { activePage }){
                 </Message>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row columns="two">
+            <Grid.Row columns="two" >
               <Grid.Column>
                 <Search   results={ this.state.results } 
                           loading={ this.state.isLoading } 
@@ -296,16 +293,19 @@ handlePaginationChange(event, { activePage }){
                 />
               </Grid.Column>
             </Grid.Row>
+            <Grid.Row columns={ panes.length + 1 }>
+              <Tab menu={{ secondary: true, stackable: true }} panes={ panes } onTabChange={ this.handleTabChange }/>      
+            </Grid.Row>
           </Grid>
-          <Tab menu={{ secondary: true }} panes={panes} onTabChange={ this.handleTabChange }/>
+
           <Switch>
-            <Route exact path="/" render={(props)=><NewsCardContainer  labelsLoading = { this.state.labelsLoading }
-                                                              handleTabChange = { this.handleTabChange }
-                                                              activeFilter = { this.state.activeFilter }
-                                                              fetchArticles = { this.fetchArticles } 
-                                                              fetchSearchResults = { this.fetchSearchResults }
-                                                              newsHeadlines = { this.state.newsHeadlines } 
-                                                              match = { props.match } />}
+            <Route exact path="/" render={(props)=> <NewsCardContainer  labelsLoading = { this.state.labelsLoading }
+                                                                        handleTabChange = { this.handleTabChange }
+                                                                        activeFilter = { this.state.activeFilter }
+                                                                        fetchArticles = { this.fetchArticles } 
+                                                                        fetchSearchResults = { this.fetchSearchResults }
+                                                                        newsHeadlines = { this.state.newsHeadlines } 
+                                                                        match = { props.match } />}
                                                         />
             <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
                                                                       activeFilter = { this.state.activeFilter }

@@ -47,7 +47,7 @@ class NewsCardContainer extends Component {
            
 
         return ( 
-                <StackGrid columnWidth= {  width <= 768 ? '90%' : '37%' } gutterWidth={ 15 } gutterHeight={ 15 } >
+                <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } gutterWidth={ 15 } gutterHeight={ 15 } >
                     { 
                          newsHeadlines.length > 0 ? (
                             filteredNews.map((prop)=>{

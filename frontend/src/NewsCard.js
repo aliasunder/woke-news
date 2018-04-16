@@ -6,12 +6,9 @@ class NewsCard extends Component {
 
     render() { 
         return ( 
-                <Card   link fluid centered
-                        target="_blank"
-                        href={ this.props.url }
-                > 
-                    <Card.Content> <Image src= { this.props.image } /> </Card.Content>
-                    <Card.Content header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />
+                <Card fluid centered > 
+                    <Card.Content as="a" href={ this.props.url } target="_blank"><Image src= { this.props.image } /></Card.Content>
+                    <Card.Content as="a" href={ this.props.url } target="_blank" header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />
                     <Card.Content extra>
                         <NewsLabels loading = { this.props.loading} 
                                     label = { this.props.label ? this.props.label : null } 
