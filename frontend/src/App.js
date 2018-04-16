@@ -223,6 +223,9 @@ handleTabChange(event, data){
     tabData: data,
     activeFilter: filterTerm
    })
+   console.log(data.panes)
+
+
 };
 
 handlePaginationChange(event, { activePage }){
@@ -252,7 +255,7 @@ handlePaginationChange(event, { activePage }){
           </Switch>
         </Tab.Pane> },
       { menuItem: 'Positive', render: (props) => 
-        <Tab.Pane> 
+        <Tab.Pane as="div"> 
           <NewsCardContainer  labelsLoading = { this.state.labelsLoading }
                                                               handleTabChange = { this.handleTabChange }
                                                               activeFilter = { this.state.activeFilter }
@@ -264,7 +267,17 @@ handlePaginationChange(event, { activePage }){
       </Tab.Pane> },
       { menuItem: 'Negative', render: () => <Tab.Pane> </Tab.Pane> },
       { menuItem: 'Liberal', render: () => <Tab.Pane></Tab.Pane> },
-      { menuItem: 'Conservative', render: () => <Tab.Pane></Tab.Pane> },
+      { menuItem: 'Conservative', render: (props) => 
+        <Tab.Pane as="div">
+          <NewsCardContainer  labelsLoading = { this.state.labelsLoading }
+                                                              handleTabChange = { this.handleTabChange }
+                                                              activeFilter = { this.state.activeFilter }
+                                                              fetchArticles = { this.fetchArticles } 
+                                                              fetchSearchResults = { this.fetchSearchResults }
+                                                              newsHeadlines = { this.state.newsHeadlines } 
+                                                              match = { props.match }
+                                                        />
+      </Tab.Pane> },
       { menuItem: 'Green', render: () => <Tab.Pane></Tab.Pane> },
       { menuItem: 'Libertarian', render: () => <Tab.Pane></Tab.Pane> },
       { menuItem: 'Claims', render: () => <Tab.Pane></Tab.Pane> },

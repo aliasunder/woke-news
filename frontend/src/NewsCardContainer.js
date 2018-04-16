@@ -13,32 +13,32 @@ class NewsCardContainer extends Component {
     render() { 
         let newsHeadlines = this.props.newsHeadlines;
         let filterOption = this.props.activeFilter;
-        const { width, height } = this.props.size;
+        const { width } = this.props.size;
     
         let filteredNews = newsHeadlines.filter(article => {
-            if (filterOption === 'Positive'){
-                return article.sentiment === 'Positive'
+            if (article.sentiment && filterOption === 'Positive'){
+                return article.sentiment > 0.5
             }
-            else if (filterOption === 'Negative'){
-                return article.sentiment === 'Negative';
+            else if (article.sentiment && filterOption === 'Negative'){
+                return article.sentiment < 0.5
             }
-            else if (filterOption === 'Liberal'){
-                return article.label === 'Liberal';
+            else if (article.label && filterOption === 'Liberal'){
+                return article.label.includes('Liberal')
             }
-            else if (filterOption === 'Conservative'){
-                return article.label === 'Conservative';
+            else if (article.label && filterOption === 'Conservative'){
+                return article.label.includes('Conservative')
             }
-            else if (filterOption === 'Green'){
-                return article.label === 'Green';
+            else if (article.label && filterOption === 'Green'){
+                return article.label.includes('Green')
             }
-            else if (filterOption === 'Libertarian'){
-                return article.label === 'Libertarian';
+            else if (article.label && filterOption === 'Libertarian'){
+                return article.label.includes('Libertarian')
             }
-            else if (filterOption === 'Claims'){
-                return article.label === 'Claims';
+            else if (article.label && filterOption === 'Claims'){
+                return article.label.includes('Claims')
             }
-            else if (filterOption === 'Fact-Check'){
-                return article.label === 'Fact-Check';
+            else if (article.label && filterOption === 'Fact-Check'){
+                return article.label.includes('Fact-Check')
             }
             else {
                 return newsHeadlines;    
