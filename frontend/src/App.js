@@ -234,54 +234,15 @@ handlePaginationChange(event, { activePage }){
 
   render() {
     const panes = [
-      { menuItem: 'All News', render: () => 
-        <Tab.Pane as="div">
-           <Switch>
-            <Route exact path="/" render={(props)=><NewsCardContainer  labelsLoading = { this.state.labelsLoading }
-                                                              handleTabChange = { this.handleTabChange }
-                                                              activeFilter = { this.state.activeFilter }
-                                                              fetchArticles = { this.fetchArticles } 
-                                                              fetchSearchResults = { this.fetchSearchResults }
-                                                              newsHeadlines = { this.state.newsHeadlines } 
-                                                              match = { props.match } />}
-                                                        />
-            <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
-                                                                      activeFilter = { this.state.activeFilter }
-                                                                      handleTabChange = { this.handleTabChange }
-                                                                      loading={ this.state.isLoading }
-                                                                      match = { props.match }
-                                                                      results = { this.state.results } />}
-                                                        />
-          </Switch>
-        </Tab.Pane> },
-      { menuItem: 'Positive', render: (props) => 
-        <Tab.Pane as="div"> 
-          <NewsCardContainer  labelsLoading = { this.state.labelsLoading }
-                                                              handleTabChange = { this.handleTabChange }
-                                                              activeFilter = { this.state.activeFilter }
-                                                              fetchArticles = { this.fetchArticles } 
-                                                              fetchSearchResults = { this.fetchSearchResults }
-                                                              newsHeadlines = { this.state.newsHeadlines } 
-                                                              match = { props.match }
-                                                        />
-      </Tab.Pane> },
-      { menuItem: 'Negative', render: () => <Tab.Pane> </Tab.Pane> },
-      { menuItem: 'Liberal', render: () => <Tab.Pane></Tab.Pane> },
-      { menuItem: 'Conservative', render: (props) => 
-        <Tab.Pane as="div">
-          <NewsCardContainer  labelsLoading = { this.state.labelsLoading }
-                                                              handleTabChange = { this.handleTabChange }
-                                                              activeFilter = { this.state.activeFilter }
-                                                              fetchArticles = { this.fetchArticles } 
-                                                              fetchSearchResults = { this.fetchSearchResults }
-                                                              newsHeadlines = { this.state.newsHeadlines } 
-                                                              match = { props.match }
-                                                        />
-      </Tab.Pane> },
-      { menuItem: 'Green', render: () => <Tab.Pane></Tab.Pane> },
-      { menuItem: 'Libertarian', render: () => <Tab.Pane></Tab.Pane> },
-      { menuItem: 'Claims', render: () => <Tab.Pane></Tab.Pane> },
-      { menuItem: 'Fact-Check', render: () => <Tab.Pane></Tab.Pane> },
+      { menuItem: 'All News', render: (props) => <Tab.Pane as="div"></Tab.Pane> },
+      { menuItem: 'Positive', render: () => <Tab.Pane as="div"> </Tab.Pane> },
+      { menuItem: 'Negative', render: () => <Tab.Pane as="div"> </Tab.Pane> },
+      { menuItem: 'Liberal', render: () => <Tab.Pane as="div"></Tab.Pane> },
+      { menuItem: 'Conservative', render: () => <Tab.Pane as="div"> </Tab.Pane> },
+      { menuItem: 'Green', render: () => <Tab.Pane as="div"></Tab.Pane> },
+      { menuItem: 'Libertarian', render: () => <Tab.Pane as="div"></Tab.Pane> },
+      { menuItem: 'Claims', render: () => <Tab.Pane as="div"></Tab.Pane> },
+      { menuItem: 'Fact-Check', render: () => <Tab.Pane as="div"></Tab.Pane> },
     ]
 
     const {
@@ -337,6 +298,23 @@ handlePaginationChange(event, { activePage }){
             </Grid.Row>
           </Grid>
           <Tab menu={{ secondary: true }} panes={panes} onTabChange={ this.handleTabChange }/>
+          <Switch>
+            <Route exact path="/" render={(props)=><NewsCardContainer  labelsLoading = { this.state.labelsLoading }
+                                                              handleTabChange = { this.handleTabChange }
+                                                              activeFilter = { this.state.activeFilter }
+                                                              fetchArticles = { this.fetchArticles } 
+                                                              fetchSearchResults = { this.fetchSearchResults }
+                                                              newsHeadlines = { this.state.newsHeadlines } 
+                                                              match = { props.match } />}
+                                                        />
+            <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
+                                                                      activeFilter = { this.state.activeFilter }
+                                                                      handleTabChange = { this.handleTabChange }
+                                                                      loading={ this.state.isLoading }
+                                                                      match = { props.match }
+                                                                      results = { this.state.results } />}
+                                                        />
+          </Switch>
         </Container>
       </div>
     )
