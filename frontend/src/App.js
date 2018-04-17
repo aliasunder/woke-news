@@ -5,9 +5,10 @@ import axios from 'axios';
 import config from './config.json';
 import moment from 'moment';
 import _ from 'lodash';
-import { Container, Search, Grid, Tab, Message, Pagination } from 'semantic-ui-react';
+import { Container, Search, Grid, Tab, Message, Pagination, Dropdown, Segment, Menu } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
 import NewsResults from './NewsResults';
+import sizeMe from 'react-sizeme';
 
 class App extends Component {
   constructor(){
@@ -34,6 +35,7 @@ class App extends Component {
     this.openLink = this.openLink.bind(this);
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
+    this.handleMobileTabChange = this.handleMobileTabChange.bind(this);
   }
 
   fetchArticles() {
@@ -225,11 +227,22 @@ handleTabChange(event, data){
    })
 };
 
+handleMobileTabChange(event, value){
+  console.log(event)
+  console.log(value)
+  let filterTerm = value.value
+  this.setState({
+    activeFilter: filterTerm
+  })
+};
+
 handlePaginationChange(event, { activePage }){
   this.setState({ activePage })
 };
 
   render() {
+    const { width } = this.props.size;
+
     const panes = [
       { menuItem: 'All News', render: () => <Tab.Pane as="div"></Tab.Pane> },
       { menuItem: 'Positive', render: () => <Tab.Pane as="div"></Tab.Pane> },
@@ -240,6 +253,18 @@ handlePaginationChange(event, { activePage }){
       { menuItem: 'Libertarian', render: () => <Tab.Pane as="div"></Tab.Pane> },
       { menuItem: 'Claims', render: () => <Tab.Pane as="div"></Tab.Pane> },
       { menuItem: 'Fact-Check', render: () => <Tab.Pane as="div"></Tab.Pane> },
+    ]
+
+    const mobilePanes = [
+      { key:'All News', text: 'All News', value: 'All News' },
+      { key:'Positive', text: 'Positive', value: 'Positive' },
+      { key:'Negative', text: 'Negative', value: 'Negative' },
+      { key:'Liberal', text: 'Liberal', value: 'Liberal' },
+      { key:'Conservative', text: 'Conservative', value: 'Conservative' },
+      { key:'Green', text: 'Green', value: 'Green' },
+      { key:'Libertarian', text: 'Libertarian', value: 'Libertarian' },
+      { key:'Claims', text: 'Claims', value: 'Claims' },
+      { key:'Fact-Check', text: 'Fact-Check', value: 'Fact-Check' }
     ]
 
     const {
@@ -273,28 +298,34 @@ handlePaginationChange(event, { activePage }){
                 <Search   results={ this.state.results } 
                           loading={ this.state.isLoading } 
                           value={ this.state.value } 
-                          onResultSelect={ this.openLink}
+                          onResultSelect={ this.openLink }
                           onSearchChange={ _.debounce((event)=>this.fetchSearchResults(event.target.value), 500, { leading: true })}
                       />
               </Grid.Column>
               <Grid.Column>
                 <Pagination
-                  activePage={activePage}
-                  boundaryRange={boundaryRange}
-                  onPageChange={this.handlePaginationChange}
+                  activePage={ activePage}
+                  boundaryRange={ boundaryRange }
+                  onPageChange={ this.handlePaginationChange }
                   size='mini'
-                  siblingRange={siblingRange}
-                  totalPages={totalPages}
-                  ellipsisItem={showEllipsis ? undefined : null}
-                  firstItem={showFirstAndLastNav ? undefined : null}
-                  lastItem={showFirstAndLastNav ? undefined : null}
-                  prevItem={showPreviousAndNextNav ? undefined : null}
-                  nextItem={showPreviousAndNextNav ? undefined : null}
+                  siblingRange={ siblingRange }
+                  totalPages={ totalPages}
+                  ellipsisItem={ showEllipsis ? undefined : null }
+                  firstItem={ showFirstAndLastNav ? undefined : null }
+                  lastItem={ showFirstAndLastNav ? undefined : null }
+                  prevItem={ showPreviousAndNextNav ? undefined : null }
+                  nextItem={ showPreviousAndNextNav ? undefined : null }
                 />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row columns={ panes.length + 1 }>
-              <Tab menu={{ secondary: true, stackable: true }} panes={ panes } onTabChange={ this.handleTabChange }/>      
+              { width >= 768 ? 
+                (<Tab menu={{ secondary: true }} panes={ panes } onTabChange={ this.handleTabChange }/>)      
+                :
+                (<Menu fluid>
+                    <Dropdown fluid options={ mobilePanes } onChange={ this.handleMobileTabChange } placeholder={ this.state.activeFilter }  value={ this.state.activeFilter } selection/>
+                  </Menu>)
+              }
             </Grid.Row>
           </Grid>
 
@@ -321,4 +352,4 @@ handlePaginationChange(event, { activePage }){
   }
 };
 
-export default App;
+export default sizeMe({ monitorWidth: true })(App);
