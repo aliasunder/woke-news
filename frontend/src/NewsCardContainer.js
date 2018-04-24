@@ -4,6 +4,7 @@ import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import sizeMe from 'react-sizeme';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { fadeDown } from 'react-stack-grid/lib/animations/transitions';
 
 class NewsCardContainer extends Component {
     
@@ -65,7 +66,14 @@ class NewsCardContainer extends Component {
                                                     <b> Yay! You have seen it all</b>
                                                 </p>
                                             }>
-                            <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } gutterWidth={ 15 } gutterHeight={ 15 } >
+                            <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } 
+                                        gutterWidth={ 15 } 
+                                        gutterHeight={ 15 }  
+                                        appear={ fadeDown.appear }
+                                        appeared={ fadeDown.appeared }
+                                        eneter={ fadeDown.enter }
+                                        enetered={ fadeDown.entered }
+                                        leaved={ fadeDown.leaved }>
                                 { 
                                     filteredNews.map((prop)=>{
                                         return <NewsCard    key = { new ObjectID() } 
@@ -93,7 +101,7 @@ class NewsCardContainer extends Component {
                     :
 
                     (null)
-                           )
+                )
     }
 };
  
