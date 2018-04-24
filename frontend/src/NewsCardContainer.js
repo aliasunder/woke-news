@@ -106,4 +106,4 @@ class NewsCardContainer extends Component {
     }
 };
  
-export default sizeMe({ monitorWidth: true, monitorHeight: true, refreshRate: 16, refreshMode: 'debounce', noPlaceholder: true })(NewsCardContainer);
+export default sizeMe({ monitorWidth: true, monitorHeight: true, refreshRate: 1000 })(NewsCardContainer);
