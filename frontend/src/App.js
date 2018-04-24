@@ -5,7 +5,7 @@ import axios from 'axios';
 import config from './config.json';
 import moment from 'moment';
 import _ from 'lodash';
-import { Container, Search, Grid, Tab, Message, Pagination, Dropdown, Segment, Menu } from 'semantic-ui-react';
+import { Container, Search, Grid, Tab, Message, Dropdown, Menu } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
 import NewsResults from './NewsResults';
 import sizeMe from 'react-sizeme';
@@ -21,21 +21,15 @@ class App extends Component {
       isLoading: false,
       tabData: {},
       activeFilter: 'All News',
-      activePage: 1,
-      boundaryRange: 1,
-      siblingRange: 1,
-      showEllipsis: true,
-      showFirstAndLastNav: false,
-      showPreviousAndNextNav: true,
-      totalPages: 10,
+      newsPage: 1
     }
     this.fetchArticles = this.fetchArticles.bind(this);
     this.fetchSearchResults = this.fetchSearchResults.bind(this);
     this.resetComponent = this.resetComponent.bind(this);
     this.openLink = this.openLink.bind(this);
-    this.handlePaginationChange = this.handlePaginationChange.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
     this.handleMobileTabChange = this.handleMobileTabChange.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   fetchArticles() {
@@ -51,10 +45,10 @@ class App extends Component {
       params: {
         language: 'en',
         pageSize: 6,
-        page: 1,
+        page: this.state.newsPage,
         from: moment().isoWeek(),
         to: moment().isoWeek(),
-        q: '(politics OR political OR policy OR social OR society OR environment OR economy OR threat OR law AND truth OR false OR fake OR fact)',
+        q: '(politics OR political OR policy OR social OR society OR environment OR economy OR threat OR law AND truth OR false OR fake OR fact OR biased)',
         sortBy: 'relevancy'
       }
     };
@@ -62,15 +56,26 @@ class App extends Component {
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
         console.log(results.data.articles)
-        let updatedHeadlines = results.data.articles
+        let updatedHeadlines;
+        if (!this.state.newsHeadlines.length) {
+          updatedHeadlines = results.data.articles;
+        }
+        else {
+          updatedHeadlines = [...this.state.newsHeadlines, ...results.data.articles]
+        }
         let updatedUrls = []
         updatedHeadlines.forEach(article => {
           updatedUrls.push(article.url)
         });
+        let newsPageCopy = this.state.newsPage;
+        let nextPage = newsPageCopy++;
         this.setState({
           newsHeadlines: updatedHeadlines,
-          labelsLoading: true
+          labelsLoading: true,
+          newsPage: newsPageCopy
         });
+        console.log(this.state.newsPage)
+        console.log(this.state.newsHeadlines)
         console.log(updatedUrls)
         return axios.post(indicoPoliticalUrl, JSON.stringify({
           api_key: config.indicoKey,
@@ -236,9 +241,18 @@ handleMobileTabChange(event, value){
   })
 };
 
-handlePaginationChange(event, { activePage }){
-  this.setState({ activePage })
-};
+refresh () {
+  this.setState({
+    newsHeadlnes: [] 
+  });
+  let newsHeadlinesCopy = this.state.newsHeadlines;
+  
+  setTimeout(this.fetchArticles(),() => {
+    this.setState({
+      newsHeadlines: newsHeadlinesCopy
+    });
+  }, 3000);
+}
 
   render() {
     const { width } = this.props.size;
@@ -267,16 +281,6 @@ handlePaginationChange(event, { activePage }){
       { key:'Fact-Check', text: 'Fact-Check', value: 'Fact-Check' }
     ]
 
-    const {
-      activePage,
-      boundaryRange,
-      siblingRange,
-      showEllipsis,
-      showFirstAndLastNav,
-      showPreviousAndNextNav,
-      totalPages,
-    } = this.state
-
     return (
       <div className="App">
         <Container>
@@ -303,19 +307,6 @@ handlePaginationChange(event, { activePage }){
                       />
               </Grid.Column>
               <Grid.Column>
-                <Pagination
-                  activePage={ activePage}
-                  boundaryRange={ boundaryRange }
-                  onPageChange={ this.handlePaginationChange }
-                  size='mini'
-                  siblingRange={ siblingRange }
-                  totalPages={ totalPages}
-                  ellipsisItem={ showEllipsis ? undefined : null }
-                  firstItem={ showFirstAndLastNav ? undefined : null }
-                  lastItem={ showFirstAndLastNav ? undefined : null }
-                  prevItem={ showPreviousAndNextNav ? undefined : null }
-                  nextItem={ showPreviousAndNextNav ? undefined : null }
-                />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row columns={ panes.length + 1 }>
@@ -328,23 +319,27 @@ handlePaginationChange(event, { activePage }){
               }
             </Grid.Row>
           </Grid>
-
           <Switch>
-            <Route exact path="/" render={(props)=> <NewsCardContainer  labelsLoading = { this.state.labelsLoading }
+            <Route exact path="/" render={(props)=><NewsCardContainer  labelsLoading = { this.state.labelsLoading }
                                                                         handleTabChange = { this.handleTabChange }
                                                                         activeFilter = { this.state.activeFilter }
                                                                         fetchArticles = { this.fetchArticles } 
                                                                         fetchSearchResults = { this.fetchSearchResults }
                                                                         newsHeadlines = { this.state.newsHeadlines } 
+                                                                        dataLength={ this.state.newsHeadlines.length } 
+                                                                        refreshFunction={ this.refresh }
                                                                         match = { props.match } />}
-                                                        />
+                                                        
+                          
+                                                      />
+                                            
             <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
                                                                       activeFilter = { this.state.activeFilter }
                                                                       handleTabChange = { this.handleTabChange }
                                                                       loading={ this.state.isLoading }
                                                                       match = { props.match }
                                                                       results = { this.state.results } />}
-                                                        />
+                                                      />
           </Switch>
         </Container>
       </div>

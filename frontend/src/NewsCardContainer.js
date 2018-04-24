@@ -3,6 +3,7 @@ import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import sizeMe from 'react-sizeme';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 class NewsCardContainer extends Component {
     
@@ -46,36 +47,53 @@ class NewsCardContainer extends Component {
         })
            
 
-        return ( 
-                <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } gutterWidth={ 15 } gutterHeight={ 15 } >
-                    { 
-                         newsHeadlines.length > 0 ? (
-                            filteredNews.map((prop)=>{
-                                return <NewsCard    key = { new ObjectID() } 
-                                                    className="item"
-                                                    description = { prop.description }
-                                                    image = { prop.urlToImage }
-                                                    title = { prop.title }
-                                                    url = { prop.url }
-                                                    meta = { prop.source.name }
-                                                    loading = { this.props.labelsLoading } 
-                                                    label = { prop.label ? prop.label : null } 
-                                                    sentiment = { prop.sentiment ? prop.sentiment : null }
-                                                    keywords = { prop.keywords ? prop.keywords : null }
-                                                    match = { this.props.match }
-                                                    fetchSearchResults = { this.props.fetchSearchResults }
-                                            />
+        return (  newsHeadlines.length > 0 ? ( 
+                        <InfiniteScroll    pullDownToRefresh 
+                                            dataLength={ this.props.dataLength } 
+                                            pullDownToRefreshContent={
+                                                <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
+                                            }
+                                            releaseToRefreshContent={
+                                                <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
+                                            }
+                                            refreshFunction={ ()=> this.props.refreshFunction() }
+                                            next={ this.props.fetchArticles }
+                                            hasMore={ true }
+                                            loader={ <h4> Loading... </h4>}
+                                            endMessage={
+                                                <p style={{textAlign: 'center'}}>
+                                                    <b> Yay! You have seen it all</b>
+                                                </p>
+                                            }>
+                            <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } gutterWidth={ 15 } gutterHeight={ 15 } >
+                                { 
+                                    filteredNews.map((prop)=>{
+                                        return <NewsCard    key = { new ObjectID() } 
+                                                            className="item"
+                                                            description = { prop.description }
+                                                            image = { prop.urlToImage }
+                                                            title = { prop.title }
+                                                            url = { prop.url }
+                                                            meta = { prop.source.name }
+                                                            loading = { this.props.labelsLoading } 
+                                                            label = { prop.label ? prop.label : null } 
+                                                            sentiment = { prop.sentiment ? prop.sentiment : null }
+                                                            keywords = { prop.keywords ? prop.keywords : null }
+                                                            match = { this.props.match }
+                                                            fetchSearchResults = { this.props.fetchSearchResults }
+                                                    />
          
                     
-                                    }, this)
-                            )
-                      
-                        :
-                            (null)
+                                                }, this)
     
-                    }
-                </StackGrid>
-        )
+                                }
+                            </StackGrid>
+                        </InfiniteScroll>)
+
+                    :
+
+                    (null)
+                           )
     }
 };
  
