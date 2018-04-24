@@ -15,7 +15,7 @@ class NewsCardContainer extends Component {
     render() { 
         let newsHeadlines = this.props.newsHeadlines;
         let filterOption = this.props.activeFilter;
-        const { width } = this.props.size;
+        const { width, height } = this.props.size;
     
         let filteredNews = newsHeadlines.filter(article => {
             if (article.sentiment && filterOption === 'Positive'){
@@ -61,6 +61,7 @@ class NewsCardContainer extends Component {
                                             next={ this.props.fetchArticles }
                                             hasMore={ true }
                                             loader={ <h4> Loading... </h4>}
+                                            scrollableTarget={ document.body }
                                             endMessage={
                                                 <p style={{textAlign: 'center'}}>
                                                     <b> Yay! You have seen it all</b>
@@ -71,8 +72,8 @@ class NewsCardContainer extends Component {
                                         gutterHeight={ 15 }  
                                         appear={ fadeDown.appear }
                                         appeared={ fadeDown.appeared }
-                                        eneter={ fadeDown.enter }
-                                        enetered={ fadeDown.entered }
+                                        enter={ fadeDown.enter }
+                                        entered={ fadeDown.entered }
                                         leaved={ fadeDown.leaved }>
                                 { 
                                     filteredNews.map((prop)=>{
@@ -105,4 +106,4 @@ class NewsCardContainer extends Component {
     }
 };
  
-export default sizeMe({ monitorWidth: true })(NewsCardContainer);
+export default sizeMe({ monitorWidth: true, monitorHeight: true, refreshRate: 16, refreshMode: 'debounce', noPlaceholder: true })(NewsCardContainer);
