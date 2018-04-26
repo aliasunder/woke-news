@@ -3,6 +3,7 @@ import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import sizeMe from 'react-sizeme';
+import componentQueries from 'react-component-queries'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { fadeDown } from 'react-stack-grid/lib/animations/transitions';
 
@@ -15,7 +16,7 @@ class NewsCardContainer extends Component {
     render() { 
         let newsHeadlines = this.props.newsHeadlines;
         let filterOption = this.props.activeFilter;
-        const { width, height } = this.props.size;
+        console.log(this.props.breakpoint);
     
         let filteredNews = newsHeadlines.filter(article => {
             if (article.sentiment && filterOption === 'Positive'){
@@ -67,14 +68,10 @@ class NewsCardContainer extends Component {
                                                     <b> Yay! You have seen it all</b>
                                                 </p>
                                             }>
-                            <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } 
+                            <StackGrid columnWidth= {  this.props.breakpoint} 
                                         gutterWidth={ 15 } 
                                         gutterHeight={ 15 }  
-                                        appear={ fadeDown.appear }
-                                        appeared={ fadeDown.appeared }
-                                        enter={ fadeDown.enter }
-                                        entered={ fadeDown.entered }
-                                        leaved={ fadeDown.leaved }>
+                                        duration={ 0 }>
                                 { 
                                     filteredNews.map((prop)=>{
                                         return <NewsCard    key = { new ObjectID() } 
@@ -106,4 +103,10 @@ class NewsCardContainer extends Component {
     }
 };
  
-export default sizeMe({ monitorWidth: true, monitorHeight: true, refreshRate: 1000 })(NewsCardContainer);
+export default componentQueries(
+    // Provide as many query functions as you need.
+    ({ width }) => {
+      if (width <= 768) return { breakpoint: '90%' };
+      return { breakpoint: '35%' };
+    }
+  )(NewsCardContainer);
