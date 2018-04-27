@@ -16,7 +16,8 @@ class NewsCardContainer extends Component {
     render() { 
         let newsHeadlines = this.props.newsHeadlines;
         let filterOption = this.props.activeFilter;
-        console.log(this.props.breakpoint);
+        const { width } = this.props.size;
+        console.log(window.scrollY);
     
         let filteredNews = newsHeadlines.filter(article => {
             if (article.sentiment && filterOption === 'Positive'){
@@ -60,15 +61,14 @@ class NewsCardContainer extends Component {
                                             }
                                             refreshFunction={ ()=> this.props.refreshFunction() }
                                             next={ this.props.fetchArticles }
-                                            hasMore={ true }
+                                            hasMore={ this.props.newsHeadlines.length >= 6 ? true : false }
                                             loader={ <h4> Loading... </h4>}
-                                            scrollableTarget={ document.body }
                                             endMessage={
                                                 <p style={{textAlign: 'center'}}>
                                                     <b> Yay! You have seen it all</b>
                                                 </p>
                                             }>
-                            <StackGrid columnWidth= {  this.props.breakpoint} 
+                            <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } 
                                         gutterWidth={ 15 } 
                                         gutterHeight={ 15 }  
                                         duration={ 0 }>
@@ -102,11 +102,5 @@ class NewsCardContainer extends Component {
                 )
     }
 };
- 
-export default componentQueries(
-    // Provide as many query functions as you need.
-    ({ width }) => {
-      if (width <= 768) return { breakpoint: '90%' };
-      return { breakpoint: '35%' };
-    }
-  )(NewsCardContainer);
+
+export default sizeMe({ monitorHeight: true })(NewsCardContainer);
