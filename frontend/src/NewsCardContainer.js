@@ -14,10 +14,10 @@ class NewsCardContainer extends Component {
     }
 
     render() { 
-        let newsHeadlines = this.props.newsHeadlines;
-        let filterOption = this.props.activeFilter;
+        const newsHeadlines = this.props.newsHeadlines;
+        const filterOption = this.props.activeFilter;
         const { width } = this.props.size;
-        console.log(window.scrollY);
+        const refreshTrue = true;
     
         let filteredNews = newsHeadlines.filter(article => {
             if (article.sentiment && filterOption === 'Positive'){
@@ -48,10 +48,9 @@ class NewsCardContainer extends Component {
                 return newsHeadlines;    
             }
         })
-           
 
         return (  newsHeadlines.length > 0 ? ( 
-                        <InfiniteScroll    pullDownToRefresh 
+                        <InfiniteScroll    pullDownToRefresh = { width <= 768 ? refreshTrue : null }
                                             dataLength={ this.props.dataLength } 
                                             pullDownToRefreshContent={
                                                 <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
@@ -61,7 +60,7 @@ class NewsCardContainer extends Component {
                                             }
                                             refreshFunction={ ()=> this.props.refreshFunction() }
                                             next={ this.props.fetchArticles }
-                                            hasMore={ this.props.newsHeadlines.length >= 6 ? true : false }
+                                            hasMore={ newsHeadlines.length >= 6 ? true : false }
                                             loader={ <h4> Loading... </h4>}
                                             endMessage={
                                                 <p style={{textAlign: 'center'}}>
@@ -91,7 +90,6 @@ class NewsCardContainer extends Component {
          
                     
                                                 }, this)
-    
                                 }
                             </StackGrid>
                         </InfiniteScroll>)

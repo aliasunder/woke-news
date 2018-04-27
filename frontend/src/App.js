@@ -21,7 +21,8 @@ class App extends Component {
       isLoading: false,
       tabData: {},
       activeFilter: 'All News',
-      newsPage: 1
+      newsPage: 1,
+      scrollPosition: 0
     }
     this.fetchArticles = this.fetchArticles.bind(this);
     this.fetchSearchResults = this.fetchSearchResults.bind(this);
@@ -55,7 +56,6 @@ class App extends Component {
 
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
-        console.log(results.data.articles)
         let updatedHeadlines;
         if (!this.state.newsHeadlines.length) {
           updatedHeadlines = results.data.articles;
@@ -72,11 +72,11 @@ class App extends Component {
         this.setState({
           newsHeadlines: updatedHeadlines,
           labelsLoading: true,
-          newsPage: newsPageCopy
+          newsPage: newsPageCopy,
+          scrollPosition: window.scrollY
         });
         console.log(this.state.newsPage)
         console.log(this.state.newsHeadlines)
-        console.log(updatedUrls)
         return axios.post(indicoPoliticalUrl, JSON.stringify({
           api_key: config.indicoKey,
           data: updatedUrls,
