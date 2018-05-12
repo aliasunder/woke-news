@@ -9,6 +9,8 @@ import { Container, Search, Grid, Tab, Message, Dropdown, Menu } from 'semantic-
 import { Route, Switch } from 'react-router-dom';
 import NewsResults from './NewsResults';
 import sizeMe from 'react-sizeme';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ObjectID } from 'bson';
 
 class App extends Component {
   constructor(){
@@ -22,7 +24,7 @@ class App extends Component {
       tabData: {},
       activeFilter: 'All News',
       newsPage: 1,
-      scrollPosition: 0
+      // scrollPosition: 0
     }
     this.fetchArticles = this.fetchArticles.bind(this);
     this.fetchSearchResults = this.fetchSearchResults.bind(this);
@@ -31,7 +33,12 @@ class App extends Component {
     this.handleTabChange = this.handleTabChange.bind(this);
     this.handleMobileTabChange = this.handleMobileTabChange.bind(this);
     this.refresh = this.refresh.bind(this);
+    // this.handleScroll = this.handleScroll.bind(this);
   }
+
+  // componentDidMount() {
+  //   window.onscroll = () => this.handleScroll();
+  // }
 
   fetchArticles() {
     const newsHeadlinesUrl = 'https://newsapi.org/v2/everything';
@@ -49,7 +56,7 @@ class App extends Component {
         page: this.state.newsPage,
         from: moment().isoWeek(),
         to: moment().isoWeek(),
-        q: '(politics OR political OR policy OR social OR society OR environment OR economy OR threat OR law AND truth OR false OR fake OR fact OR biased)',
+        q: '(politics OR political OR policy OR social OR society OR threat OR law AND truth OR false OR fake OR fact OR biased)',
         sortBy: 'relevancy'
       }
     };
@@ -68,14 +75,13 @@ class App extends Component {
           updatedUrls.push(article.url)
         });
         let newsPageCopy = this.state.newsPage;
-        let nextPage = newsPageCopy++;
+        let nextPage = newsPageCopy++; 
         this.setState({
           newsHeadlines: updatedHeadlines,
           labelsLoading: true,
           newsPage: newsPageCopy,
-          scrollPosition: window.scrollY
+          // scrollPosition: window.scrollY
         });
-        console.log(this.state.newsPage)
         console.log(this.state.newsHeadlines)
         return axios.post(indicoPoliticalUrl, JSON.stringify({
           api_key: config.indicoKey,
@@ -84,7 +90,6 @@ class App extends Component {
         }))
       })
       .then(results => {
-
         let politicalResults = results.data.results;
         
         let politicalList = []
@@ -165,7 +170,7 @@ class App extends Component {
   };
 
   fetchSearchResults(value){
-   
+
     let targetValue = value;
 
     this.setState({
@@ -218,44 +223,54 @@ class App extends Component {
   };
 
   openLink(event, result){
-    let url = '/search/' + result.result.title
-    console.log(result.result);
-    window.open(url, '_blank');
-};
+      let url = '/search/' + result.result.title
+      console.log(result.result);
+      window.open(url, '_blank');
+  };
 
-handleTabChange(event, data){
-  let index = data.activeIndex;
-  let filterTerm = data.panes[index].menuItem
-  this.setState({ 
-    tabData: data,
-    activeFilter: filterTerm
-   })
-};
+  handleTabChange(event, data){
+    let index = data.activeIndex;
+    let filterTerm = data.panes[index].menuItem
+    this.setState({ 
+      tabData: data,
+      activeFilter: filterTerm
+    })
+  };
 
-handleMobileTabChange(event, value){
-  console.log(event)
-  console.log(value)
-  let filterTerm = value.value
-  this.setState({
-    activeFilter: filterTerm
-  })
-};
-
-refresh () {
-  this.setState({
-    newsHeadlnes: [] 
-  });
-  let newsHeadlinesCopy = this.state.newsHeadlines;
-  
-  setTimeout(this.fetchArticles(),() => {
+  handleMobileTabChange(event, value){
+    let filterTerm = value.value
     this.setState({
-      newsHeadlines: newsHeadlinesCopy
-    });
-  }, 3000);
-}
+      activeFilter: filterTerm
+    })
+  };
 
+  refresh(){
+    this.setState({
+      newsHeadlnes: [] 
+    });
+    let newsHeadlinesCopy = this.state.newsHeadlines;
+  
+    setTimeout(this.fetchArticles(),() => {
+      this.setState({
+        newsHeadlines: newsHeadlinesCopy
+      });
+    }, 3000);
+  }
+
+// handleScroll(event){
+//   // window.scrollY = updatedScrollPosition
+//  console.log(event)
+
+//     // this.setState({
+//     //   scrollPosition: window.scrollY
+//     // })
+//  }
   render() {
     const { width } = this.props.size;
+    const newsHeadlines = this.state.newsHeadlines;
+    const filterOption = this.state.activeFilter;
+    const refreshTrue = true;
+
 
     const panes = [
       { menuItem: 'All News', render: () => <Tab.Pane as="div"></Tab.Pane> },
@@ -283,6 +298,24 @@ refresh () {
 
     return (
       <div className="App">
+       <InfiniteScroll  pullDownToRefresh = { width <= 768 ? refreshTrue : null }
+                                            dataLength={ newsHeadlines.length  } 
+                                            // pullDownToRefreshContent={
+                                            //     <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
+                                            // }
+                                            // releaseToRefreshContent={
+                                            //     <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
+                                            // }
+                                            // refreshFunction={ this.props.refreshFunction }
+                                            next={  this.fetchArticles }
+                                            hasMore={ newsHeadlines.length >= 6 ? true : false }
+                                            loader={ <h4 key={  new ObjectID() }> Loading... </h4>}
+                                            // onScroll= { (event)=> this.props.handleScroll(event) }
+                                            endMessage={
+                                                <p style={{textAlign: 'center'}}>
+                                                    <b> Yay! You have seen it all</b>
+                                                </p>
+                                            }>
         <Container>
           <Grid padded stackable>
             <Grid.Row>
@@ -320,15 +353,18 @@ refresh () {
             </Grid.Row>
           </Grid>
           <Switch>
-            <Route exact path="/" render={(props)=><NewsCardContainer  labelsLoading = { this.state.labelsLoading }
+            <Route exact path="/" render={(props)=><NewsCardContainer   labelsLoading = { this.state.labelsLoading }
                                                                         handleTabChange = { this.handleTabChange }
+                                                                        handleScroll = { this.handleScroll }
                                                                         activeFilter = { this.state.activeFilter }
                                                                         fetchArticles = { this.fetchArticles } 
                                                                         fetchSearchResults = { this.fetchSearchResults }
                                                                         newsHeadlines = { this.state.newsHeadlines } 
                                                                         dataLength={ this.state.newsHeadlines.length } 
                                                                         refreshFunction={ this.refresh }
+                                                                        width = { width }
                                                                         match = { props.match } />}
+                                                                        
                                                         
                           
                                                       />
@@ -342,9 +378,10 @@ refresh () {
                                                       />
           </Switch>
         </Container>
+        </InfiniteScroll>
       </div>
     )
   }
 };
 
-export default sizeMe({ monitorWidth: true })(App);
+export default sizeMe({ monitorWidth: true, noPlaceholder: true })(App);

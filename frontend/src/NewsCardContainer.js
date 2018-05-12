@@ -2,21 +2,28 @@ import React, { Component } from 'react';
 import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
-import sizeMe from 'react-sizeme';
 import componentQueries from 'react-component-queries'
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { fadeDown } from 'react-stack-grid/lib/animations/transitions';
+import Waypoint from 'react-waypoint';
 
 class NewsCardContainer extends Component {
     
     componentDidMount() {
-        this.props.fetchArticles()
+        this.props.fetchArticles() 
     }
+
+     componentDidUpdate(prevProps, prevState) {
+         if (this.props.newsHeadlines.length > prevProps.newsHeadlines.length) {
+            //  let updatedScrollTop = lastScrollTop
+            //  this.setState({
+            //      lastScrollTop: updatedScrollTop
+            //  })
+         }
+     }
 
     render() { 
         const newsHeadlines = this.props.newsHeadlines;
         const filterOption = this.props.activeFilter;
-        const { width } = this.props.size;
         const refreshTrue = true;
     
         let filteredNews = newsHeadlines.filter(article => {
@@ -49,25 +56,10 @@ class NewsCardContainer extends Component {
             }
         })
 
-        return (  newsHeadlines.length > 0 ? ( 
-                        <InfiniteScroll    pullDownToRefresh = { width <= 768 ? refreshTrue : null }
-                                            dataLength={ this.props.dataLength } 
-                                            pullDownToRefreshContent={
-                                                <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
-                                            }
-                                            releaseToRefreshContent={
-                                                <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
-                                            }
-                                            refreshFunction={ ()=> this.props.refreshFunction() }
-                                            next={ this.props.fetchArticles }
-                                            hasMore={ newsHeadlines.length >= 6 ? true : false }
-                                            loader={ <h4> Loading... </h4>}
-                                            endMessage={
-                                                <p style={{textAlign: 'center'}}>
-                                                    <b> Yay! You have seen it all</b>
-                                                </p>
-                                            }>
-                            <StackGrid columnWidth= {  width <= 768 ? '90%' : '35%' } 
+        return (  
+            <div> {
+            newsHeadlines.length > 0 ? ( 
+                            <StackGrid columnWidth= {  this.props.width <= 768 ? '90%' : '35%' } 
                                         gutterWidth={ 15 } 
                                         gutterHeight={ 15 }  
                                         duration={ 0 }>
@@ -92,13 +84,17 @@ class NewsCardContainer extends Component {
                                                 }, this)
                                 }
                             </StackGrid>
-                        </InfiniteScroll>)
+                      )
 
                     :
 
                     (null)
-                )
+                             } 
+                <Waypoint
+                    onLeave={this.props.fetchArticles}
+                        />
+                          </div> )
     }
 };
 
-export default sizeMe({ monitorHeight: true })(NewsCardContainer);
+export default NewsCardContainer;

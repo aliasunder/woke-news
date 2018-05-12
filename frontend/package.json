@@ -5,18 +5,19 @@
   "dependencies": {
     "ajv": "^6.4.0",
     "axios": "^0.18.0",
-    "bson": "^2.0.5",
+    "bson": "^2.0.6",
     "decimal": "0.0.2",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
     "react": "^16.3.2",
     "react-component-queries": "^2.3.0",
     "react-dom": "^16.3.2",
-    "react-infinite-scroll-component": "^4.0.2",
+    "react-infinite-scroll-component": "^4.0.3",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
-    "react-sizeme": "^2.4.2",
+    "react-scripts": "1.1.4",
+    "react-sizeme": "^2.4.3",
     "react-stack-grid": "^0.7.1",
+    "react-waypoint": "^8.0.1",
     "semantic-ui-react": "^0.78.3",
     "styled-components": "^3.2.6"
   },
@@ -26,5 +27,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://localhost:8080"
+  "proxy": "http://localhost:8080/"
 }
