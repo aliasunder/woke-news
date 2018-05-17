@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ObjectID } from 'bson';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import componentQueries from 'react-component-queries'
@@ -67,7 +66,7 @@ class NewsCardContainer extends Component {
                                         duration={ 0 }>
                                 { 
                                     filteredNews.map((prop)=>{
-                                        return <NewsCard    key = { new ObjectID() } 
+                                        return <NewsCard    key = { prop.key } 
                                                             className="item"
                                                             description = { prop.description }
                                                             image = { prop.urlToImage }
