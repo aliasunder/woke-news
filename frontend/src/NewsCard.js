@@ -10,12 +10,12 @@ class NewsCard extends Component {
                     <Card.Content as="a" href={ this.props.url } target="_blank"><Image src= { this.props.image } /></Card.Content>
                     <Card.Content as="a" href={ this.props.url } target="_blank" header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />
                     <Card.Content extra>
-                        <NewsLabels loading = { this.props.loading} 
+                            <NewsLabels loading = { this.props.loading} 
                                     label = { this.props.label ? this.props.label : null } 
                                     sentiment = { this.props.sentiment ? this.props.sentiment : null }
                                     keywords = { this.props.keywords ? this.props.keywords : null }
                                     match = { this.props.match }
-                                    fetchSearchResults = { this.props.fetchSearchResults }
+                                    fetchSearchResults = { this.props.fetchSearchResults } 
                             />
                     </Card.Content>
                 </Card>

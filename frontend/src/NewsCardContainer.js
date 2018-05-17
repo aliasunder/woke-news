@@ -7,19 +7,19 @@ import { fadeDown } from 'react-stack-grid/lib/animations/transitions';
 import Waypoint from 'react-waypoint';
 
 class NewsCardContainer extends Component {
-    
+
     componentDidMount() {
         this.props.fetchArticles() 
     }
 
-     componentDidUpdate(prevProps, prevState) {
-         if (this.props.newsHeadlines.length > prevProps.newsHeadlines.length) {
-            //  let updatedScrollTop = lastScrollTop
-            //  this.setState({
-            //      lastScrollTop: updatedScrollTop
-            //  })
-         }
-     }
+    //  componentDidUpdate(prevProps, prevState) {
+    //      if (this.props.newsHeadlines.length > prevProps.newsHeadlines.length) {
+    //         //  let updatedScrollTop = lastScrollTop
+    //         //  this.setState({
+    //         //      lastScrollTop: updatedScrollTop
+    //         //  })
+    //      }
+    //  }
 
     render() { 
         const newsHeadlines = this.props.newsHeadlines;
@@ -58,8 +58,10 @@ class NewsCardContainer extends Component {
 
         return (  
             <div> {
-            newsHeadlines.length > 0 ? ( 
-                            <StackGrid columnWidth= {  this.props.width <= 768 ? '90%' : '35%' } 
+                newsHeadlines.length > 0 ? ( 
+                <Waypoint onLeave={ this.props.fetchArticles } topOffset={ '85%' }>
+                <div ref={ this.props.innerRef }>
+                    <StackGrid columnWidth= {  this.props.width <= 768 ? '90%' : '35%' } 
                                         gutterWidth={ 15 } 
                                         gutterHeight={ 15 }  
                                         duration={ 0 }>
@@ -84,16 +86,14 @@ class NewsCardContainer extends Component {
                                                 }, this)
                                 }
                             </StackGrid>
-                      )
+                            </div>
+                    </Waypoint>
+                    )
 
                     :
 
-                    (null)
-                             } 
-                <Waypoint
-                    onLeave={this.props.fetchArticles}
-                        />
-                          </div> )
+                (null)} 
+                </div> )
     }
 };
 

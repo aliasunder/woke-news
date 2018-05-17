@@ -61,14 +61,15 @@ class App extends Component {
       }
     };
 
+    let updatedHeadlines;
+
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
-        let updatedHeadlines;
         if (!this.state.newsHeadlines.length) {
           updatedHeadlines = results.data.articles;
         }
         else {
-          updatedHeadlines = [...this.state.newsHeadlines, ...results.data.articles]
+          updatedHeadlines = [...this.state.newsHeadlines, ...results.data.articles];
         }
         let updatedUrls = []
         updatedHeadlines.forEach(article => {
@@ -79,8 +80,7 @@ class App extends Component {
         this.setState({
           newsHeadlines: updatedHeadlines,
           labelsLoading: true,
-          newsPage: newsPageCopy,
-          // scrollPosition: window.scrollY
+          newsPage: newsPageCopy
         });
         console.log(this.state.newsHeadlines)
         return axios.post(indicoPoliticalUrl, JSON.stringify({
@@ -101,7 +101,7 @@ class App extends Component {
           politicalList.push(politicalLabels)
         }
       
-        let newsHeadlinesCopy = [...this.state.newsHeadlines];
+        let newsHeadlinesCopy = [...updatedHeadlines];
         for (let i = 0; i < newsHeadlinesCopy.length; i++){
           newsHeadlinesCopy[i].label = politicalList[i]
         }
@@ -298,24 +298,6 @@ class App extends Component {
 
     return (
       <div className="App">
-       <InfiniteScroll  pullDownToRefresh = { width <= 768 ? refreshTrue : null }
-                                            dataLength={ newsHeadlines.length  } 
-                                            // pullDownToRefreshContent={
-                                            //     <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
-                                            // }
-                                            // releaseToRefreshContent={
-                                            //     <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
-                                            // }
-                                            // refreshFunction={ this.props.refreshFunction }
-                                            next={  this.fetchArticles }
-                                            hasMore={ newsHeadlines.length >= 6 ? true : false }
-                                            loader={ <h4 key={  new ObjectID() }> Loading... </h4>}
-                                            // onScroll= { (event)=> this.props.handleScroll(event) }
-                                            endMessage={
-                                                <p style={{textAlign: 'center'}}>
-                                                    <b> Yay! You have seen it all</b>
-                                                </p>
-                                            }>
         <Container>
           <Grid padded stackable>
             <Grid.Row>
@@ -378,10 +360,9 @@ class App extends Component {
                                                       />
           </Switch>
         </Container>
-        </InfiniteScroll>
       </div>
     )
   }
 };
 
-export default sizeMe({ monitorWidth: true, noPlaceholder: true })(App);
+export default sizeMe({ monitorWidth: true, monitorHeight: true })(App);
