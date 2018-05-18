@@ -125,13 +125,13 @@ class App extends Component {
             updatedPoliticalList.push(labelObjectArray)
           }
           return updatedPoliticalList;
-        }
+        };
         
-        let newPoliticalList = createPoliticalObjects(newsHeadlinesCopy)
+        let newPoliticalList = createPoliticalObjects(newsHeadlinesCopy);
 
         for (let i = 0; i < newsHeadlinesCopy.length; i++){
           newsHeadlinesCopy[i].politicalLabels = newPoliticalList[i]
-        }
+        };
 
         this.setState({
           newsHeadlines: newsHeadlinesCopy
@@ -151,6 +151,8 @@ class App extends Component {
         for (let i = 0; i < newsHeadlinesCopy.length; i++){
           newsHeadlinesCopy[i].sentiment = sentimentList[i]
         }
+
+        
         this.setState({
           newsHeadlines: newsHeadlinesCopy
         })
@@ -168,16 +170,31 @@ class App extends Component {
       .then(results => {
         let keywordResults = results.data.results;
 
-        let keywordList = []
-        for (let i = 0; i < keywordResults.length; i++){
-          let keywordLabels = Object.keys(keywordResults[i]);
-            keywordList.push(keywordLabels)
+        let createKeywordObjects = function(keywordResults){
+          let keywordList = []
+
+          for (let i = 0; i < keywordResults.length; i++){
+            let keywordLabels = Object.keys(keywordResults[i]);
+            let keywordObjectArray = [];
+
+            for (let i = 0; i < keywordLabels.length; i++){
+              let keywordObject = {};
+              keywordObject.keyword = keywordLabels[i]
+              keywordObject.key = new ObjectID();
+              keywordObjectArray.push(keywordObject)
+            }
+          keywordList.push(keywordObjectArray);
+          }
+          return keywordList;
         }
+
+        let newKeywordList = createKeywordObjects(keywordResults);
 
         let newsHeadlinesCopy = [...this.state.newsHeadlines];
         for (let i = 0; i < newsHeadlinesCopy.length; i++){
-          newsHeadlinesCopy[i].keywords = keywordList[i]
-        }
+          newsHeadlinesCopy[i].keywords = newKeywordList[i]
+        };
+
         this.setState({
           newsHeadlines: newsHeadlinesCopy,
           labelsLoading: false

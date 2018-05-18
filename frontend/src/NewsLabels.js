@@ -43,8 +43,8 @@ class NewsLabels extends Component {
             };
 
             let keywordsJSX = keywords.map(keyword => {
-                 return <NavLink to={ '/search/' + keyword } key = { new ObjectID() }>
-                            <Label  style={ labelStyle } circular basic color = "black"> { keyword } </Label>
+                 return <NavLink to={ '/search/' + keyword } key = { keyword.key }>
+                            <Label  style={ labelStyle } circular basic color = "black"> { keyword.keyword } </Label>
                         </NavLink>
              });
 
