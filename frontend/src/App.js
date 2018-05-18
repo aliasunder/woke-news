@@ -61,10 +61,9 @@ class App extends Component {
       }
     };
 
-    let updatedHeadlines;
-
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
+        let updatedHeadlines;
         if (!this.state.newsHeadlines.length) {
           updatedHeadlines = results.data.articles;
         }
@@ -75,6 +74,11 @@ class App extends Component {
         updatedHeadlines.forEach(article => {
           updatedUrls.push(article.url)
         });
+
+        updatedHeadlines.forEach(article => {
+          article.key = new ObjectID()
+        })
+
         let newsPageCopy = this.state.newsPage;
         let nextPage = newsPageCopy++; 
         this.setState({
@@ -101,10 +105,34 @@ class App extends Component {
           politicalList.push(politicalLabels)
         }
       
-        let newsHeadlinesCopy = [...updatedHeadlines];
-        for (let i = 0; i < newsHeadlinesCopy.length; i++){
-          newsHeadlinesCopy[i].label = politicalList[i]
+        let newsHeadlinesCopy = [...this.state.newsHeadlines];
+
+        let createPoliticalObjects = function(newsHeadlinesCopy){
+          let updatedPoliticalList = [];
+
+          for (let i = 0; i < newsHeadlinesCopy.length; i++){
+            newsHeadlinesCopy[i].politicalLabels = politicalList[i];
+            let politicalLabels = politicalList[i]
+            let labelObjectArray = [];
+
+            for (let i = 0; i < politicalLabels.length; i++){
+              let labelObject = {};
+              labelObject.label = politicalLabels[i]
+              labelObject.key = new ObjectID();
+              labelObjectArray.push(labelObject);
+            }
+            politicalList[i] = labelObjectArray;
+            updatedPoliticalList.push(labelObjectArray)
+          }
+          return updatedPoliticalList;
         }
+        
+        let newPoliticalList = createPoliticalObjects(newsHeadlinesCopy)
+
+        for (let i = 0; i < newsHeadlinesCopy.length; i++){
+          newsHeadlinesCopy[i].politicalLabels = newPoliticalList[i]
+        }
+
         this.setState({
           newsHeadlines: newsHeadlinesCopy
         })

@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 class NewsLabels extends Component {
    
     render() { 
-        let label = this.props.label;
+        let labels = this.props.politicalLabels;
         let sentiment = this.props.sentiment;
         let keywords = this.props.keywords;
         let labelsJSX;
@@ -15,17 +15,17 @@ class NewsLabels extends Component {
             margin: '2%'
         }
 
-        if (!this.props.label || !this.props.sentiment || !this.props.keywords){
+        if (!this.props.politicalLabels || !this.props.sentiment || !this.props.keywords){
             labelsJSX = <Dimmer active>
                             <Loader active/>
                         </Dimmer>
                      
         }
         else {
-            let politicalJSX = label.map(position => {
-                return <NavLink key = { new ObjectID() } to={ '/search/' + position }>
-                            <Label style={ labelStyle } color = { label.length - 1 === label.indexOf(position) ? "green" : "grey" }> 
-                            { position } </Label> 
+            let politicalJSX = labels.map(position => {
+                return <NavLink key = { position.key } to={ '/search/' + position.label }>
+                            <Label style={ labelStyle } color = { labels.length - 1 === labels.indexOf(position.label) ? "green" : "grey" }> 
+                            { position.label } </Label> 
                         </NavLink>
             });
 

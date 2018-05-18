@@ -66,7 +66,7 @@ class NewsCardContainer extends Component {
                                         duration={ 0 }>
                                 { 
                                     filteredNews.map((prop)=>{
-                                        return <NewsCard    key = { prop.key } 
+                                        return <NewsCard    key = { prop.key} 
                                                             className="item"
                                                             description = { prop.description }
                                                             image = { prop.urlToImage }
@@ -74,7 +74,7 @@ class NewsCardContainer extends Component {
                                                             url = { prop.url }
                                                             meta = { prop.source.name }
                                                             loading = { this.props.labelsLoading } 
-                                                            label = { prop.label ? prop.label : null } 
+                                                            politicalLabels = { prop.politicalLabels ? prop.politicalLabels : null } 
                                                             sentiment = { prop.sentiment ? prop.sentiment : null }
                                                             keywords = { prop.keywords ? prop.keywords : null }
                                                             match = { this.props.match }
