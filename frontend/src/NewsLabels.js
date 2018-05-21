@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Segment, Label, Dimmer, Loader, Grid } from 'semantic-ui-react'
-import { ObjectID } from 'bson';
 import { NavLink } from 'react-router-dom';
 
 class NewsLabels extends Component {

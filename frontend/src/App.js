@@ -9,7 +9,6 @@ import { Container, Search, Grid, Tab, Message, Dropdown, Menu } from 'semantic-
 import { Route, Switch } from 'react-router-dom';
 import NewsResults from './NewsResults';
 import sizeMe from 'react-sizeme';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { ObjectID } from 'bson';
 
 class App extends Component {
@@ -60,17 +59,16 @@ class App extends Component {
         sortBy: 'relevancy'
       }
     };
+        
+        
+    let updatedHeadlines;
+    let updatedUrls = [];    
 
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
-        let updatedHeadlines;
-        if (!this.state.newsHeadlines.length) {
-          updatedHeadlines = results.data.articles;
-        }
-        else {
-          updatedHeadlines = [...this.state.newsHeadlines, ...results.data.articles];
-        }
-        let updatedUrls = []
+        updatedHeadlines =  results.data.articles;
+        
+
         updatedHeadlines.forEach(article => {
           updatedUrls.push(article.url)
         });
@@ -82,7 +80,7 @@ class App extends Component {
         let newsPageCopy = this.state.newsPage;
         let nextPage = newsPageCopy++; 
         this.setState({
-          newsHeadlines: updatedHeadlines,
+          newsHeadlines: [...this.state.newsHeadlines, ...updatedHeadlines],
           labelsLoading: true,
           newsPage: newsPageCopy
         });
@@ -104,14 +102,12 @@ class App extends Component {
           let politicalLabels = Object.keys(politicalObject);
           politicalList.push(politicalLabels)
         }
-      
-        let newsHeadlinesCopy = [...this.state.newsHeadlines];
 
-        let createPoliticalObjects = function(newsHeadlinesCopy){
+        let createPoliticalObjects = function(updatedHeadlines){
           let updatedPoliticalList = [];
 
-          for (let i = 0; i < newsHeadlinesCopy.length; i++){
-            newsHeadlinesCopy[i].politicalLabels = politicalList[i];
+          for (let i = 0; i < updatedHeadlines.length; i++){
+            updatedHeadlines[i].politicalLabels = politicalList[i];
             let politicalLabels = politicalList[i]
             let labelObjectArray = [];
 
@@ -127,19 +123,23 @@ class App extends Component {
           return updatedPoliticalList;
         };
         
-        let newPoliticalList = createPoliticalObjects(newsHeadlinesCopy);
+        let newPoliticalList = createPoliticalObjects(updatedHeadlines);
 
-        for (let i = 0; i < newsHeadlinesCopy.length; i++){
-          newsHeadlinesCopy[i].politicalLabels = newPoliticalList[i]
+        for (let i = 0; i < updatedHeadlines.length; i++){
+          updatedHeadlines[i].politicalLabels = newPoliticalList[i]
         };
+
+        
+        let newsHeadlinesCopy = [...this.state.newsHeadlines];
+        let startIndex = newsHeadlinesCopy.length - 6;
+          newsHeadlinesCopy.splice(startIndex, 6, updatedHeadlines);
+          newsHeadlinesCopy =  _.flattenDepth(newsHeadlinesCopy, 1)
+        
 
         this.setState({
           newsHeadlines: newsHeadlinesCopy
         })
-        let updatedUrls = []
-        newsHeadlinesCopy.forEach(article => {
-          updatedUrls.push(article.url)
-        });
+  
         return axios.post(indicoSentimentUrl, JSON.stringify({
           api_key: config.indicoKey,
           data: updatedUrls
@@ -147,19 +147,20 @@ class App extends Component {
       })
       .then(results => {
         let sentimentList = results.data.results
-        let newsHeadlinesCopy = [...this.state.newsHeadlines];
-        for (let i = 0; i < newsHeadlinesCopy.length; i++){
-          newsHeadlinesCopy[i].sentiment = sentimentList[i]
+        
+        for (let i = 0; i < updatedHeadlines.length; i++){
+          updatedHeadlines[i].sentiment = sentimentList[i]
         }
 
-        
+        let newsHeadlinesCopy = [...this.state.newsHeadlines];
+        let startIndex = newsHeadlinesCopy.length - 6;
+        newsHeadlinesCopy.splice(startIndex, 6, updatedHeadlines);
+        newsHeadlinesCopy =  _.flattenDepth(newsHeadlinesCopy, 1)
+
         this.setState({
           newsHeadlines: newsHeadlinesCopy
         })
-        let updatedUrls = []
-        newsHeadlinesCopy.forEach(article => {
-          updatedUrls.push(article.url)
-        });
+        
         return axios.post(indicoKeywordsUrl, JSON.stringify({
           api_key: config.indicoKey,
           data: updatedUrls,
@@ -190,10 +191,14 @@ class App extends Component {
 
         let newKeywordList = createKeywordObjects(keywordResults);
 
-        let newsHeadlinesCopy = [...this.state.newsHeadlines];
-        for (let i = 0; i < newsHeadlinesCopy.length; i++){
-          newsHeadlinesCopy[i].keywords = newKeywordList[i]
+        for (let i = 0; i < updatedHeadlines.length; i++){
+          updatedHeadlines[i].keywords = newKeywordList[i]
         };
+
+        let newsHeadlinesCopy = [...this.state.newsHeadlines];
+        let startIndex = newsHeadlinesCopy.length - 6;
+        newsHeadlinesCopy.splice(startIndex, 6, updatedHeadlines );
+        newsHeadlinesCopy =  _.flattenDepth(newsHeadlinesCopy, 1)
 
         this.setState({
           newsHeadlines: newsHeadlinesCopy,
@@ -312,10 +317,6 @@ class App extends Component {
 //  }
   render() {
     const { width } = this.props.size;
-    const newsHeadlines = this.state.newsHeadlines;
-    const filterOption = this.state.activeFilter;
-    const refreshTrue = true;
-
 
     const panes = [
       { menuItem: 'All News', render: () => <Tab.Pane as="div"></Tab.Pane> },
@@ -410,4 +411,4 @@ class App extends Component {
   }
 };
 
-export default sizeMe({ monitorWidth: true, monitorHeight: true })(App);
+export default sizeMe({ monitorWidth: true })(App);

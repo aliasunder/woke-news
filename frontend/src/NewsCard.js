@@ -11,11 +11,11 @@ class NewsCard extends Component {
                     <Card.Content as="a" href={ this.props.url } target="_blank" header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />
                     <Card.Content extra>
                             <NewsLabels loading = { this.props.loading} 
-                                    politicalLabels = { this.props.politicalLabels ? this.props.politicalLabels : null } 
-                                    sentiment = { this.props.sentiment ? this.props.sentiment : null }
-                                    keywords = { this.props.keywords ? this.props.keywords : null }
-                                    match = { this.props.match }
-                                    fetchSearchResults = { this.props.fetchSearchResults } 
+                                        politicalLabels = { this.props.politicalLabels ? this.props.politicalLabels : null } 
+                                        sentiment = { this.props.sentiment ? this.props.sentiment : null }
+                                        keywords = { this.props.keywords ? this.props.keywords : null }
+                                        match = { this.props.match }
+                                        fetchSearchResults = { this.props.fetchSearchResults } 
                             />
                     </Card.Content>
                 </Card>

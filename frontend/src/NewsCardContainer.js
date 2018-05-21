@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
-import componentQueries from 'react-component-queries'
-import { fadeDown } from 'react-stack-grid/lib/animations/transitions';
-import Waypoint from 'react-waypoint';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 class NewsCardContainer extends Component {
 
@@ -11,19 +9,10 @@ class NewsCardContainer extends Component {
         this.props.fetchArticles() 
     }
 
-    //  componentDidUpdate(prevProps, prevState) {
-    //      if (this.props.newsHeadlines.length > prevProps.newsHeadlines.length) {
-    //         //  let updatedScrollTop = lastScrollTop
-    //         //  this.setState({
-    //         //      lastScrollTop: updatedScrollTop
-    //         //  })
-    //      }
-    //  }
-
     render() { 
         const newsHeadlines = this.props.newsHeadlines;
         const filterOption = this.props.activeFilter;
-        const refreshTrue = true;
+        const width = this.props.width;
     
         let filteredNews = newsHeadlines.filter(article => {
             if (article.sentiment && filterOption === 'Positive'){
@@ -58,41 +47,58 @@ class NewsCardContainer extends Component {
         return (  
             <div> {
                 newsHeadlines.length > 0 ? ( 
-                <Waypoint onLeave={ this.props.fetchArticles } topOffset={ '85%' }>
-                <div ref={ this.props.innerRef }>
-                    <StackGrid columnWidth= {  this.props.width <= 768 ? '90%' : '35%' } 
-                                        gutterWidth={ 15 } 
-                                        gutterHeight={ 15 }  
-                                        duration={ 0 }>
-                                { 
-                                    filteredNews.map((prop)=>{
-                                        return <NewsCard    key = { prop.key} 
-                                                            className="item"
-                                                            description = { prop.description }
-                                                            image = { prop.urlToImage }
-                                                            title = { prop.title }
-                                                            url = { prop.url }
-                                                            meta = { prop.source.name }
-                                                            loading = { this.props.labelsLoading } 
-                                                            politicalLabels = { prop.politicalLabels ? prop.politicalLabels : null } 
-                                                            sentiment = { prop.sentiment ? prop.sentiment : null }
-                                                            keywords = { prop.keywords ? prop.keywords : null }
-                                                            match = { this.props.match }
-                                                            fetchSearchResults = { this.props.fetchSearchResults }
+                    <InfiniteScroll pullDownToRefresh = { width <= 768 ? true : null }
+                                    dataLength={ this.props.dataLength } 
+                                    pullDownToRefreshContent={
+                                        <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
+                                    }
+                                    releaseToRefreshContent={
+                                        <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
+                                    }
+                                    refreshFunction={ ()=> this.props.refreshFunction() }
+                                    next={ this.props.fetchArticles }
+                                    hasMore={ true }
+                                    loader={ <h4> Loading... </h4>}
+                                    endMessage={
+                                        <p style={{textAlign: 'center'}}>
+                                            <b> Yay! You have seen it all</b>
+                                        </p>
+                                    }>
+
+                        <StackGrid columnWidth= { width <= 768 ? '90%' : '35%' } 
+                                    gutterWidth={ 15 } 
+                                    gutterHeight={ 15 }  
+                                    gridRef={grid => this.grid = grid}
+                                    duration={ 0 }
+                                    >
+                            { 
+                                filteredNews.map((prop)=>{
+                                    return <NewsCard    key = { prop.key} 
+                                                        className="item"
+                                                        description = { prop.description }
+                                                        image = { prop.urlToImage }
+                                                        title = { prop.title }
+                                                        url = { prop.url }
+                                                        meta = { prop.source.name }
+                                                        loading = { this.props.labelsLoading } 
+                                                        politicalLabels = { prop.politicalLabels ? prop.politicalLabels : null } 
+                                                        sentiment = { prop.sentiment ? prop.sentiment : null }
+                                                        keywords = { prop.keywords ? prop.keywords : null }
+                                                        match = { this.props.match }
+                                                        fetchSearchResults = { this.props.fetchSearchResults }
                                                     />
          
                     
                                                 }, this)
-                                }
-                            </StackGrid>
-                            </div>
-                    </Waypoint>
-                    )
+                            }
+                        </StackGrid>
+                    </InfiniteScroll>
+                )
 
-                    :
+                :
 
-                (null)} 
-                </div> )
+                (null)
+        } </div> )
     }
 };
 
