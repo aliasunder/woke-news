@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Segment, Label, Dimmer, Loader, Grid } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom';
+import _ from 'lodash';
 
 class NewsLabels extends Component {
    
@@ -23,7 +24,7 @@ class NewsLabels extends Component {
         else {
             let politicalJSX = labels.map(position => {
                 return <NavLink key = { position.key } to={ '/search/' + position.label }>
-                            <Label style={ labelStyle } color = { labels.length - 1 === labels.indexOf(position.label) ? "green" : "grey" }> 
+                            <Label style={ labelStyle } color = { _.map(labels, 'label').length - 1 ===  _.map(labels, 'label').indexOf(position.label) ? "green" : "grey" }> 
                             { position.label } </Label> 
                         </NavLink>
             });
