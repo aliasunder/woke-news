@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Image } from 'semantic-ui-react'
 import NewsLabels from './NewsLabels';
+import sizeMe from 'react-sizeme';
 
 class NewsCard extends Component {
 
@@ -10,12 +11,12 @@ class NewsCard extends Component {
                     <Card.Content as="a" href={ this.props.url } target="_blank"><Image src= { this.props.image } /></Card.Content>
                     <Card.Content as="a" href={ this.props.url } target="_blank" header={ this.props.title } meta={ this.props.meta } description={ this.props.description } />
                     <Card.Content extra>
-                            <NewsLabels loading = { this.props.loading} 
-                                        politicalLabels = { this.props.politicalLabels ? this.props.politicalLabels : null } 
-                                        sentiment = { this.props.sentiment ? this.props.sentiment : null }
-                                        keywords = { this.props.keywords ? this.props.keywords : null }
-                                        match = { this.props.match }
-                                        fetchSearchResults = { this.props.fetchSearchResults } 
+                        <NewsLabels loading = { this.props.loading} 
+                                    politicalLabels = { this.props.politicalLabels ? this.props.politicalLabels : null } 
+                                    sentiment = { this.props.sentiment ? this.props.sentiment : null }
+                                    keywords = { this.props.keywords ? this.props.keywords : null }
+                                    match = { this.props.match }
+                                    fetchSearchResults = { this.props.fetchSearchResults } 
                             />
                     </Card.Content>
                 </Card>
@@ -23,4 +24,4 @@ class NewsCard extends Component {
     }
 }
  
-export default NewsCard;
+export default sizeMe({ monitorHeight: true})(NewsCard);

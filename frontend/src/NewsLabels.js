@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Segment, Label, Dimmer, Loader, Grid } from 'semantic-ui-react'
+import { Segment, Label, Dimmer, Loader, Grid, Card } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom';
 import _ from 'lodash';
+import sizeMe from 'react-sizeme';
 
 class NewsLabels extends Component {
    
@@ -12,13 +13,15 @@ class NewsLabels extends Component {
         let labelsJSX;
 
         const labelStyle = {
-            margin: '2%'
+            margin: '1%'
         }
 
         if (!this.props.politicalLabels || !this.props.sentiment || !this.props.keywords){
-            labelsJSX = <Dimmer active>
-                            <Loader active/>
-                        </Dimmer>
+            labelsJSX = <Segment padded>
+                            <Dimmer active>
+                                <Loader active/>
+                            </Dimmer>
+                        </Segment>
                      
         }
         else {
@@ -49,26 +52,17 @@ class NewsLabels extends Component {
              });
 
             labelsJSX = <div>
-                            <Grid columns="equal" stackable>
-                                <Grid.Column>
-                                    { politicalJSX }
-                                </Grid.Column>
-                                <Grid.Column>
-                                    { sentimentJSX }
-                                </Grid.Column>
-                                <Grid.Column width="nine">
-                                    { keywordsJSX }
-                                </Grid.Column>
-                            </Grid>
-                        </div>
+                            { politicalJSX }
+                            { sentimentJSX }
+                            { keywordsJSX }
+                        </div >
+                        
         }
             
-        return ( 
-                <Segment padded>
+        return  ( <div>
                     { labelsJSX }
-                </Segment>  
-          
-         )
+                </div>  
+                )
     }
 }
  

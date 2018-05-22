@@ -4,11 +4,19 @@ import StackGrid from 'react-stack-grid';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import _ from 'lodash';
 
+const componentPadding = {
+    'padding': '3%'
+}
+
 class NewsCardContainer extends Component {
 
     componentDidMount() {
         this.props.fetchArticles() 
     }
+
+    something = ()=> {
+        this.grid.updateLayout();
+      }    
 
     render() { 
         const newsHeadlines = this.props.newsHeadlines;
@@ -60,6 +68,7 @@ class NewsCardContainer extends Component {
                                     next={ this.props.fetchArticles }
                                     hasMore={ true }
                                     loader={ <h4> Loading... </h4>}
+                                    style={ componentPadding }
                                     endMessage={
                                         <p style={{textAlign: 'center'}}>
                                             <b> Yay! You have seen it all</b>
@@ -71,6 +80,7 @@ class NewsCardContainer extends Component {
                                     gutterHeight={ 15 }  
                                     gridRef={grid => this.grid = grid}
                                     duration={ 0 }
+                                    gridRef={grid => this.grid = grid}
                                     >
                             { 
                                 filteredNews.map((prop)=>{
@@ -87,6 +97,7 @@ class NewsCardContainer extends Component {
                                                         keywords = { prop.keywords ? prop.keywords : null }
                                                         match = { this.props.match }
                                                         fetchSearchResults = { this.props.fetchSearchResults }
+                                                        onSize = { this.something }
                                                     />
          
                     
