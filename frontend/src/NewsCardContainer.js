@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import _ from 'lodash';
 
 class NewsCardContainer extends Component {
 
@@ -15,29 +16,29 @@ class NewsCardContainer extends Component {
         const width = this.props.width;
     
         let filteredNews = newsHeadlines.filter(article => {
-            if (article.sentiment && filterOption === 'Positive'){
+            if (filterOption === 'Positive'){
                 return article.sentiment > 0.5
             }
-            else if (article.sentiment && filterOption === 'Negative'){
+            else if (filterOption === 'Negative'){
                 return article.sentiment < 0.5
             }
-            else if (article.label && filterOption === 'Liberal'){
-                return article.label.includes('Liberal')
+            else if (filterOption === 'Liberal'){
+                return _.find(article.politicalLabels, { 'label': 'Liberal'});
             }
-            else if (article.label && filterOption === 'Conservative'){
-                return article.label.includes('Conservative')
+            else if (filterOption === 'Conservative'){
+                return _.find(article.politicalLabels, { 'label': 'Conservative'});
             }
-            else if (article.label && filterOption === 'Green'){
-                return article.label.includes('Green')
+            else if (filterOption === 'Green'){
+                return _.find(article.politicalLabels, { 'label': 'Green'});
             }
-            else if (article.label && filterOption === 'Libertarian'){
-                return article.label.includes('Libertarian')
+            else if (filterOption === 'Libertarian'){
+                return _.find(article.politicalLabels, { 'label': 'Libertarian'});
             }
-            else if (article.label && filterOption === 'Claims'){
-                return article.label.includes('Claims')
+            else if (filterOption === 'Claims'){
+                return _.find(article.politicalLabels, { 'label': 'Claims'});
             }
-            else if (article.label && filterOption === 'Fact-Check'){
-                return article.label.includes('Fact-Check')
+            else if (filterOption === 'Fact-Check'){
+                return _.find(article.politicalLabels, { 'label': 'Fact-Check'});
             }
             else {
                 return newsHeadlines;    
