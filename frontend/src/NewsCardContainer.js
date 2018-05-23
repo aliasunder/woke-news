@@ -80,7 +80,6 @@ class NewsCardContainer extends Component {
                                     gutterHeight={ 15 }  
                                     gridRef={grid => this.grid = grid}
                                     duration={ 0 }
-                                    gridRef={grid => this.grid = grid}
                                     >
                             { 
                                 filteredNews.map((prop)=>{

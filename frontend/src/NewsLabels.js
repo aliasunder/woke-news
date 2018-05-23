@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Segment, Label, Dimmer, Loader, Grid, Card } from 'semantic-ui-react'
+import { Segment, Label, Dimmer, Loader } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom';
 import _ from 'lodash';
-import sizeMe from 'react-sizeme';
 
 class NewsLabels extends Component {
    
@@ -46,7 +45,7 @@ class NewsLabels extends Component {
             };
 
             let keywordsJSX = keywords.map(keyword => {
-                 return <NavLink to={ '/search/' + keyword } key = { keyword.key }>
+                 return <NavLink to={ '/search/' + keyword.keyword } key = { keyword.key }>
                             <Label  style={ labelStyle } circular basic color = "black"> { keyword.keyword } </Label>
                         </NavLink>
              });
