@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import NewsCardContainer from './NewsCardContainer';
 import NewsSearch from './NewsSearch';
 import NewsFilter from './NewsFilter';
+import AppHeader from './AppHeader';
+import AppRoutes from './AppRoutes';
 import './App.css';
 import axios from 'axios';
 import config from './config.json';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import moment from 'moment';
-import { Container, Grid, Message } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
 import _ from 'lodash';
 import NewsResults from './NewsResults';
@@ -241,58 +244,54 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Container>
-          <Grid padded stackable>
-            <Grid.Row>
-              <Grid.Column>
-                <Message color="black" size="massive">
-                  <Message.Header>
-                    Woke News
-                  </Message.Header>
-                  <p>
-                    Context matters
-                  </p>
-                </Message>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns="two" >
-              <Grid.Column>
-                <NewsSearch />
-              </Grid.Column>
-              <Grid.Column>
-              </Grid.Column>
-            </Grid.Row>
-           <NewsFilter  width = { width } 
-                        handleTabChange = { this.handleTabChange } 
-                        handleMobileTabChange = { this.handleMobileTabChange }
-                        activeFilter = { this.state.activeFilter }
-            />
-          </Grid>
-          <Switch>
-            <Route exact path="/" render={(props)=><NewsCardContainer   labelsLoading = { this.state.labelsLoading }
-                                                                        handleTabChange = { this.handleTabChange }
-                                                                        handleScroll = { this.handleScroll }
-                                                                        activeFilter = { this.state.activeFilter }
-                                                                        fetchArticles = { this.fetchArticles } 
-                                                                        fetchSearchResults = { this.fetchSearchResults }
-                                                                        newsHeadlines = { this.state.newsHeadlines } 
-                                                                        dataLength={ this.state.newsHeadlines.length } 
-                                                                        refreshFunction={ this.refresh }
-                                                                        width = { width }
-                                                                        match = { props.match } />}  
-                          
-                                                      />
-                                            
-            <Route path="/search/:term" render={(props)=><NewsResults labelsLoading = { this.state.labelsLoading } 
-                                                                      activeFilter = { this.state.activeFilter }
-                                                                      handleTabChange = { this.handleTabChange }
-                                                                      loading={ this.state.isLoading }
-                                                                      match = { props.match }
-                                                                      results = { this.state.results } />}
-                                                      />
-          </Switch>
-        </Container>
-      </div>
+          <InfiniteScroll pullDownToRefresh = { width <= 768 ? true : null }
+                          dataLength={ this.props.dataLength } 
+                          pullDownToRefreshContent={
+                              <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
+                          }
+                          releaseToRefreshContent={
+                              <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
+                          }
+                          refreshFunction={ ()=> this.refreshFunction() }
+                          next={ () => setTimeout(this.fetchArticles, 1000) }
+                          hasMore={ true }
+                          loader={ <h4> Loading... </h4>}
+                          endMessage={
+                              <p style={{ textAlign: 'center' }}>
+                                  <b> Yay! You have seen it all</b>
+                              </p>
+                          }>
+            <Container>
+              <Grid padded stackable>
+                <Grid.Row>
+                  <Grid.Column>
+                    <AppHeader />
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row columns="two" >
+                  <Grid.Column>
+                    <NewsSearch />
+                  </Grid.Column>
+                  <Grid.Column>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <NewsFilter width = { width } 
+                              handleTabChange = { this.handleTabChange } 
+                              handleMobileTabChange = { this.handleMobileTabChange }
+                              activeFilter = { this.state.activeFilter }
+                    />
+                </Grid.Row>
+              </Grid>
+              <AppRoutes  state = { this.state }
+                          handleTabChange = { this.handleTabChange }
+                          handleScroll = { this.handleScroll }
+                          fetchArticles = { this.fetchArticles }
+                          refreshFunction={ this.refresh }
+                          width = { width }   />
+            </Container>
+          </InfiniteScroll>
+      </div> 
     )
   }
 };

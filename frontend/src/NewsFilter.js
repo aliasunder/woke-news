@@ -33,17 +33,26 @@ class NewsFilter extends Component {
 
         if (width <= 768 ) { 
             filtersJSX =    <Menu fluid>
-                                <Dropdown fluid options={ mobilePanes } onChange={ this.props.handleMobileTabChange } placeholder={ this.props.activeFilter }  value={ this.props.activeFilter } selection/>
+                                <Dropdown   fluid selection
+                                            style={{ padding: '3%' }}
+                                            options={ mobilePanes } 
+                                            onChange={ this.props.handleMobileTabChange } 
+                                            placeholder={ this.props.activeFilter }  
+                                            value={ this.props.activeFilter } 
+                                    />
                             </Menu>
         }
         else {
-            filtersJSX = <Tab menu={{ secondary: true }} panes={ panes } onTabChange={ this.props.handleTabChange }/>     
+            filtersJSX = <Tab   style={{ padding: '0 3%' }} 
+                                menu={{ secondary: true }} 
+                                panes={ panes } 
+                                onTabChange={ this.props.handleTabChange }/>     
             }
     
         return (
-            <Grid.Row>
+            <div>
               { filtersJSX }
-            </Grid.Row>
+            </div>
         )
     }
 }

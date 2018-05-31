@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import _ from 'lodash';
 import { Button } from 'semantic-ui-react';
-
-const componentPadding = {
-    'padding': '3%'
-}
 
 class NewsCardContainer extends Component {
 
@@ -55,60 +50,35 @@ class NewsCardContainer extends Component {
         })
 
         return (  
-            <div> {
-                newsHeadlines.length > 0 ? ( 
-                    <InfiniteScroll pullDownToRefresh = { width <= 768 ? true : null }
-                                    dataLength={ this.props.dataLength } 
-                                    pullDownToRefreshContent={
-                                        <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
-                                    }
-                                    releaseToRefreshContent={
-                                        <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
-                                    }
-                                    refreshFunction={ ()=> this.props.refreshFunction() }
-                                    next={ () => setTimeout(this.props.fetchArticles, 1000) }
-                                    hasMore={ true }
-                                    loader={ <h4> Loading... </h4>}
-                                    style={ componentPadding }
-                                    endMessage={
-                                        <p style={{textAlign: 'center'}}>
-                                            <b> Yay! You have seen it all</b>
-                                        </p>
-                                    }>
-
-                        <StackGrid  columnWidth= { width <= 768 ? '90%' : '35%' } 
-                                    gutterWidth={ 15 } 
-                                    gutterHeight={ 15 }  
-                                    gridRef={grid => this.grid = grid}
-                                    duration={ 0 }
-                                    >
-                            { 
-                                filteredNews.map((prop)=>{
-                                    return <NewsCard    key = { prop.key} 
-                                                        className="item"
-                                                        description = { prop.description }
-                                                        image = { prop.urlToImage }
-                                                        title = { prop.title }
-                                                        url = { prop.url }
-                                                        meta = { prop.source.name }
-                                                        loading = { this.props.labelsLoading } 
-                                                        politicalLabels = { prop.politicalLabels ? prop.politicalLabels : null } 
-                                                        sentiment = { prop.sentiment ? prop.sentiment : null }
-                                                        keywords = { prop.keywords ? prop.keywords : null }
-                                                        match = { this.props.match }
-                                                        fetchSearchResults = { this.props.fetchSearchResults }
-                                                        onSize = { this.updateLayout}
+            <div style={{ padding: '3%' }} > 
+                <StackGrid  columnWidth= { width <= 768 ? '90%' : '35%' } 
+                            gutterWidth={ 15 } 
+                            gutterHeight={ 15 }  
+                            gridRef={grid => this.grid = grid}
+                            duration={ 0 }
+                                >
+                    { 
+                        filteredNews.map((prop)=>{
+                            return <NewsCard    key = { prop.key} 
+                                                className="item"
+                                                description = { prop.description }
+                                                image = { prop.urlToImage }
+                                                title = { prop.title }
+                                                url = { prop.url }
+                                                meta = { prop.source.name }
+                                                loading = { this.props.labelsLoading } 
+                                                politicalLabels = { prop.politicalLabels ? prop.politicalLabels : null } 
+                                                sentiment = { prop.sentiment ? prop.sentiment : null }
+                                                keywords = { prop.keywords ? prop.keywords : null }
+                                                match = { this.props.match }
+                                                fetchSearchResults = { this.props.fetchSearchResults }
+                                                onSize = { this.updateLayout}
                                                     />
-                                                }, this)
-                            }
-                        </StackGrid>
-                    </InfiniteScroll>
-                )
-
-                :
-
-                (null)
-        } </div> )
+                                        }, this)
+                    }
+                </StackGrid>
+            </div> 
+        )
     }
 };
 
