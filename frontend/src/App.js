@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewsCardContainer from './NewsCardContainer';
+import NewsSearch from './NewsSearch';
 import './App.css';
 import axios from 'axios';
 import config from './config.json';
@@ -17,27 +18,15 @@ class App extends Component {
     this.state = {
       newsHeadlines: [],
       labelsLoading: false,
-      value: '',
-      results: [],
-      isLoading: false,
       tabData: {},
       activeFilter: 'All News',
       newsPage: 1,
-      // scrollPosition: 0
     }
     this.fetchArticles = this.fetchArticles.bind(this);
-    this.fetchSearchResults = this.fetchSearchResults.bind(this);
-    this.resetComponent = this.resetComponent.bind(this);
-    this.openLink = this.openLink.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
     this.handleMobileTabChange = this.handleMobileTabChange.bind(this);
     this.refresh = this.refresh.bind(this);
-    // this.handleScroll = this.handleScroll.bind(this);
   }
-
-  // componentDidMount() {
-  //   window.onscroll = () => this.handleScroll();
-  // }
 
   fetchArticles() {
     const newsHeadlinesUrl = 'https://newsapi.org/v2/everything';
@@ -217,73 +206,6 @@ class App extends Component {
     }
   };
 
-  resetComponent(){
-    this.setState({ 
-      isLoading: false, 
-      results: [], 
-      value: "" 
-    })
-  };
-
-  fetchSearchResults(value){
-
-    let targetValue = value;
-
-    this.setState({
-      value: targetValue,
-      isLoading: true
-    })
-
-    const hoaxyUrl = 'https://api-hoaxy.p.mashape.com/articles?';
-
-    let options = {
-      headers: {
-        'X-Mashape-Key': config.hoaxyKey,
-        'Accept': 'application/json'
-      },
-      params: {
-        query: targetValue
-      }
-    };
-
-    axios.get(hoaxyUrl, options)
-      .then(results => {
-        let searchResults = [];
-        searchResults = results.data.articles;
-        
-        setTimeout(() => {
-          if (this.state.value.length < 1) this.resetComponent();
-
-          const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-          const isMatch = result => re.test(result.title);
-
-          const source = searchResults.map(article => {
-            return {  title: article.title,
-                      description: article.domain,
-                      url: article.canonical_url,
-                      id: article.id,
-                      site_type: article.site_type,
-                      date: article.date_published,
-                      numOfTweets: article.number_of_tweets }
-          })
-
-          this.setState({
-            isLoading: false,
-            results: _.filter(source, isMatch)
-          });
-        }, 300)
-      })
-      .catch(error => {
-          console.log(error)
-      })
-  };
-
-  openLink(event, result){
-      let url = '/search/' + result.result.title
-      console.log(result.result);
-      window.open(url, '_blank');
-  };
-
   handleTabChange(event, data){
     let index = data.activeIndex;
     let filterTerm = data.panes[index].menuItem
@@ -358,12 +280,7 @@ class App extends Component {
             </Grid.Row>
             <Grid.Row columns="two" >
               <Grid.Column>
-                <Search   results={ this.state.results } 
-                          loading={ this.state.isLoading } 
-                          value={ this.state.value } 
-                          onResultSelect={ this.openLink }
-                          onSearchChange={ _.debounce((event)=>this.fetchSearchResults(event.target.value), 500, { leading: true })}
-                      />
+                <NewsSearch />
               </Grid.Column>
               <Grid.Column>
               </Grid.Column>
