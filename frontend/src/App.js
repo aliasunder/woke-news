@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import NewsCardContainer from './NewsCardContainer';
 import NewsSearch from './NewsSearch';
+import NewsFilter from './NewsFilter';
 import './App.css';
 import axios from 'axios';
 import config from './config.json';
 import moment from 'moment';
-import { Container, Search, Grid, Tab, Message, Dropdown, Menu } from 'semantic-ui-react';
+import { Container, Grid, Message } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
 import _ from 'lodash';
 import NewsResults from './NewsResults';
@@ -238,30 +239,6 @@ class App extends Component {
   render() {
     const { width } = this.props.size;
 
-    const panes = [
-      { menuItem: 'All News', render: () => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Positive', render: () => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Negative', render: () => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Liberal', render: () => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Conservative', render: () => <Tab.Pane as="div"> </Tab.Pane> },
-      { menuItem: 'Green', render: () => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Libertarian', render: () => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Claims', render: () => <Tab.Pane as="div"></Tab.Pane> },
-      { menuItem: 'Fact-Check', render: () => <Tab.Pane as="div"></Tab.Pane> },
-    ]
-
-    const mobilePanes = [
-      { key:'All News', text: 'All News', value: 'All News' },
-      { key:'Positive', text: 'Positive', value: 'Positive' },
-      { key:'Negative', text: 'Negative', value: 'Negative' },
-      { key:'Liberal', text: 'Liberal', value: 'Liberal' },
-      { key:'Conservative', text: 'Conservative', value: 'Conservative' },
-      { key:'Green', text: 'Green', value: 'Green' },
-      { key:'Libertarian', text: 'Libertarian', value: 'Libertarian' },
-      { key:'Claims', text: 'Claims', value: 'Claims' },
-      { key:'Fact-Check', text: 'Fact-Check', value: 'Fact-Check' }
-    ]
-
     return (
       <div className="App">
         <Container>
@@ -285,15 +262,11 @@ class App extends Component {
               <Grid.Column>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row columns={ panes.length + 1 }>
-              { width >= 768 ? 
-                (<Tab menu={{ secondary: true }} panes={ panes } onTabChange={ this.handleTabChange }/>)      
-                :
-                (<Menu fluid>
-                    <Dropdown fluid options={ mobilePanes } onChange={ this.handleMobileTabChange } placeholder={ this.state.activeFilter }  value={ this.state.activeFilter } selection/>
-                  </Menu>)
-              }
-            </Grid.Row>
+           <NewsFilter  width = { width } 
+                        handleTabChange = { this.handleTabChange } 
+                        handleMobileTabChange = { this.handleMobileTabChange }
+                        activeFilter = { this.state.activeFilter }
+            />
           </Grid>
           <Switch>
             <Route exact path="/" render={(props)=><NewsCardContainer   labelsLoading = { this.state.labelsLoading }
