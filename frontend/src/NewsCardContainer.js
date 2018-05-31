@@ -66,7 +66,7 @@ class NewsCardContainer extends Component {
                                         <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
                                     }
                                     refreshFunction={ ()=> this.props.refreshFunction() }
-                                    next={ this.props.fetchArticles }
+                                    next={ () => setTimeout(this.props.fetchArticles, 1000) }
                                     hasMore={ true }
                                     loader={ <h4> Loading... </h4>}
                                     style={ componentPadding }

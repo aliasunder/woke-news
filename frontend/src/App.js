@@ -407,4 +407,4 @@ class App extends Component {
   }
 };
 
-export default sizeMe({ monitorWidth: true })(App);
+export default sizeMe({ monitorWidth: true, refreshRate: 700 })(App);
