@@ -62,7 +62,12 @@ class App extends Component {
         
         
     let updatedHeadlines;
-    let updatedUrls = [];    
+    let updatedUrls = [];   
+    
+    if (this.state.labelsLoading){
+      return null
+    }
+    else{
 
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
@@ -209,6 +214,7 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
+    }
   };
 
   resetComponent(){
@@ -307,14 +313,6 @@ class App extends Component {
     }, 3000);
   }
 
-// handleScroll(event){
-//   // window.scrollY = updatedScrollPosition
-//  console.log(event)
-
-//     // this.setState({
-//     //   scrollPosition: window.scrollY
-//     // })
-//  }
   render() {
     const { width } = this.props.size;
 
@@ -391,9 +389,7 @@ class App extends Component {
                                                                         dataLength={ this.state.newsHeadlines.length } 
                                                                         refreshFunction={ this.refresh }
                                                                         width = { width }
-                                                                        match = { props.match } />}
-                                                                        
-                                                        
+                                                                        match = { props.match } />}  
                           
                                                       />
                                             

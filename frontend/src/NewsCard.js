@@ -24,4 +24,4 @@ class NewsCard extends Component {
     }
 }
  
-export default sizeMe({ monitorHeight: true})(NewsCard);
+export default sizeMe({ monitorHeight: true })(NewsCard);

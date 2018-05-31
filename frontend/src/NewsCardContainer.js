@@ -3,6 +3,7 @@ import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import _ from 'lodash';
+import { Button } from 'semantic-ui-react';
 
 const componentPadding = {
     'padding': '3%'
@@ -14,7 +15,7 @@ class NewsCardContainer extends Component {
         this.props.fetchArticles() 
     }
 
-    something = ()=> {
+    updateLayout = ()=> {
         this.grid.updateLayout();
       }    
 
@@ -75,7 +76,7 @@ class NewsCardContainer extends Component {
                                         </p>
                                     }>
 
-                        <StackGrid columnWidth= { width <= 768 ? '90%' : '35%' } 
+                        <StackGrid  columnWidth= { width <= 768 ? '90%' : '35%' } 
                                     gutterWidth={ 15 } 
                                     gutterHeight={ 15 }  
                                     gridRef={grid => this.grid = grid}
@@ -96,10 +97,8 @@ class NewsCardContainer extends Component {
                                                         keywords = { prop.keywords ? prop.keywords : null }
                                                         match = { this.props.match }
                                                         fetchSearchResults = { this.props.fetchSearchResults }
-                                                        onSize = { this.something }
+                                                        onSize = { this.updateLayout}
                                                     />
-         
-                    
                                                 }, this)
                             }
                         </StackGrid>
