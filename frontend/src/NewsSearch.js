@@ -88,12 +88,14 @@ class NewsSearch extends Component {
     };
 
     render(){
+        const width = this.props.width;
         return (
             <Search     results={ this.state.results } 
                         loading={ this.state.isLoading } 
                         value={ this.state.value } 
                         onResultSelect={ this.openLink }
                         onSearchChange={ _.debounce((event)=>this.fetchSearchResults(event.target.value), 500, { leading: true })}
+                        style={ width <= 768 ? {paddingLeft: '5%', paddingBottom: '3%' } : { paddingLeft: '5%' }}
             />
         )
     }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Tab, Dropdown, Menu } from 'semantic-ui-react';
+import { Grid, Tab, Dropdown } from 'semantic-ui-react';
 
 class NewsFilter extends Component {
     render(){
-        const { width } = this.props.width;
+        const width = this.props.width;
 
         const panes = [
           { menuItem: 'All News', render: () => <Tab.Pane as="div"></Tab.Pane> },
@@ -32,27 +32,26 @@ class NewsFilter extends Component {
         let filtersJSX;
 
         if (width <= 768 ) { 
-            filtersJSX =    <Menu fluid>
-                                <Dropdown   fluid selection
-                                            style={{ padding: '3%' }}
-                                            options={ mobilePanes } 
-                                            onChange={ this.props.handleMobileTabChange } 
-                                            placeholder={ this.props.activeFilter }  
-                                            value={ this.props.activeFilter } 
-                                    />
-                            </Menu>
+            filtersJSX = <Dropdown  fluid selection
+                                    options={ mobilePanes } 
+                                    onChange={ this.props.handleMobileTabChange } 
+                                    placeholder={ this.props.activeFilter }  
+                                    value={ this.props.activeFilter } 
+                                    style={{ padding: '3%', margin: '0 5% 3% 5%' }}
+                                />
+                         
         }
         else {
-            filtersJSX = <Tab   style={{ padding: '0 3%' }} 
+            filtersJSX = <Tab   style={{ padding: '0 5%'}} 
                                 menu={{ secondary: true }} 
                                 panes={ panes } 
                                 onTabChange={ this.props.handleTabChange }/>     
             }
     
         return (
-            <div>
+            <Grid.Row>
               { filtersJSX }
-            </div>
+            </Grid.Row>
         )
     }
 }

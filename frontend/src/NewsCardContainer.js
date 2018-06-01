@@ -50,10 +50,10 @@ class NewsCardContainer extends Component {
         })
 
         return (  
-            <div style={{ padding: '3%' }} > 
+            <div style={{ padding: '1% 5%' }} > 
                 <StackGrid  columnWidth= { width <= 768 ? '90%' : '35%' } 
-                            gutterWidth={ 15 } 
-                            gutterHeight={ 15 }  
+                            gutterWidth={ 20 } 
+                            gutterHeight={ 20 }  
                             gridRef={grid => this.grid = grid}
                             duration={ 0 }
                                 >

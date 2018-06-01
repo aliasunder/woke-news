@@ -4,7 +4,7 @@ import NewsSearch from './NewsSearch';
 import NewsFilter from './NewsFilter';
 import AppHeader from './AppHeader';
 import AppRoutes from './AppRoutes';
-import './App.css';
+import NewsResults from './NewsResults';
 import axios from 'axios';
 import config from './config.json';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -12,7 +12,6 @@ import moment from 'moment';
 import { Container, Grid } from 'semantic-ui-react';
 import { Route, Switch } from 'react-router-dom';
 import _ from 'lodash';
-import NewsResults from './NewsResults';
 import sizeMe from 'react-sizeme';
 import { ObjectID } from 'bson';
 
@@ -252,7 +251,7 @@ class App extends Component {
                           releaseToRefreshContent={
                               <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
                           }
-                          refreshFunction={ ()=> this.refreshFunction() }
+                          refreshFunction={ ()=> this.refresh() }
                           next={ () => setTimeout(this.fetchArticles, 1000) }
                           hasMore={ true }
                           loader={ <h4> Loading... </h4>}
@@ -268,20 +267,14 @@ class App extends Component {
                     <AppHeader />
                   </Grid.Column>
                 </Grid.Row>
-                <Grid.Row columns="two" >
-                  <Grid.Column>
-                    <NewsSearch />
-                  </Grid.Column>
-                  <Grid.Column>
-                  </Grid.Column>
-                </Grid.Row>
                 <Grid.Row>
-                  <NewsFilter width = { width } 
-                              handleTabChange = { this.handleTabChange } 
-                              handleMobileTabChange = { this.handleMobileTabChange }
-                              activeFilter = { this.state.activeFilter }
-                    />
+                    <NewsSearch width = { width } />
                 </Grid.Row>
+                <NewsFilter width = { width } 
+                            handleTabChange = { this.handleTabChange } 
+                            handleMobileTabChange = { this.handleMobileTabChange }
+                            activeFilter = { this.state.activeFilter }
+                  />
               </Grid>
               <AppRoutes  state = { this.state }
                           handleTabChange = { this.handleTabChange }
