@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Grid, Card, Button } from 'semantic-ui-react';
+import { Grid, Card, Button } from 'semantic-ui-react';
 import { ObjectID } from 'bson';
 import axios from 'axios';
 import _ from 'lodash';
@@ -16,9 +16,8 @@ class NewsResults extends Component {
         }
     }
     componentDidMount() {
-        let { match } = this.props;
-   
-        let targetValue = match.params.term;
+        const { match } = this.props;
+        const targetValue = match.params.term;
         
         this.setState({
             value: targetValue,

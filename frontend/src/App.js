@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import NewsCardContainer from './NewsCardContainer';
 import NewsSearch from './NewsSearch';
 import NewsFilter from './NewsFilter';
 import AppHeader from './AppHeader';
 import AppRoutes from './AppRoutes';
-import NewsResults from './NewsResults';
 import axios from 'axios';
 import config from './config.json';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import moment from 'moment';
 import { Container, Grid } from 'semantic-ui-react';
-import { Route, Switch } from 'react-router-dom';
 import _ from 'lodash';
 import sizeMe from 'react-sizeme';
 import { ObjectID } from 'bson';
@@ -75,7 +72,7 @@ class App extends Component {
         })
 
         let newsPageCopy = this.state.newsPage;
-        let nextPage = newsPageCopy++; 
+        newsPageCopy++; 
         this.setState({
           newsHeadlines: [...this.state.newsHeadlines, ...updatedHeadlines],
           labelsLoading: true,
@@ -244,7 +241,7 @@ class App extends Component {
     return (
       <div className="App">
           <InfiniteScroll pullDownToRefresh = { width <= 768 ? true : null }
-                          dataLength={ this.props.dataLength } 
+                          dataLength={ this.state.newsHeadlines.length } 
                           pullDownToRefreshContent={
                               <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
                           }
@@ -253,12 +250,12 @@ class App extends Component {
                           }
                           refreshFunction={ ()=> this.refresh() }
                           next={ () => setTimeout(this.fetchArticles, 1000) }
-                          hasMore={ true }
+                          hasMore={ this.state.activeFilter === "All News" ? true : false }
                           loader={ <h4> Loading... </h4>}
-                          endMessage={
+                          endMessage={ this.state.activeFilter === "All News" ?
                               <p style={{ textAlign: 'center' }}>
                                   <b> Yay! You have seen it all</b>
-                              </p>
+                              </p> : null
                           }>
             <Container>
               <Grid padded stackable>
@@ -289,4 +286,4 @@ class App extends Component {
   }
 };
 
-export default sizeMe({ monitorWidth: true, refreshRate: 700 })(App);
+export default sizeMe({ monitorWidth: true })(App);

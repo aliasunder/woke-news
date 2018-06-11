@@ -55,7 +55,8 @@ class NewsCardContainer extends Component {
                             gutterWidth={ 20 } 
                             gutterHeight={ 20 }  
                             gridRef={grid => this.grid = grid}
-                            duration={ 0 }
+                            style = {{ width: '100%' }}
+                            //duration={ 0 }
                                 >
                     { 
                         filteredNews.map((prop)=>{
@@ -72,7 +73,7 @@ class NewsCardContainer extends Component {
                                                 keywords = { prop.keywords ? prop.keywords : null }
                                                 match = { this.props.match }
                                                 fetchSearchResults = { this.props.fetchSearchResults }
-                                                onSize = { this.updateLayout}
+                                                onSize = { this.updateLayout }
                                                     />
                                         }, this)
                     }
