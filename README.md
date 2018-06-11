@@ -16,7 +16,6 @@ Three different API providers are used on the front-end (newsapi.org to retrieve
 ## Install App
 ```
 git clone https://github.com/aliasunder/woke-news.git
-
 ```
 
 ## Features in Progress
