@@ -20,7 +20,7 @@ git clone https://github.com/aliasunder/woke-news.git
 
 ## Features in Progress
 
-* include both news articles and fact-check/claim search into search bar. Currently only fact-check and claim articles are searchable.
+* include both news articles and fact-check/claim articles in the search bar results. Currently only fact-check and claim articles are searchable.
 * update to search results page - improve design, add labels
 * improved mobile experience. App is responsive, but the experience could be improved. 
 * social-media sharing
@@ -28,3 +28,4 @@ git clone https://github.com/aliasunder/woke-news.git
 * discussion component
 * fake news analysis of articles loaded - use an API to determine likelihood that an article is fake and display this to the user
 * Next stretch - login component, user preferences, built-in social community
+* At some time in the future an app for iOS and Android will be built using React Native and a Chrome extension will be created for analysing any news article page. 
