@@ -25,28 +25,33 @@ class NewsLabels extends Component {
         }
         else {
             let politicalJSX = labels.map(position => {
-                return <NavLink key = { position.key } to={ '/search/' + position.label }>
-                            <Label style={ labelStyle } color = { _.map(labels, 'label').length - 1 ===  _.map(labels, 'label').indexOf(position.label) ? "green" : "grey" }> 
-                            { position.label } </Label> 
+                return <NavLink key= { position.key } to= { '/search/' + position.label }>
+                            <Label  circular 
+                                    basic={ _.map(labels, 'label').length - 1 ===  _.map(labels, 'label').indexOf(position.label) ? false : true }
+                                    style ={ labelStyle } 
+                                    color="green"
+                                    pointing={ _.map(labels, 'label').length - 1 ===  _.map(labels, 'label').indexOf(position.label) ? true : false }> 
+                                { position.label } 
+                            </Label> 
                         </NavLink>
             });
 
             let sentimentJSX;
             if (sentiment > 0.5){
-                sentimentJSX =  <NavLink to={ '/search/positive' }>
-                                    <Label style={ labelStyle } basic color = "green"> Positive </Label>
+                sentimentJSX =  <NavLink to = { '/search/positive' }>
+                                    <Label circular pointing  style={ labelStyle } color="blue"> Positive </Label>
                                 </NavLink>
             };
 
             if (sentiment < 0.5){
-                sentimentJSX = <NavLink to={ '/search/negative' }>
-                                    <Label style={ labelStyle } basic color = "orange" > Negative </Label>
+                sentimentJSX = <NavLink to = { '/search/negative' }>
+                                    <Label circular pointing style={ labelStyle }  color="orange" > Negative </Label>
                                 </NavLink>
             };
 
             let keywordsJSX = keywords.map(keyword => {
-                 return <NavLink to={ '/search/' + keyword.keyword } key = { keyword.key }>
-                            <Label  style={ labelStyle } circular basic color = "black"> { keyword.keyword } </Label>
+                 return <NavLink to={ '/search/' + keyword.keyword } key= { keyword.key }>
+                            <Label  style= { labelStyle } circular basic color = "black"> { keyword.keyword } </Label>
                         </NavLink>
              });
 

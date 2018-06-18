@@ -251,7 +251,7 @@ class App extends Component {
                           refreshFunction={ ()=> this.refresh() }
                           next={ () => setTimeout(this.fetchArticles, 1000) }
                           hasMore={ this.state.activeFilter === "All News" ? true : false }
-                          loader={ <h4> Loading... </h4>}
+                          loader={ null }
                           endMessage={ this.state.activeFilter === "All News" ?
                               <p style={{ textAlign: 'center' }}>
                                   <b> Yay! You have seen it all</b>

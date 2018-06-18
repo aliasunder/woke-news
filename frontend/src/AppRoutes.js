@@ -11,6 +11,7 @@ class AppRoutes extends Component {
                 <Route exact path="/" render={(props)=><NewsCardContainer   labelsLoading = { labelsLoading }
                                                                             handleTabChange = { this.props.handleTabChange }
                                                                             handleScroll = { this.props.handleScroll }
+                                                                            handlePageTypeChange = { this.props.handlePageTypeChange }
                                                                             activeFilter = { activeFilter }
                                                                             fetchArticles = { this.props.fetchArticles }
                                                                             newsHeadlines = { newsHeadlines } 

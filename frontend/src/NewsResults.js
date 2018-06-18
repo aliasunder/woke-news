@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Card, Button } from 'semantic-ui-react';
+import { Grid, Card, Button, Loader } from 'semantic-ui-react';
 import { ObjectID } from 'bson';
 import axios from 'axios';
 import _ from 'lodash';
@@ -66,13 +66,8 @@ class NewsResults extends Component {
     render() { 
         let factArticlesJSX = [];
         let claimArticlesJSX = [];
-        let resultsJSX = [];
-
-        if (!this.state.results){
-          resultsJSX = null
-        }
-        else {  
-            let searchResults = this.state.results;
+    
+        let searchResults = this.state.results;
             searchResults.forEach(result => {
                 if (result.site_type === 'fact_checking'){
                     factArticlesJSX.push(
@@ -99,7 +94,7 @@ class NewsResults extends Component {
                     )
                 }
             })
-            resultsJSX = <div>
+        let resultsJSX = <div>
                             <Grid.Row>
                                 <Grid.Column>
                                     <NavLink to={ '/' }><Button labelPosition='left' icon='left chevron' content='Back' /></NavLink>
@@ -116,11 +111,23 @@ class NewsResults extends Component {
                                 </Grid.Row>
                             </Grid>
                         </div>
-        }
+
+        let loadingJSX = <div>
+                            <Grid.Row>
+                                <Grid.Column>
+                                    <NavLink to={ '/' }><Button labelPosition='left' icon='left chevron' content='Back' /></NavLink>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid padded>
+                                <Grid.Row>        
+                                    <Loader massive active/>
+                                </Grid.Row>
+                            </Grid>
+                        </div>
 
         return (
             <div>       
-                { resultsJSX }
+                { this.state.isLoading ? (loadingJSX) : (resultsJSX) }
             </div>
          )
     }
