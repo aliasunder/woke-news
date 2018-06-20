@@ -7,7 +7,7 @@ import axios from 'axios';
 import config from './config.json';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import moment from 'moment';
-import { Container, Grid, Loader } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import sizeMe from 'react-sizeme';
 import { ObjectID } from 'bson';
