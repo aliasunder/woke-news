@@ -10,7 +10,7 @@ import moment from 'moment';
 import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import sizeMe from 'react-sizeme';
-import { ObjectID } from 'bson';
+import uniqid from 'uniqid';
 
 class App extends Component {
   constructor(){
@@ -68,7 +68,7 @@ class App extends Component {
         });
 
         updatedHeadlines.forEach(article => {
-          article.key = new ObjectID()
+          article.key = uniqid()
         })
 
         let newsPageCopy = this.state.newsPage;
@@ -108,7 +108,7 @@ class App extends Component {
             for (let i = 0; i < politicalLabels.length; i++){
               let labelObject = {};
               labelObject.label = politicalLabels[i]
-              labelObject.key = new ObjectID();
+              labelObject.key = uniqid();
               labelObjectArray.push(labelObject);
             }
             politicalList[i] = labelObjectArray;
@@ -175,7 +175,7 @@ class App extends Component {
             for (let i = 0; i < keywordLabels.length; i++){
               let keywordObject = {};
               keywordObject.keyword = keywordLabels[i]
-              keywordObject.key = new ObjectID();
+              keywordObject.key = uniqid();
               keywordObjectArray.push(keywordObject)
             }
           keywordList.push(keywordObjectArray);

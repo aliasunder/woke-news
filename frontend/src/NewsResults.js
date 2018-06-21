@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Card, Button, Loader } from 'semantic-ui-react';
-import { ObjectID } from 'bson';
+import uniqid from 'uniqid';
 import axios from 'axios';
 import _ from 'lodash';
 import config from './config.json';
@@ -73,7 +73,7 @@ class NewsResults extends Component {
                     factArticlesJSX.push(
                         <Card   centered link fluid
                                 target="_blank"
-                                key = { new ObjectID() }
+                                key = { uniqid() }
                                 description = "Fact-Check"
                                 header = { result.title }
                                 href = { result.url }
@@ -85,7 +85,7 @@ class NewsResults extends Component {
                     claimArticlesJSX.push(
                         <Card   centered link fluid
                                 target="_blank"
-                                key = { new ObjectID() }
+                                key = { uniqid()}
                                 description = "Claim"
                                 header = { result.title }
                                 href = { result.url }
