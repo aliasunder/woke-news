@@ -19,12 +19,10 @@ git clone https://github.com/aliasunder/woke-news.git
 
 ## Features in Progress
 
-* loading page after clicking on a label - currently the articles load, but there is no indication that it is loading
 * include both news articles and fact-check/claim articles in the search bar results. Currently only fact-check and claim articles are searchable
 * update to search results page - improve design, add labels
 * improved mobile experience. App is responsive, but the experience could be improved. 
 * social-media sharing
-* 'Save to Pocket' feature
 * discussion component
 * fake news analysis of articles loaded - use an API to determine likelihood that an article is fake and display this to the user
 * Next stretch - login component, user preferences, built-in social community
