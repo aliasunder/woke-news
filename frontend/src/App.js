@@ -11,6 +11,7 @@ import { Container, Grid } from 'semantic-ui-react';
 import _ from 'lodash';
 import sizeMe from 'react-sizeme';
 import uniqid from 'uniqid';
+import api from './api';
 
 class App extends Component {
   constructor(){
