@@ -51,7 +51,6 @@ class App extends Component {
         
     let updatedHeadlines;
     let updatedUrls = [];   
-    // if labels are loading, do not load more articles
 
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
