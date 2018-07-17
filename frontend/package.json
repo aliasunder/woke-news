@@ -5,7 +5,7 @@
   "dependencies": {
     "ajv": "^6.4.0",
     "axios": "^0.18.0",
-    "bson": "^2.0.6",
+    "bson": "^2.0.8",
     "decimal": "0.0.2",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
