@@ -52,10 +52,6 @@ class App extends Component {
     let updatedHeadlines;
     let updatedUrls = [];   
     // if labels are loading, do not load more articles
-    if (this.state.labelsLoading){
-      return null;
-    }
-    else {
 
     axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
@@ -206,7 +202,6 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
-    }
   };
 
   handleTabChange(event, data){
@@ -253,12 +248,7 @@ class App extends Component {
                           }
                           refreshFunction={ ()=> this.refresh() }
                           next={ () => setTimeout(this.fetchArticles, 1000) }
-                          hasMore={ this.state.activeFilter === "All News" ? true : false }
-                          endMessage={ this.state.activeFilter === "All News" ?
-                              <p style={{ textAlign: 'center' }}>
-                                  <b> Yay! You have seen it all</b>
-                              </p> : null
-                          }>
+                          hasMore={ (this.state.activeFilter === "All News" ? true : false) && !this.state.labelsLoading } >
             <Container>
               <Grid padded stackable>
                 <Grid.Row>
@@ -272,15 +262,16 @@ class App extends Component {
                 <NewsFilter width = { width } 
                             handleTabChange = { this.handleTabChange } 
                             handleMobileTabChange = { this.handleMobileTabChange }
-                            activeFilter = { this.state.activeFilter }
-                  />
+                            activeFilter = { this.state.activeFilter } 
+                              />
               </Grid>
               <AppRoutes  state = { this.state }
                           handleTabChange = { this.handleTabChange }
                           handleScroll = { this.handleScroll }
                           fetchArticles = { this.fetchArticles }
                           refreshFunction={ this.refresh }
-                          width = { width }   />
+                          width = { width }   
+                            />
             </Container>
           </InfiniteScroll>
       </div> 
