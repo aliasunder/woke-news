@@ -47,7 +47,7 @@ class App extends Component {
         page: this.state.newsPage,
         from: moment().isoWeek(),
         to: moment().isoWeek(),
-        q: '(politics OR political OR policy OR social OR society OR threat OR law AND truth OR false OR fake OR fact OR biased)',
+        q: '(politics OR political OR policy)',
         sortBy: 'relevancy'
       }
     };
