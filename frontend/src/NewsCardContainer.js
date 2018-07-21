@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import _ from 'lodash';
-import { Button } from 'semantic-ui-react';
 
 class NewsCardContainer extends Component {
 
@@ -15,33 +14,31 @@ class NewsCardContainer extends Component {
       }    
 
     render() { 
-        const newsHeadlines = this.props.newsHeadlines;
-        const filterOption = this.props.activeFilter;
-        const width = this.props.width;
+        const { newsHeadlines, activeFilter, width, labelsLoading, match } = this.props;
     
         let filteredNews = newsHeadlines.filter(article => {
-            if (filterOption === 'Positive'){
+            if (activeFilter === 'Positive'){
                 return article.sentiment > 0.5
             }
-            else if (filterOption === 'Negative'){
+            else if (activeFilter === 'Negative'){
                 return article.sentiment < 0.5
             }
-            else if (filterOption === 'Liberal'){
+            else if (activeFilter === 'Liberal'){
                 return _.find(article.politicalLabels, { 'label': 'Liberal'});
             }
-            else if (filterOption === 'Conservative'){
+            else if (activeFilter === 'Conservative'){
                 return _.find(article.politicalLabels, { 'label': 'Conservative'});
             }
-            else if (filterOption === 'Green'){
+            else if (activeFilter === 'Green'){
                 return _.find(article.politicalLabels, { 'label': 'Green'});
             }
-            else if (filterOption === 'Libertarian'){
+            else if (activeFilter === 'Libertarian'){
                 return _.find(article.politicalLabels, { 'label': 'Libertarian'});
             }
-            else if (filterOption === 'Claims'){
+            else if (activeFilter === 'Claims'){
                 return _.find(article.politicalLabels, { 'label': 'Claims'});
             }
-            else if (filterOption === 'Fact-Check'){
+            else if (activeFilter === 'Fact-Check'){
                 return _.find(article.politicalLabels, { 'label': 'Fact-Check'});
             }
             else {
@@ -66,12 +63,11 @@ class NewsCardContainer extends Component {
                                                 title = { prop.title }
                                                 url = { prop.url }
                                                 meta = { prop.source.name }
-                                                loading = { this.props.labelsLoading } 
+                                                loading = { labelsLoading } 
                                                 politicalLabels = { prop.politicalLabels ? prop.politicalLabels : null } 
                                                 sentiment = { prop.sentiment ? prop.sentiment : null }
                                                 keywords = { prop.keywords ? prop.keywords : null }
-                                                match = { this.props.match }
-                                                fetchSearchResults = { this.props.fetchSearchResults }
+                                                match = { match }
                                                 onSize = { this.updateLayout }
                                                     />
                                         }, this)

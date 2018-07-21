@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Tab, Dropdown } from 'semantic-ui-react';
 
 const NewsFilter = (props) => {
-    const width = props.width;
+    const{ width, handleMobileTabChange, handleTabChange, activeFilter } = props;
 
     const panes = [
         { menuItem: 'All News', render: () => <Tab.Pane as="div"></Tab.Pane> },
@@ -33,9 +33,9 @@ const NewsFilter = (props) => {
     if (width <= 768 ) { 
         filtersJSX = <Dropdown  fluid selection
                                 options={ mobilePanes } 
-                                onChange={ props.handleMobileTabChange } 
-                                placeholder={ props.activeFilter }  
-                                value={ props.activeFilter } 
+                                onChange={ handleMobileTabChange } 
+                                placeholder={ activeFilter }  
+                                value={ activeFilter } 
                                 style={{ padding: '3%', margin: '0 5% 3% 5%' }}
                             />
                          
@@ -44,7 +44,7 @@ const NewsFilter = (props) => {
         filtersJSX = <Tab   style={{ padding: '0 5%'}} 
                             menu={{ secondary: true }} 
                             panes={ panes } 
-                            onTabChange={ props.handleTabChange }/>     
+                            onTabChange={ handleTabChange }/>     
         }
     
     return (

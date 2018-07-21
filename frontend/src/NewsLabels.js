@@ -4,16 +4,14 @@ import { NavLink } from 'react-router-dom';
 import _ from 'lodash';
 
 const NewsLabels = (props) => {
-    let labels = props.politicalLabels;
-    let sentiment = props.sentiment;
-    let keywords = props.keywords;
+    const { politicalLabels, sentiment, keywords } = props;
     let labelsJSX;
 
     const labelStyle = {
         margin: '1%'
     }
     // show loader while political, sentiment, and keyword labels are being loaded 
-    if (!props.politicalLabels || !props.sentiment || !props.keywords){
+    if (!politicalLabels || !sentiment || !keywords){
         labelsJSX = <Segment padded>
                         <Dimmer active>
                             <Loader active/>
@@ -22,13 +20,13 @@ const NewsLabels = (props) => {
                      
     }
     else {
-        let politicalJSX = labels.map(position => {
+        let politicalJSX = politicalLabels.map(position => {
             return <NavLink key= { position.key } to= { '/search/' + position.label }>
                         <Label  circular 
-                                basic={ _.map(labels, 'label').length - 1 ===  _.map(labels, 'label').indexOf(position.label) ? false : true }
+                                basic={ _.map(politicalLabels, 'label').length - 1 ===  _.map(politicalLabels, 'label').indexOf(position.label) ? false : true }
                                 style ={ labelStyle } 
                                 color="green"
-                                pointing={ _.map(labels, 'label').length - 1 ===  _.map(labels, 'label').indexOf(position.label) ? true : false }> 
+                                pointing={ _.map(politicalLabels, 'label').length - 1 ===  _.map(politicalLabels, 'label').indexOf(position.label) ? true : false }> 
                             { position.label } 
                         </Label> 
                     </NavLink>

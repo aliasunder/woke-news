@@ -1,37 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NewsCardContainer from './NewsCardContainer';
 import NewsResults from './NewsResults';
 
-class AppRoutes extends Component {
-    render(){
-        const { activeFilter, newsHeadlines, labelsLoading, isLoading, results } = this.props.state;
-        return (
-            <Switch>
-                <Route exact path="/" render={(props)=><NewsCardContainer   labelsLoading = { labelsLoading }
-                                                                            handleTabChange = { this.props.handleTabChange }
-                                                                            handleScroll = { this.props.handleScroll }
-                                                                            handlePageTypeChange = { this.props.handlePageTypeChange }
-                                                                            activeFilter = { activeFilter }
-                                                                            fetchArticles = { this.props.fetchArticles }
-                                                                            newsHeadlines = { newsHeadlines } 
-                                                                            dataLength={ newsHeadlines.length } 
-                                                                            refreshFunction={ this.props.refresh }
-                                                                            width = { this.props.width }
-                                                                            match = { props.match } />}  
+const AppRoutes = (props) => {
+    const { width, fetchArticles, newsHeadlines, activeFilter, labelsLoading, handleMobileTabChange, handleTabChange, refresh, match } = props;
+    return (
+        <Switch>
+            <Route exact path="/" render={(props)=><NewsCardContainer   labelsLoading = { labelsLoading }
+                                                                        handleTabChange = { handleTabChange }
+                                                                        handleMobileTabChange = { handleMobileTabChange }
+                                                                        activeFilter = { activeFilter }
+                                                                        fetchArticles = { fetchArticles }
+                                                                        newsHeadlines = { newsHeadlines } 
+                                                                        dataLength={ newsHeadlines.length } 
+                                                                        refreshFunction={ refresh }
+                                                                        width = { width }
+                                                                        match = { match } />}  
                       
-                                                            />
+                                                        />
                                         
-                <Route path="/search/:term" render={(props)=><NewsResults   labelsLoading = { labelsLoading } 
-                                                                            activeFilter = { activeFilter }
-                                                                            handleTabChange = { this.props.handleTabChange }
-                                                                            loading={ isLoading }
-                                                                            match = { props.match }
-                                                                            results = { results } />}
-                                                                    />
-            </Switch>
-        )
-    }
+            <Route path="/search/:term" render={(props)=><NewsResults match = { match } />} />
+        </Switch>
+    )
 }
 
 export default AppRoutes;
