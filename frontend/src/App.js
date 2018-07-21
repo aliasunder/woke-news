@@ -3,17 +3,12 @@ import sizeMe from 'react-sizeme';
 import MainContentDataDisplay from './MainContentDisplay';
 
 class App extends Component {
-  constructor(){
-    super();
-    this.state = {
+  state = {
      activeFilter: "All News",
      tabData: {}
     }
-    this.handleTabChange = this.handleTabChange.bind(this);
-    this.handleMobileTabChange = this.handleMobileTabChange.bind(this);
-  }
 
-  handleTabChange(data){
+  handleTabChange = (data) => {
     let index = data.activeIndex;
     let filterTerm = data.panes[index].menuItem
     this.setState({ 
@@ -22,7 +17,7 @@ class App extends Component {
     })
   };
 
-  handleMobileTabChange(value){
+  handleMobileTabChange = (value) => {
     let filterTerm = value.value
     this.setState({
       activeFilter: filterTerm
