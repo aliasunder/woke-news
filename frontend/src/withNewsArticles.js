@@ -5,9 +5,9 @@ import moment from 'moment';
 import _ from 'lodash';
 import uniqid from 'uniqid';
 
-const withData = (WrappedComponent) => {
+const withNewsArticles = (WrappedComponent) => {
     return class extends Component {
-        state = {
+      state = {
         newsHeadlines: [],
         labelsLoading: false,
         newsPage: 1,
@@ -200,6 +200,7 @@ const withData = (WrappedComponent) => {
         });
       }, 3000);
     }
+    
     render(){
         return (
             <div>
@@ -210,4 +211,4 @@ const withData = (WrappedComponent) => {
   }   
 };
 
-export default withData;
+export default withNewsArticles;

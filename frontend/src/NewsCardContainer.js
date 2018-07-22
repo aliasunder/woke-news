@@ -4,7 +4,7 @@ import StackGrid from 'react-stack-grid';
 import _ from 'lodash';
 
 class NewsCardContainer extends Component {
-
+    
     componentDidMount() {
         this.props.fetchArticles() 
     }
@@ -14,7 +14,7 @@ class NewsCardContainer extends Component {
       }    
 
     render() { 
-        const { newsHeadlines, activeFilter, width, labelsLoading, match } = this.props;
+        const { newsHeadlines, activeFilter, width, labelsLoading } = this.props;
     
         let filteredNews = newsHeadlines.filter(article => {
             if (activeFilter === 'Positive'){
@@ -67,7 +67,6 @@ class NewsCardContainer extends Component {
                                                 politicalLabels = { prop.politicalLabels ? prop.politicalLabels : null } 
                                                 sentiment = { prop.sentiment ? prop.sentiment : null }
                                                 keywords = { prop.keywords ? prop.keywords : null }
-                                                match = { match }
                                                 onSize = { this.updateLayout }
                                                     />
                                         }, this)

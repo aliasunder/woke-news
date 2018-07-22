@@ -4,10 +4,10 @@ import NewsCardContainer from './NewsCardContainer';
 import NewsResults from './NewsResults';
 
 const AppRoutes = (props) => {
-    const { width, fetchArticles, newsHeadlines, activeFilter, labelsLoading, handleMobileTabChange, handleTabChange, refresh, match } = props;
+    const { width, fetchArticles, newsHeadlines, activeFilter, labelsLoading, handleMobileTabChange, handleTabChange, refresh } = props;
     return (
         <Switch>
-            <Route exact path="/" render={(props)=><NewsCardContainer   labelsLoading = { labelsLoading }
+            <Route exact path="/" render={()=><NewsCardContainer   labelsLoading = { labelsLoading }
                                                                         handleTabChange = { handleTabChange }
                                                                         handleMobileTabChange = { handleMobileTabChange }
                                                                         activeFilter = { activeFilter }
@@ -15,12 +15,11 @@ const AppRoutes = (props) => {
                                                                         newsHeadlines = { newsHeadlines } 
                                                                         dataLength={ newsHeadlines.length } 
                                                                         refreshFunction={ refresh }
-                                                                        width = { width }
-                                                                        match = { match } />}  
+                                                                        width = { width } />}  
                       
                                                         />
                                         
-            <Route path="/search/:term" render={(props)=><NewsResults match = { match } />} />
+            <Route path="/search/:term" render={(props)=><NewsResults match = { props.match }/>} />
         </Switch>
     )
 }

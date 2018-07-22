@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/bson": "^1.0.9",
+    "@types/react-router-dom": "^4.3.0",
     "ajv": "^6.5.1",
     "axios": "^0.18.0",
     "decimal": "0.0.2",
