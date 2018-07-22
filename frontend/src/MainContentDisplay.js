@@ -42,5 +42,6 @@ const MainContentDisplay = (props) => {
         </InfiniteScroll>
     )
 }
-
+// the withNewsArticles higher-order component wraps the MainContentDisplay component. 
+//withNewsArticles contains the fetchNewsArticles logic and related state which is then passed down to the wrapped component.
 export default withNewsArticles(MainContentDisplay);

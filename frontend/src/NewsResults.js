@@ -14,7 +14,7 @@ class NewsResults extends Component {
         const { results, isLoading } = this.props;
         let factArticlesJSX = [];
         let claimArticlesJSX = [];
-    
+        // divide the 'fact-checking' and 'claim' articles into separate arrays
         let searchResults = results;
         searchResults.forEach(result => {
             if (result.site_type === 'fact_checking'){
@@ -42,6 +42,7 @@ class NewsResults extends Component {
                 )
             }
         })
+        // combine 'factArticlesJSX' and 'claimArticlesJSX' in a new variable that also includes display logic
         let resultsJSX = <div>
                             <Grid.Row>
                                 <Grid.Column>
@@ -59,7 +60,7 @@ class NewsResults extends Component {
                                 </Grid.Row>
                             </Grid>
                         </div>
-
+        // the loadingJSX variable is visible when data is still loading
         let loadingJSX = <div>
                             <Grid.Row>
                                 <Grid.Column>
@@ -72,7 +73,7 @@ class NewsResults extends Component {
                                 </Grid.Row>
                             </Grid>
                         </div>
-
+        // if data is still loading, display loadingJSX, and if data has loaded, display resultsJSX
         return (
             <div>       
                 { isLoading ? (loadingJSX) : (resultsJSX) }
@@ -80,5 +81,6 @@ class NewsResults extends Component {
          )
     }
 }
- 
+// withSearchResults wraps the NewsResults component and passes down the fetchSearchResults function 
+// and related props to the wrapped component.
 export default withSearchResults(NewsResults);

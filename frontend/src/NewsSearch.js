@@ -15,5 +15,6 @@ const NewsSearch = (props) => {
             />
         )
 }
-
+// withSearchResults wraps the NewsSearch component and passes down the fetchSearchResults function 
+// and related props to the wrapped component.
 export default withSearchResults(NewsSearch);
