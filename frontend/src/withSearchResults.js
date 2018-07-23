@@ -81,9 +81,10 @@ const withSearchResults = (WrappedComponent) => {
 
       render(){
          return (
-            <WrappedComponent   fetchSearchResults = { this.fetchSearchResults }
+            <WrappedComponent    fetchSearchResults = { this.fetchSearchResults }
                                  resetComponent = { this.resetComponent }
                                  openLink = { this.openLink }
+                                 width = { this.props.width }
                                  { ...this.state }
                   />
          )

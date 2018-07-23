@@ -12,9 +12,6 @@ const MainContentDisplay = (props) => {
    return (
       <InfiniteScroll   pullDownToRefresh = { width <= 768 ? true : null }
                         dataLength={ newsHeadlines.length } 
-                        pullDownToRefreshContent={
-                           <h3 style={{ textAlign: 'center' }}> Pull down to refresh </h3>
-                        }
                         releaseToRefreshContent={
                             <h3 style={{ textAlign: 'center' }}> Release to refresh </h3>
                         }

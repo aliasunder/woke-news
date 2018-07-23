@@ -204,7 +204,13 @@ const withNewsArticles = (WrappedComponent) => {
       render(){
          return (
             <div>
-               <WrappedComponent fetchArticles = { this.fetchArticles } refresh = { this.refresh }{ ...this.state }/>
+               <WrappedComponent fetchArticles = { this.fetchArticles } refresh = { this.refresh }
+                                 handleTabChange = { this.props.handleTabChange }
+                                 handleMobileTabChange = { this.props.handleMobileTabChange }
+                                 width = { this.props.width }
+                                 activeFilter = { this.props.activeFilter }
+                                 { ...this.state } 
+                           />
             </div>
          )
       } 
