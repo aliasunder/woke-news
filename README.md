@@ -19,7 +19,7 @@ git clone https://github.com/aliasunder/woke-news.git
 ## View Project Board
 
 * In July 2018, I started a project board for the web app to track tasks as I complete them: 
-**[https://github.com/aliasunder/woke-news/projects/1?fullscreen=true](Web App Project Board "Woke News Project Board")**
+**[Web App Project Board](https://github.com/aliasunder/woke-news/projects/1?fullscreen=true "Woke News Project Board")**
 
 ## Next Stretch
 
