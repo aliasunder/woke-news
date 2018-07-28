@@ -26,8 +26,7 @@ class App extends Component {
       const { width } = this.props.size;
       return (
          <div className="App">
-            <MainContentDisplay  refresh = { this.refresh } 
-                                 handleMobileTabChange = { this.handleMobileTabChange }
+            <MainContentDisplay  handleMobileTabChange = { this.handleMobileTabChange }
                                  handleTabChange = { this.handleTabChange }
                                  width = { width }
                                  activeFilter = { this.state.activeFilter }
