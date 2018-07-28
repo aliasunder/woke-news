@@ -5,6 +5,7 @@
 
 # testing
 /coverage
+.
 
 # production
 /build
@@ -22,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 config.json
+
+/frontend/src/NewsCardContainer.test.js
