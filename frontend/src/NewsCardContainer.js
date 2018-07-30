@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import NewsCard from './NewsCard';
 import StackGrid from 'react-stack-grid';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 class NewsCardContainer extends Component {
+   static propTypes = {
+      width: PropTypes.number.isRequired,
+      newsHeadlines: PropTypes.arrayOf(PropTypes.object).isRequired,
+      activeFilter: PropTypes.string.isRequired,
+      labelsLoading: PropTypes.bool.isRequired
+   }
     
    componentDidMount() {
       this.props.fetchArticles() 

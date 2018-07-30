@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import axios from 'axios';
+import uniqid from 'uniqid';
 import config from './config.json';
+import PropTypes from 'prop-types';
 
 const withSearchResults = (WrappedComponent) => {
    return class extends Component {
+      static propTypes = {
+         state: PropTypes.shape({
+            isLoading: PropTypes.bool.isRequired,
+            results: PropTypes.arrayOf(PropTypes.object).isRequired,
+            value: PropTypes.string.isRequired
+         })
+      }
+      static defaultProps = {
+         value: ''
+      }
+
       state = {
          value: '',
          isLoading: false,
          results: []
       }
+
       fetchSearchResults = (value) => {
          let targetValue = value || this.props.match.params.term;
         
@@ -29,7 +43,7 @@ const withSearchResults = (WrappedComponent) => {
                query: targetValue
             }
          };
-        
+
          axios.get(hoaxyUrl, options)
             .then(results => {
                let searchResults = [];
@@ -47,10 +61,10 @@ const withSearchResults = (WrappedComponent) => {
                         return { title: article.title,
                                  description: article.domain,
                                  url: article.canonical_url,
-                                 id: article.id,
+                                 key: uniqid(),
                                  site_type: article.site_type,
-                                 date: article.date_published,
-                                 numOfTweets: article.number_of_tweets }
+                                 date: article.date_published
+                              }
                      })
         
                      this.setState({
@@ -75,7 +89,6 @@ const withSearchResults = (WrappedComponent) => {
     
       openLink = (result) => {
          let url = '/search/' + result.result.title
-         console.log(result.result);
          window.open(url, '_blank');
       };
 

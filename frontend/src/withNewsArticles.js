@@ -4,9 +4,17 @@ import config from './config.json';
 import moment from 'moment';
 import _ from 'lodash';
 import uniqid from 'uniqid';
+import PropTypes from 'prop-types';
 
 const withNewsArticles = (WrappedComponent) => {
    return class extends Component {
+      static propTypes = {
+         state: PropTypes.shape({
+            newsHeadlines: PropTypes.arrayOf(PropTypes.object).isRequired,
+            labelsLoading: PropTypes.bool.isRequired,
+            newsPage: PropTypes.number.isRequired
+         })
+      }
       state = {
          newsHeadlines: [],
          labelsLoading: false,

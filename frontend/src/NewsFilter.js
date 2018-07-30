@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Tab, Dropdown } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 const NewsFilter = (props) => {
    const { width, handleMobileTabChange, handleTabChange, activeFilter } = props;
@@ -41,7 +42,7 @@ const NewsFilter = (props) => {
                          
    }
    else {
-      filtersJSX = <Tab   style={{ padding: '0 5%'}} 
+      filtersJSX = <Tab    style={{ padding: '0 5%'}} 
                            menu={{ secondary: true }} 
                            panes={ panes } 
                            onTabChange={ handleTabChange }/>     
@@ -52,6 +53,13 @@ const NewsFilter = (props) => {
          { filtersJSX }
       </Grid.Row>
    )
+}
+
+NewsFilter.propTypes = {
+   width: PropTypes.number.isRequired,
+   activeFilter: PropTypes.string.isRequired,
+   handleMobileTabChange: PropTypes.func.isRequired,
+   handleTabChange: PropTypes.func.isRequired,
 }
 
 export default NewsFilter;

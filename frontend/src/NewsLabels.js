@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, Label, Dimmer, Loader } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 const NewsLabels = (props) => {
    const { politicalLabels, sentiment, keywords } = props;
@@ -22,7 +23,7 @@ const NewsLabels = (props) => {
    else {
       let politicalJSX = politicalLabels.map(position => {
          return   <NavLink key= { position.key } to= { '/search/' + position.label }>
-                     <Label  circular 
+                     <Label   circular 
                               basic={ _.map(politicalLabels, 'label').length - 1 ===  _.map(politicalLabels, 'label').indexOf(position.label) ? false : true }
                               style ={ labelStyle } 
                               color="green"
@@ -63,6 +64,12 @@ const NewsLabels = (props) => {
                { labelsJSX }
             </div>  
    )
+}
+
+NewsLabels.propTypes = {
+   politicalLabels: PropTypes.arrayOf(PropTypes.object.isRequired),
+   keywords: PropTypes.arrayOf(PropTypes.object.isRequired),
+   sentiment: PropTypes.number,
 }
  
 export default NewsLabels;

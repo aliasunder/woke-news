@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/enzyme": "^3.1.12",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/react-router-dom": "^4.3.0",
     "ajv": "^6.5.1",
     "axios": "^0.18.0",
@@ -27,12 +28,14 @@
     "build": "react-scripts build",
     "deploy": "git push heroku master",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "debug": "react-scripts --inspect-brk test --runInBand --env=jsdom"
   },
   "proxy": "http://localhost:8080/",
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "react-test-renderer": "^16.4.1"
+    "react-test-renderer": "^16.4.1",
+    "prop-types": "^15.6.2"
   }
 }

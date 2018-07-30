@@ -3,6 +3,7 @@ import { Card, Image, Label } from 'semantic-ui-react'
 import NewsLabels from './NewsLabels';
 import sizeMe from 'react-sizeme';
 import { PocketButton } from 'react-social-sharebuttons';
+import PropTypes from 'prop-types';
 
 const NewsCard = (props) => {
    const { url, loading, image, politicalLabels, sentiment, keywords, title, meta, description, match } = props;
@@ -23,6 +24,18 @@ const NewsCard = (props) => {
          </Card.Content>
       </Card>
    )
+}
+
+NewsCard.propTypes = {
+   loading: PropTypes.bool.isRequired,
+   url: PropTypes.string.isRequired,
+   politicalLabels: PropTypes.arrayOf(PropTypes.object.isRequired),
+   keywords: PropTypes.arrayOf(PropTypes.object.isRequired),
+   title: PropTypes.string.isRequired,
+   meta: PropTypes.string.isRequired,
+   description: PropTypes.string.isRequired,
+   image: PropTypes.string,
+   sentiment: PropTypes.number
 }
 
 export default sizeMe({ monitorHeight: true })(NewsCard);

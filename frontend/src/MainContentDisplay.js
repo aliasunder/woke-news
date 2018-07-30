@@ -6,9 +6,11 @@ import AppRoutes from './AppRoutes';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Container, Grid } from 'semantic-ui-react';
 import withNewsArticles from './withNewsArticles'
+import PropTypes from 'prop-types';
 
 const MainContentDisplay = (props) => {
    const { width, fetchArticles, newsHeadlines, activeFilter, labelsLoading, handleMobileTabChange, handleTabChange, refresh } = props;
+
    return (
       <InfiniteScroll   pullDownToRefresh = { width <= 768 ? true : null }
                         dataLength={ newsHeadlines.length } 
@@ -39,6 +41,18 @@ const MainContentDisplay = (props) => {
       </InfiniteScroll>
    )
 }
+
+MainContentDisplay.propTypes = {
+   width: PropTypes.number.isRequired,
+   fetchArticles: PropTypes.func.isRequired,
+   newsHeadlines: PropTypes.arrayOf(PropTypes.object).isRequired,
+   activeFilter: PropTypes.string.isRequired,
+   labelsLoading: PropTypes.bool.isRequired,
+   handleMobileTabChange: PropTypes.func.isRequired,
+   handleTabChange: PropTypes.func.isRequired,
+   refresh: PropTypes.func.isRequired
+}
+
 // the withNewsArticles higher-order component wraps the MainContentDisplay component. 
 //withNewsArticles contains the fetchNewsArticles logic and related state which is then passed down to the wrapped component.
 export default withNewsArticles(MainContentDisplay);

@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import sizeMe from 'react-sizeme';
 import MainContentDisplay from './MainContentDisplay';
+import PropTypes from 'prop-types';
 
 class App extends Component {
+   static propTypes = {
+      state: PropTypes.shape({
+         activeFilter: PropTypes.string.isRequired
+      })
+   }
+
    state = {
       activeFilter: "All News",
    }

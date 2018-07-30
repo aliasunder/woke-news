@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Grid, Card, Button, Loader } from 'semantic-ui-react';
-import uniqid from 'uniqid';
 import { NavLink } from 'react-router-dom';
 import withSearchResults from './withSearchResults';
+import PropTypes from 'prop-types';
 
 class NewsResults extends Component {
     
    componentDidMount() { 
-      this.props.fetchSearchResults()
+      this.props.fetchSearchResults();
    }
     
    render() { 
@@ -19,9 +19,9 @@ class NewsResults extends Component {
       searchResults.forEach(result => {
          if (result.site_type === 'fact_checking'){
             factArticlesJSX.push(
-               <Card   centered link fluid
+               <Card    centered link fluid
                         target="_blank"
-                        key = { uniqid() }
+                        key = {result.key }
                         description = "Fact-Check"
                         header = { result.title }
                         href = { result.url }
@@ -31,9 +31,9 @@ class NewsResults extends Component {
          }
          else {
             claimArticlesJSX.push(
-               <Card   centered link fluid
+               <Card    centered link fluid
                         target="_blank"
-                        key = { uniqid()}
+                        key = { result.key }
                         description = "Claim"
                         header = { result.title }
                         href = { result.url }
@@ -81,6 +81,16 @@ class NewsResults extends Component {
       )
    }
 }
+
+NewsResults.propTypes = {
+   results: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired
+   })).isRequired,
+   isLoading: PropTypes.bool.isRequired
+}
+
 // withSearchResults wraps the NewsResults component and passes down the fetchSearchResults function 
 // and related props to the wrapped component.
 export default withSearchResults(NewsResults);
