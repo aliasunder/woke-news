@@ -14,9 +14,6 @@ const withSearchResults = (WrappedComponent) => {
             value: PropTypes.string.isRequired
          })
       }
-      static defaultProps = {
-         value: ''
-      }
 
       state = {
          value: '',
@@ -25,8 +22,8 @@ const withSearchResults = (WrappedComponent) => {
       }
 
       fetchSearchResults = (value) => {
-         let targetValue = value || this.props.match.params.term;
-        
+         let targetValue = value;
+
          this.setState({
             value: targetValue,
             isLoading: true
@@ -50,7 +47,7 @@ const withSearchResults = (WrappedComponent) => {
                searchResults = results.data.articles;
                 
                setTimeout(() => {
-                  if (this.state.value.length < 1){
+                  if (this.state.value.length < 1 || !targetValue ){
                         this.resetComponent()
                   }
                   else {
@@ -93,11 +90,13 @@ const withSearchResults = (WrappedComponent) => {
       };
 
       render(){
+         const { match } = this.props;
          return (
             <WrappedComponent    fetchSearchResults = { this.fetchSearchResults }
                                  resetComponent = { this.resetComponent }
                                  openLink = { this.openLink }
                                  width = { this.props.width }
+                                 match = { match ? match : null}
                                  { ...this.state }
                   />
          )

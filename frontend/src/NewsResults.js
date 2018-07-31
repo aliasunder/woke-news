@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 class NewsResults extends Component {
     
    componentDidMount() { 
-      this.props.fetchSearchResults();
+      // on mount, call fetchSearchResults using React Routers 'match' params
+      this.props.fetchSearchResults(this.props.match.params.term);
    }
     
    render() { 
