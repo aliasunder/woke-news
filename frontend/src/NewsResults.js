@@ -89,9 +89,9 @@ NewsResults.propTypes = {
       description: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired
    })).isRequired,
-   isLoading: PropTypes.bool.isRequired
+   isLoading: PropTypes.bool.isRequired,
+   match: PropTypes.object.isRequired
 }
-
 // withSearchResults wraps the NewsResults component and passes down the fetchSearchResults function 
 // and related props to the wrapped component.
 export default withSearchResults(NewsResults);

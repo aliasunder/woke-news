@@ -42,5 +42,5 @@ class App extends Component {
       )
    }
 };
-
+export { App }; // exported for unit testing
 export default sizeMe({ monitorWidth: true })(App);
