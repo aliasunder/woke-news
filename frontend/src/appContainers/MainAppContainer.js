@@ -1,14 +1,14 @@
 import React from 'react';
-import NewsSearch from './NewsSearch';
-import NewsFilter from './NewsFilter';
-import AppHeader from './AppHeader';
+import NewsSearch from '../appComponents/NewsSearch';
+import NewsFilter from '../appComponents/NewsFilter';
+import AppHeader from '../header/AppHeader';
 import AppRoutes from './AppRoutes';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Container, Grid } from 'semantic-ui-react';
-import withNewsArticles from './withNewsArticles'
+import withNewsArticles from '../mainNewsPage/withNewsArticles'
 import PropTypes from 'prop-types';
 
-const MainContentDisplay = (props) => {
+const MainAppContainer = (props) => {
    const { width, fetchArticles, newsHeadlines, activeFilter, labelsLoading, handleMobileTabChange, handleTabChange, refresh } = props;
 
    return (
@@ -42,7 +42,7 @@ const MainContentDisplay = (props) => {
    )
 }
 
-MainContentDisplay.propTypes = {
+MainAppContainer.propTypes = {
    width: PropTypes.number.isRequired,
    fetchArticles: PropTypes.func.isRequired,
    newsHeadlines: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -53,6 +53,6 @@ MainContentDisplay.propTypes = {
    refresh: PropTypes.func.isRequired
 }
 
-// the withNewsArticles higher-order component wraps the MainContentDisplay component. 
+// the withNewsArticles higher-order component wraps the MainAppContainer component. 
 //withNewsArticles contains the fetchNewsArticles logic and related state which is then passed down to the wrapped component.
-export default withNewsArticles(MainContentDisplay);
+export default withNewsArticles(MainAppContainer);

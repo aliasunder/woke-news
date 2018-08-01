@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import NewsCard from './NewsCard';
-import StackGrid from 'react-stack-grid';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import StackGrid from 'react-stack-grid';
+import NewsCard from './NewsCard';
 
 class NewsCardContainer extends Component {
    static propTypes = {

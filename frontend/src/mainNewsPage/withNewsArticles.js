@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import config from './config.json';
+import config from '../config.json';
 import moment from 'moment';
 import _ from 'lodash';
 import uniqid from 'uniqid';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import sizeMe from 'react-sizeme';
-import MainContentDisplay from './MainContentDisplay';
+import MainAppContainer from './MainAppContainer';
 import PropTypes from 'prop-types';
 
 class App extends Component {
@@ -33,7 +33,7 @@ class App extends Component {
       const { width } = this.props.size;
       return (
          <div className="App">
-            <MainContentDisplay  handleMobileTabChange = { this.handleMobileTabChange }
+            <MainAppContainer  handleMobileTabChange = { this.handleMobileTabChange }
                                  handleTabChange = { this.handleTabChange }
                                  width = { width }
                                  activeFilter = { this.state.activeFilter }

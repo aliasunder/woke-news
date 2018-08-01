@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Image, Label } from 'semantic-ui-react'
-import NewsLabels from './NewsLabels';
+import NewsLabels from '../appComponents/NewsLabels';
 import sizeMe from 'react-sizeme';
 import { PocketButton } from 'react-social-sharebuttons';
 import PropTypes from 'prop-types';

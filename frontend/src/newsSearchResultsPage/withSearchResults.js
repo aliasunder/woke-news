@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import axios from 'axios';
 import uniqid from 'uniqid';
-import config from './config.json';
+import config from '../config.json';
 import PropTypes from 'prop-types';
 
 const withSearchResults = (WrappedComponent) => {

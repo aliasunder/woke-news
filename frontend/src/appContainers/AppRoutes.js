@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import NewsCardContainer from './NewsCardContainer';
-import NewsResults from './NewsResults';
+import NewsCardContainer from '../mainNewsPage/NewsCardContainer';
+import NewsResultsContainer from '../newsSearchResultsPage/NewsResultsContainer'
 import PropTypes from 'prop-types';
 
 const AppRoutes = (props) => {
@@ -20,7 +20,7 @@ const AppRoutes = (props) => {
                       
                                                         />
                                         
-         <Route path="/search/:term" render={(props)=><NewsResults match = { props.match }/>} />
+         <Route path="/search/:term" render={(props)=><NewsResultsContainer match = { props.match }/>} />
       </Switch>
    )
 }

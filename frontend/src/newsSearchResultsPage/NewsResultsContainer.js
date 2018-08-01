@@ -1,11 +1,19 @@
-import React, { Component } from 'react';
-import { Grid, Card, Button, Loader } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
-import withSearchResults from './withSearchResults';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Button, Card, Grid, Loader } from 'semantic-ui-react';
+import withSearchResults from './withSearchResults';
 
-class NewsResults extends Component {
-    
+class NewsResultsContainer extends Component {
+   static propTypes = {
+      results: PropTypes.arrayOf(PropTypes.shape({
+         title: PropTypes.string.isRequired,
+         description: PropTypes.string.isRequired,
+         url: PropTypes.string.isRequired
+      })).isRequired,
+      isLoading: PropTypes.bool.isRequired,
+      match: PropTypes.object.isRequired
+   }
    componentDidMount() { 
       // on mount, call fetchSearchResults using React Routers 'match' params
       this.props.fetchSearchResults(this.props.match.params.term);
@@ -82,16 +90,6 @@ class NewsResults extends Component {
       )
    }
 }
-
-NewsResults.propTypes = {
-   results: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired
-   })).isRequired,
-   isLoading: PropTypes.bool.isRequired,
-   match: PropTypes.object.isRequired
-}
 // withSearchResults wraps the NewsResults component and passes down the fetchSearchResults function 
 // and related props to the wrapped component.
-export default withSearchResults(NewsResults);
+export default withSearchResults(NewsResultsContainer);

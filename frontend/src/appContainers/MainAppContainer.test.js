@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MainContentDisplay from './MainContentDisplay';
+import MainAppContainer from './MainAppContainer';
 
 it('renders without crashing', () => {
-  shallow(<MainContentDisplay />);
+  shallow(<MainAppContainer />);
 });

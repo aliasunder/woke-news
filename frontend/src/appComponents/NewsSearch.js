@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Search } from 'semantic-ui-react';
-import withSearchResults from './withSearchResults';
+import withSearchResults from '../newsSearchResultsPage/withSearchResults';
 import PropTypes from 'prop-types';
 
 const NewsSearch = (props) => {
