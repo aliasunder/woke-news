@@ -3,7 +3,7 @@ import uniqid from 'uniqid';
 import _ from 'lodash';
 import config from '../config.json';
 
-export default async (updatedHeadlines, updatedUrls) => {
+export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    const indicoKeywordsUrl = 'https://apiv2.indico.io/keywords/batch?version=2';
    const updatedHeadlinesCopy = await axios.post(indicoKeywordsUrl, JSON.stringify({
       api_key: config.indicoKey,
@@ -38,7 +38,7 @@ export default async (updatedHeadlines, updatedUrls) => {
             updatedHeadlines[i].keywords = newKeywordList[i]
          };
          // update the last 6 items in newsHeadlinesCopy with the keywords data that's been fetched
-         let newsHeadlinesCopy = [...updatedHeadlines];
+         let newsHeadlinesCopy = [...headlinesInState];
          let startIndex = newsHeadlinesCopy.length - 6;
          newsHeadlinesCopy.splice(startIndex, 6, updatedHeadlines );
          newsHeadlinesCopy =  _.flattenDepth(newsHeadlinesCopy, 1)

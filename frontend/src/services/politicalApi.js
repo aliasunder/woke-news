@@ -3,7 +3,7 @@ import uniqid from 'uniqid';
 import _ from 'lodash';
 import config from '../config.json';
 
-export default async (updatedHeadlines, updatedUrls) => {
+export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    const indicoPoliticalUrl = 'https://apiv2.indico.io/political/batch';
 
    const updatedHeadlinesCopy = await axios.post(indicoPoliticalUrl, JSON.stringify({
@@ -55,7 +55,7 @@ export default async (updatedHeadlines, updatedUrls) => {
             updatedHeadlines[i].politicalLabels = newPoliticalList[i]
          };
 
-         let newsHeadlinesCopy = [...updatedHeadlines];
+         let newsHeadlinesCopy = [...headlinesInState];
 
          // update the last 6 items in newsHeadlinesCopy with the political data that's been fetched
          let startIndex = newsHeadlinesCopy.length - 6;

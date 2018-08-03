@@ -22,7 +22,7 @@ export default async (newsPage) => {
       
    const updatedUrls = [];
    
-   const updatedHeadlines = await axios.get(newsHeadlinesUrl, newsOptions)
+   const newHeadlines = await axios.get(newsHeadlinesUrl, newsOptions)
       .then(results =>{
          let newsData =  results.data.articles;
          // for each article, push the article URL into the updatedUrls array 
@@ -36,5 +36,5 @@ export default async (newsPage) => {
       .catch(error => {
          console.log(error)
       })
-   return { updatedHeadlines, updatedUrls }
+   return { newHeadlines, updatedUrls }
 }

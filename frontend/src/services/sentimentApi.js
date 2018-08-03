@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import config from '../config.json';
 
-export default async (updatedHeadlines, updatedUrls) => {
+export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    const indicoSentimentUrl = 'https://apiv2.indico.io/sentiment/batch';
 
    const updatedHeadlinesCopy = await axios.post(indicoSentimentUrl, JSON.stringify({
@@ -16,7 +16,7 @@ export default async (updatedHeadlines, updatedUrls) => {
             updatedHeadlines[i].sentiment = sentimentList[i]
          };
          // update the last 6 items in newsHeadlinesCopy with the sentiment data that's been fetched
-         let newsHeadlinesCopy = [...updatedHeadlines];
+         let newsHeadlinesCopy = [...headlinesInState];
          let startIndex = newsHeadlinesCopy.length - 6;
          newsHeadlinesCopy.splice(startIndex, 6, updatedHeadlines);
          newsHeadlinesCopy =  _.flattenDepth(newsHeadlinesCopy, 1);
