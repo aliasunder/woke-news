@@ -25,8 +25,6 @@ const AppRoutes = (props) => {
    )
 }
 
-export default AppRoutes;
-
 AppRoutes.propTypes = {
    width: PropTypes.number.isRequired,
    fetchArticles: PropTypes.func.isRequired,
@@ -37,3 +35,5 @@ AppRoutes.propTypes = {
    handleTabChange: PropTypes.func.isRequired,
    refresh: PropTypes.func.isRequired
 }
+
+export default AppRoutes;

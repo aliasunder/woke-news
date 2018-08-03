@@ -1,19 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { App } from './App';
-import MainContentDisplay from './MainContentDisplay';
+import MainAppContainer from './MainAppContainer';
 
 // mock data for testing
 const mockSize = {
    width: 1425
-}
+};
 
 // shallow wrapper
-const wrapper = shallow(<App size={ mockSize }/>)
+const wrapper = shallow(<App size={ mockSize }/>);
 
 // tests
 it('renders without crashing', () => {
-  wrapper
+  wrapper;
 });
 
 it ('activeFilter in state and the value is the correct string', () => {
@@ -21,5 +21,5 @@ it ('activeFilter in state and the value is the correct string', () => {
 });
 
 it ('passes width down to child components', () => {
-   expect(wrapper.find(MainContentDisplay)).toHaveProp('width')
-})
+   expect(wrapper.find(MainAppContainer)).toHaveProp('width');
+});

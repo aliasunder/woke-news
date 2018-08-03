@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import NewsCardContainer from './NewsCardContainer';
+import StackGrid from 'react-stack-grid';
 
 const setup = (propOverrides) => {
    // default mock data for testing
@@ -24,11 +25,17 @@ const setup = (propOverrides) => {
 
    const wrapper = shallow(<NewsCardContainer { ...props } />);
 
-   return { props, wrapper }
-}
+   return { props, wrapper };
+};
 
+// setup wrapper
+const { wrapper } = setup();
+
+// tests
 it('renders without crashing', () => {
-   const { wrapper } = setup();
-   expect(wrapper.find('StackGrid')).toExist();
-  
+   wrapper;
+});
+
+it ('renders required StackGrid component for Pinterest-like layout', () => {
+   expect(wrapper.find(StackGrid)).toExist();
 });
