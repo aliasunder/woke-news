@@ -29,6 +29,7 @@ const withSearchResults = (WrappedComponent) => {
          })
         
          const searchData = await hoaxyApi(targetValue);
+         console.log(searchData)
                 
          setTimeout(() => {
             if (this.state.value.length < 1 || !targetValue ){

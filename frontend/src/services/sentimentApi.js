@@ -20,7 +20,6 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
          let startIndex = newsHeadlinesCopy.length - 6;
          newsHeadlinesCopy.splice(startIndex, 6, updatedHeadlines);
          newsHeadlinesCopy =  _.flattenDepth(newsHeadlinesCopy, 1);
-
          return newsHeadlinesCopy;
       })
       .catch(error => {

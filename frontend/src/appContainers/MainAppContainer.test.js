@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { MainAppContainer } from './MainAppContainer';
 import NewsSearch from '../appComponents/NewsSearch';
