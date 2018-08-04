@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AppRoutes from './AppRoutes'
-import NewsCardContainer from '../mainNewsPage/NewsCardContainer';
-import NewsResultsContainer from '../newsSearchResultsPage/NewsResultsContainer';
+import { Route, Switch } from 'react-router-dom';
 
 const setup = (propOverrides) => {
    // default mock data for testing
@@ -38,13 +37,12 @@ const { wrapper } = setup();
 // tests
 it('renders without crashing', () => {
    wrapper;
-   console.log(wrapper.debug())
 });
 
-it ('renders NewsCardContainer child component', () => {
-   expect(wrapper.find(NewsCardContainer)).toExist();
+it ('renders Switch child component', () => {
+   expect(wrapper.find(Switch)).toExist();
 });
 
-it ('renders NewsResultsContainer child component', () => {
-   expect(wrapper.find(NewsResultsContainer)).toExist();
+it ('Switch component renders 2 Route children', () => {
+   expect(wrapper.find(Switch).children(Route)).toHaveLength(2);
 });

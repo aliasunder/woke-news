@@ -33,7 +33,7 @@ class App extends Component {
       const { width } = this.props.size;
       return (
          <div className="App">
-            <MainAppContainer  handleMobileTabChange = { this.handleMobileTabChange }
+            <MainAppContainer    handleMobileTabChange = { this.handleMobileTabChange }
                                  handleTabChange = { this.handleTabChange }
                                  width = { width }
                                  activeFilter = { this.state.activeFilter }

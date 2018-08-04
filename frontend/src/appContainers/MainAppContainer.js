@@ -52,7 +52,8 @@ MainAppContainer.propTypes = {
    handleTabChange: PropTypes.func.isRequired,
    refresh: PropTypes.func.isRequired
 }
-
+// exported for unit testing
+export { MainAppContainer }; 
 // the withNewsArticles higher-order component wraps the MainAppContainer component. 
 //withNewsArticles contains the fetchNewsArticles logic and related state which is then passed down to the wrapped component.
 export default withNewsArticles(MainAppContainer);
