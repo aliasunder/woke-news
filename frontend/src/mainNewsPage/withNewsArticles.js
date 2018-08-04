@@ -23,7 +23,7 @@ const withNewsArticles = (WrappedComponent) => {
       fetchArticles = async () => {
          let { newHeadlines, updatedUrls} = await newsApi(this.state.newsPage);
 
-         // create a promise object
+         // create a promise object that takes a params for the newly loaded headlines and urls
          let results = (newHeadlines, updatedUrls) => {
             return new Promise((resolve, reject) => {
                      resolve({ newHeadlines, updatedUrls })
@@ -31,7 +31,7 @@ const withNewsArticles = (WrappedComponent) => {
          }
 
          results(newHeadlines, updatedUrls)
-         .then(results =>{
+         .then(results => {
             let newsPageCopy = this.state.newsPage;
             newsPageCopy++; 
             // when the newsapi data loads, add it to the previous data, show loading icon, and change page number

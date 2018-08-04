@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-import axios from 'axios';
-import uniqid from 'uniqid';
-import config from '../config.json';
 import PropTypes from 'prop-types';
+import uniqid from 'uniqid';
+import _ from 'lodash';
+import hoaxyApi from '../services/hoaxyApi';
 
 const withSearchResults = (WrappedComponent) => {
    return class extends Component {
@@ -21,7 +20,7 @@ const withSearchResults = (WrappedComponent) => {
          results: []
       }
 
-      fetchSearchResults = (value) => {
+      fetchSearchResults = async (value) => {
          let targetValue = value;
 
          this.setState({
@@ -29,53 +28,34 @@ const withSearchResults = (WrappedComponent) => {
             isLoading: true
          })
         
-         const hoaxyUrl = 'https://api-hoaxy.p.mashape.com/articles?';
-        
-         let options = {
-            headers: {
-               'X-Mashape-Key': config.hoaxyKey,
-               'Accept': 'application/json'
-            },
-            params: {
-               query: targetValue
-            }
-         };
-
-         axios.get(hoaxyUrl, options)
-            .then(results => {
-               let searchResults = [];
-               searchResults = results.data.articles;
+         const searchData = await hoaxyApi(targetValue);
                 
-               setTimeout(() => {
-                  if (this.state.value.length < 1 || !targetValue ){
-                        this.resetComponent()
-                  }
-                  else {
-                     const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-                     const isMatch = result => re.test(result.title);
+         setTimeout(() => {
+            if (this.state.value.length < 1 || !targetValue ){
+               this.resetComponent()
+            }
+            else {
+               const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
+               const isMatch = searchData => re.test(searchData.title);
         
-                     const source = searchResults.map(article => {
-                        return { title: article.title,
-                                 description: article.domain,
-                                 url: article.canonical_url,
-                                 key: uniqid(),
-                                 site_type: article.site_type,
-                                 date: article.date_published
-                              }
-                     })
+               const source = searchData.map(article => {
+                  return { title: article.title,
+                           description: article.domain,
+                           url: article.canonical_url,
+                           key: uniqid(),
+                           site_type: article.site_type,
+                           date: article.date_published
+                        }
+               })
         
-                     this.setState({
-                        isLoading: false,
-                        results: _.filter(source, isMatch)
-                     });
-                  }
-               }, 300)
-            })
-            .catch(error => {
-               console.log(error)
-            })
+               this.setState({
+                  isLoading: false,
+                  results: _.filter(source, isMatch)
+               });
+            }
+         }, 300)
       }
-
+      
       resetComponent = () => {
          this.setState({ 
             isLoading: false, 
