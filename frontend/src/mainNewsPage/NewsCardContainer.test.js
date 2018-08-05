@@ -44,7 +44,7 @@ it ('component takes up 35% width on non-mobile screens', () =>{
    expect(wrapper.find(StackGrid)).toHaveProp('columnWidth', '35%');
 })
 
-it ('component responsive to change to mobile screen size', () =>{
+it ('component takes up 90% width on mobile screens', () =>{
    const { wrapper } = setup({ width: 375 });
    expect(wrapper.find(StackGrid)).toHaveProp('columnWidth', '90%');
 })
