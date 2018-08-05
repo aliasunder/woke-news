@@ -28,14 +28,23 @@ const setup = (propOverrides) => {
    return { props, wrapper };
 };
 
-// setup wrapper
-const { wrapper } = setup();
-
 // tests
 it('renders without crashing', () => {
+   const { wrapper } = setup();
    wrapper;
 });
 
 it ('renders required StackGrid component for Pinterest-like layout', () => {
+   const { wrapper } = setup();
    expect(wrapper.find(StackGrid)).toExist();
 });
+
+it ('component takes up 35% width on non-mobile screens', () =>{
+   const { wrapper } = setup();
+   expect(wrapper.find(StackGrid)).toHaveProp('columnWidth', '35%');
+})
+
+it ('component responsive to change to mobile screen size', () =>{
+   const { wrapper } = setup({ width: 375 });
+   expect(wrapper.find(StackGrid)).toHaveProp('columnWidth', '90%');
+})
