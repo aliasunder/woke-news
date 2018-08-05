@@ -1,4 +1,4 @@
-const mockData = [{  'author': 'foo',
+const newHeadlines = [{  'author': 'foo',
                      'description': 'hello',
                      'key': 'abcde',
                      'politicalLabels': [ {'label': 'liberal'}],
@@ -10,6 +10,6 @@ const mockData = [{  'author': 'foo',
 
 export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    return await new Promise ((resolve, reject) => {
-      resolve(mockData);
+      resolve(newHeadlines);
    });
 };

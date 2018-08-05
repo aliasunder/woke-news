@@ -24,6 +24,7 @@ const setup = (propOverrides) => {
 // setup shallow wrapper
 const { wrapper } = setup();
 
+// tests
 it('renders without crashing', () => {
   wrapper;
 });

@@ -1,4 +1,4 @@
-const mockData = [{  'author': 'foo',
+const newHeadlines = [{  'author': 'foo',
                      'description': 'hello',
                      'key': 'abcde',
                      'source': { 'name': 'cool name'},
@@ -7,8 +7,10 @@ const mockData = [{  'author': 'foo',
                      'urlToImage': null
                   }];
 
+const updatedUrls = [ 'www.google.ca' ]
+
 export default async (newsPage) => {
    return await new Promise ((resolve, reject) => {
-      resolve(mockData);
+      resolve({ newHeadlines, updatedUrls });
    });
 };
