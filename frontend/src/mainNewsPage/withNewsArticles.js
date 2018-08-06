@@ -107,7 +107,13 @@ class FetchArticles extends Component {
 const withNewsArticles = (WrappedComponent) => {
    return class extends FetchArticles {
       render() {
-         return <WrappedComponent { ... this.state } { ...this.props } />
+         return <WrappedComponent   fetchArticles = { this.fetchArticles } 
+                                    refresh = { this.refresh }
+                                    handleTabChange = { this.props.handleTabChange }
+                                    handleMobileTabChange = { this.props.handleMobileTabChange }
+                                    width = { this.props.width }
+                                    activeFilter = { this.props.activeFilter }
+                                    { ...this.state } />
       }
    }
 };

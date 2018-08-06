@@ -7,9 +7,11 @@ import withSearchResults from './withSearchResults';
 class NewsResultsContainer extends Component {
    static propTypes = {
       results: PropTypes.arrayOf(PropTypes.shape({
-         title: PropTypes.string.isRequired,
-         description: PropTypes.string.isRequired,
-         url: PropTypes.string.isRequired
+         'title': PropTypes.string.isRequired,
+         'description': PropTypes.string.isRequired,
+         'url': PropTypes.string.isRequired,
+         'site_type': PropTypes.string.isRequired,
+         'key': PropTypes.string.isRequired
       })).isRequired,
       isLoading: PropTypes.bool.isRequired,
       match: PropTypes.object.isRequired
@@ -90,6 +92,8 @@ class NewsResultsContainer extends Component {
       )
    }
 }
+// exported for unit testing
+export { NewsResultsContainer }; 
 // withSearchResults wraps the NewsResults component and passes down the fetchSearchResults function 
 // and related props to the wrapped component.
 export default withSearchResults(NewsResultsContainer);
