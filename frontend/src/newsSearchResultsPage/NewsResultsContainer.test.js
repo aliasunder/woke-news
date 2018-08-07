@@ -34,7 +34,6 @@ const setup = (propOverrides) => {
 it('renders without crashing', () => {
    const { wrapper } = setup();
    wrapper;
-  console.log(wrapper.debug())
 });
 
 it ('renders loadingJSX when isLoading is set to true', () => {
@@ -50,7 +49,6 @@ it ('renders results JSX when isLoading is set to false', () => {
 
 describe('Fact-Check and Claim articles', () => {
    const { wrapper } = setup();
-
    it('renders Fact-Check article in correct column', () => {
       expect(wrapper.find(Card).first()).toHaveProp('description', 'Fact-Check')
    });

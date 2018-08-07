@@ -5,7 +5,7 @@ import politicalApi from '../services/politicalApi';
 import sentimentApi from '../services/sentimentApi';
 import keywordsApi from '../services/keywordsApi';
 
-// class created for testing purposes. THe default export withNewsArticles 
+// class created for testing purposes. The default export withNewsArticles 
 // inherits this class and exports the higher-order component
 class FetchArticles extends Component {
    static propTypes = {
@@ -14,12 +14,12 @@ class FetchArticles extends Component {
          labelsLoading: PropTypes.bool.isRequired,
          newsPage: PropTypes.number.isRequired
       })
-   }
+   };
    state = {
       newsHeadlines: [],
       labelsLoading: false,
       newsPage: 1,
-   }
+   };
       
    fetchArticles = async () => {
       let { newHeadlines, updatedUrls} = await newsApi(this.state.newsPage);
@@ -29,7 +29,7 @@ class FetchArticles extends Component {
          return new Promise((resolve, reject) => {
                   resolve({ newHeadlines, updatedUrls })
          })
-      }
+      };
 
       results(newHeadlines, updatedUrls)
       .then(results => {
@@ -75,7 +75,7 @@ class FetchArticles extends Component {
       .catch(error => {
          console.log(error)
       });
-   }   
+   };   
     
    refresh = () => {
       this.setState({
@@ -88,7 +88,7 @@ class FetchArticles extends Component {
             newsHeadlines: newsHeadlinesCopy
          });
       }, 3000);
-   }
+   };
     
    render(){
       return (
@@ -101,12 +101,12 @@ class FetchArticles extends Component {
                { ...this.state } 
             />
       )
-   } 
-}   
+   }; 
+};   
 
 const withNewsArticles = (WrappedComponent) => {
    return class extends FetchArticles {
-      render() {
+      render(){
          return <WrappedComponent   fetchArticles = { this.fetchArticles } 
                                     refresh = { this.refresh }
                                     handleTabChange = { this.props.handleTabChange }
