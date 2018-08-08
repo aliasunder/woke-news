@@ -30,10 +30,10 @@ NewsCard.propTypes = {
    url: PropTypes.string.isRequired,
    politicalLabels: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string.isRequired
-   })).isRequired,
+   })),
    keywords: PropTypes.arrayOf(PropTypes.shape({
       keyword: PropTypes.string.isRequired
-   })).isRequired,
+   })),
    title: PropTypes.string.isRequired,
    meta: PropTypes.string.isRequired,
    description: PropTypes.string.isRequired,
