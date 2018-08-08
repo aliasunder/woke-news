@@ -2,7 +2,7 @@ import React from 'react';
 import { FetchArticles } from'./withNewsArticles';
 import politicalApi from '../services/politicalApi';
 import sentimentApi from '../services/sentimentApi';
-import keywordsApi from '../services/__mocks__/keywordsApi';
+import keywordsApi from '../services/keywordsApi';
 
 // use mock modules to test api calls
 jest.mock('../services/newsApi')
