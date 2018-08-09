@@ -1,5 +1,9 @@
-const   express = require('express'),
-        app = express();
+const sslRedirect = require('heroku-ssl-redirect'),
+      express = require('express'),
+      app = express();
+
+// enable ssl redirect
+app.use(sslRedirect());
 
 app.use(express.static(__dirname + '/frontend/build'));
 
