@@ -19,7 +19,6 @@ const setup = (propOverrides) => {
 it('renders without crashing', () => {
   const { wrapper } = setup();
    wrapper;
-   console.log(wrapper.debug())
 });
 
 describe('changes to screen width', () => {
