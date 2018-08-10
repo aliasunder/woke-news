@@ -6,7 +6,7 @@ export default async (newsPage) => {
    const newsHeadlinesUrl = 'https://newsapi.org/v2/everything';
    const newsOptions = {
       headers: {
-         'X-Api-Key': process.env.REACT_APP_NEWSAPI
+         'X-Api-Key': process.env.REACT_APP_NEWSAPI || process.env.NEWSAPI
       },
       params: {
          language: 'en',

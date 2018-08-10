@@ -6,7 +6,7 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    const indicoPoliticalUrl = 'https://apiv2.indico.io/political/batch';
 
    const updatedHeadlinesCopy = await axios.post(indicoPoliticalUrl, JSON.stringify({
-      api_key: process.env.REACT_APP_INDICOAPI,
+      api_key: process.env.REACT_APP_INDICOAPI || process.env.INDICOAPI,
       data: updatedUrls,
       threshold: 0.25
    }))

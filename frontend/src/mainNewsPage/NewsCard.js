@@ -10,7 +10,6 @@ const NewsCard = (props) => {
    return ( 
       <Card fluid centered> 
          <Card.Content as="a" href={ url } target="_blank">
-                  <Label style = {{ backgroundColor: 'white' }} attached='top right'><PocketButton /></Label>
                   <Image src = { image } />
          </Card.Content>
          <Card.Content as="a" href = { url } target="_blank" header = { title } meta={ meta } description={ description } />
