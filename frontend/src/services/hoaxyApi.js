@@ -1,12 +1,11 @@
 import axios from 'axios';
-import config from '../config.json';
 
 export default async (targetValue) => {
    const hoaxyUrl = 'https://api-hoaxy.p.mashape.com/articles?';
         
    const options = {
             headers: {
-               'X-Mashape-Key': config.hoaxyKey,
+               'X-Mashape-Key': process.env.REACT_APP_HOAXYAPI,
                'Accept': 'application/json'
             },
             params: {

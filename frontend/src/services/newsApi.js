@@ -1,13 +1,12 @@
 import axios from 'axios';
 import uniqid from 'uniqid';
 import moment from 'moment';
-import config from '../config.json';
 
 export default async (newsPage) => {
    const newsHeadlinesUrl = 'https://newsapi.org/v2/everything';
    const newsOptions = {
       headers: {
-         'X-Api-Key': config.newsApiKey
+         'X-Api-Key': process.env.REACT_APP_NEWSAPI
       },
       params: {
          language: 'en',

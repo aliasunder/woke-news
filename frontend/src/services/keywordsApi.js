@@ -1,12 +1,11 @@
 import axios from 'axios';
 import uniqid from 'uniqid';
 import _ from 'lodash';
-import config from '../config.json';
 
 export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    const indicoKeywordsUrl = 'https://apiv2.indico.io/keywords/batch?version=2';
    const updatedHeadlinesCopy = await axios.post(indicoKeywordsUrl, JSON.stringify({
-      api_key: config.indicoKey,
+      api_key: process.env.REACT_APP_INDICOAPI,
       data: updatedUrls,
       threshold: 0.25,
       top_n: 9

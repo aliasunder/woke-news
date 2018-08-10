@@ -1,12 +1,11 @@
 import axios from 'axios';
 import _ from 'lodash';
-import config from '../config.json';
 
 export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    const indicoSentimentUrl = 'https://apiv2.indico.io/sentiment/batch';
 
    const updatedHeadlinesCopy = await axios.post(indicoSentimentUrl, JSON.stringify({
-      api_key: config.indicoKey,
+      api_key: process.env.REACT_APP_INDICOAPI,
       data: updatedUrls
    }))
       .then(results => {
