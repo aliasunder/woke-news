@@ -54,7 +54,7 @@ class NewsCardContainer extends Component {
       })
 
       return (  
-         <div style={{ padding: '1% 5%' }} > 
+         <div style={{ padding: '1% 5%' }} id="newsCardContainer"> 
             <StackGrid  columnWidth= { width <= 768 ? '90%' : '35%' } 
                         gutterWidth={ 20 } 
                         gutterHeight={ 20 }  

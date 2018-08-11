@@ -13,6 +13,7 @@ const NewsSearch = (props) => {
                   onResultSelect={ openLink }
                   onSearchChange={ _.debounce((event)=> fetchSearchResults(event.target.value), 500, { leading: true })}
                   style={ width <= 768 ? { paddingLeft: '5%', paddingBottom: '3%' } : { paddingLeft: '5%' }}
+                  aria-label="Search"
          />
    )
 }

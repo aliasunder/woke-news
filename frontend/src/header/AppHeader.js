@@ -4,7 +4,7 @@ import { Message } from 'semantic-ui-react';
 const AppHeader = (props) => {
    return (
       <Message color="black" size="massive" style={{ textAlign: 'center' }}>
-      <Message.Header>
+      <Message.Header as={ 'h1' }>
          Woke News
       </Message.Header>
          <p> Context matters </p>
