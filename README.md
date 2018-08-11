@@ -10,7 +10,7 @@ Three different API providers are used on the front-end (newsapi.org to retrieve
 
 ## View Live App
 
-**[https://woke-news.herokuapp.com/](https://woke-news.herokuapp.com/ "Woke News App")**
+**[https://wokenews.world/](https://wokenews.world/ "Woke News App")**
 
 ## View Project Board
 
