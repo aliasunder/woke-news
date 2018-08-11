@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 config.json
+.netlify.toml
+netlify

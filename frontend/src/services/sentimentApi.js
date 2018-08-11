@@ -5,7 +5,7 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
    const indicoSentimentUrl = 'https://apiv2.indico.io/sentiment/batch';
 
    const updatedHeadlinesCopy = await axios.post(indicoSentimentUrl, JSON.stringify({
-      api_key: process.env.REACT_APP_INDICOAPI || process.env.INDICOAPI,
+      api_key: process.env.REACT_APP_INDICOAPI,
       data: updatedUrls
    }))
       .then(results => {

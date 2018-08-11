@@ -5,7 +5,7 @@ export default async (targetValue) => {
         
    const options = {
             headers: {
-               'X-Mashape-Key': process.env.REACT_APP_HOAXYAPI || process.env.HOAXYAPI,
+               'X-Mashape-Key': process.env.REACT_APP_HOAXYAPI,
                'Accept': 'application/json'
             },
             params: {

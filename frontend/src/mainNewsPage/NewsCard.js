@@ -8,10 +8,10 @@ const NewsCard = (props) => {
    const { url, loading, image, politicalLabels, sentiment, keywords, title, meta, description } = props;
    return ( 
       <Card fluid centered> 
-         <Card.Content as="a" href={ url } target="_blank">
+         <Card.Content as="a" href={ url } target="_blank" rel="noopener">
                   <Image src = { image } />
          </Card.Content>
-         <Card.Content as="a" href = { url } target="_blank" header = { title } meta={ meta } description={ description } />
+         <Card.Content as="a" href = { url } target="_blank" rel="noopener" header = { title } meta={ meta } description={ description } />
          <Card.Content extra>
             <NewsLabels loading = { loading } 
                         politicalLabels = { politicalLabels ? politicalLabels : null } 
