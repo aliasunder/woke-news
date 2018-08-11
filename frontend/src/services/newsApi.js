@@ -30,7 +30,6 @@ export default async (newsPage) => {
             updatedUrls.push(article.url)
             article.key = uniqid()
          });
-         console.log(newsData)
          return newsData;
       })
       .catch(error => {
