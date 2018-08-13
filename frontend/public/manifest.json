@@ -13,12 +13,12 @@
             "type": "image/png"
         },
         {
-         "src": "/highpxwlogo.png.png",
+         "src": "/highpxwlogo.png",
          "sizes": "512x512",
          "type": "image/png"
         }
     ],
-  "start_url": "wokenews.world",
+  "start_url": "./",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff"
