@@ -80,7 +80,7 @@ class NewsResultsContainer extends Component {
                            </Grid.Row>
                            <Grid padded>
                               <Grid.Row>        
-                                 <Loader size="big" active/>
+                                 <Loader style = {{ padding: '7%', marginTop: '3%' }}size="big" active/>
                               </Grid.Row>
                            </Grid>
                         </div>

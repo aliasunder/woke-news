@@ -65,7 +65,7 @@ class SearchResults extends Component {
       })
    };
     
-   openLink = (result) => {
+   openLink = (event, result) => {
       let url = '/search/' + result.result.title
       window.open(url, '_blank');
    };
