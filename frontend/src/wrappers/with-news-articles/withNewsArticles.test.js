@@ -1,14 +1,14 @@
 import React from 'react';
 import { FetchArticles } from'./withNewsArticles';
-import politicalApi from '../services/politicalApi';
-import sentimentApi from '../services/sentimentApi';
-import keywordsApi from '../services/keywordsApi';
+import politicalApi from '../../services/politicalApi';
+import sentimentApi from '../../services/sentimentApi';
+import keywordsApi from '../../services/keywordsApi';
 
 // use mock modules to test api calls
-jest.mock('../services/newsApi')
-jest.mock('../services/politicalApi');
-jest.mock('../services/sentimentApi');
-jest.mock('../services/keywordsApi');
+jest.mock('../../services/newsApi')
+jest.mock('../../services/politicalApi');
+jest.mock('../../services/sentimentApi');
+jest.mock('../../services/keywordsApi');
 
 // setup shallow wrapper
 const wrapper = shallow(<FetchArticles />);
@@ -40,7 +40,7 @@ describe('passes down props to child components', () => {
    });
    it ('passes down handleMobileTabChange', () => {
       expect(wrapper.find('div')).toHaveProp('handleMobileTabChange');
-   }); 
+   });
 })
 
 
@@ -49,7 +49,7 @@ it ('calls fetchArticles and updates state correctly ',  () => {
             .then(()=>{
                expect(wrapper).toHaveState('labelsLoading', true);
                expect(wrapper).toHaveState('newsPage', 2);
-               expect(wrapper).toHaveState('newsHeadlines', 
+               expect(wrapper).toHaveState('newsHeadlines',
                   [{ 'author': 'foo',
                      'description': 'hello',
                      'key': 'abcde',
@@ -63,7 +63,7 @@ it ('calls fetchArticles and updates state correctly ',  () => {
                await politicalApi();
                expect(wrapper).toHaveState('labelsLoading', true);
                expect(wrapper).toHaveState('newsPage', 2);
-               expect(wrapper).toHaveState('newsHeadlines', 
+               expect(wrapper).toHaveState('newsHeadlines',
                   [{ 'author': 'foo',
                      'description': 'hello',
                      'key': 'abcde',
@@ -78,7 +78,7 @@ it ('calls fetchArticles and updates state correctly ',  () => {
                await sentimentApi();
                expect(wrapper).toHaveState('labelsLoading', true);
                expect(wrapper).toHaveState('newsPage', 2);
-               expect(wrapper).toHaveState('newsHeadlines', 
+               expect(wrapper).toHaveState('newsHeadlines',
                   [{ 'author': 'foo',
                      'description': 'hello',
                      'key': 'abcde',
@@ -94,7 +94,7 @@ it ('calls fetchArticles and updates state correctly ',  () => {
                await keywordsApi();
                expect(wrapper).toHaveState('labelsLoading', false);
                expect(wrapper).toHaveState('newsPage', 2);
-               expect(wrapper).toHaveState('newsHeadlines', 
+               expect(wrapper).toHaveState('newsHeadlines',
                   [{ 'author': 'foo',
                      'description': 'hello',
                      'key': 'abcde',

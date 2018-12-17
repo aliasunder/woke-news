@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { SearchResults } from './withSearchResults';
 
 // use mock modules to test api calls
-jest.mock('../services/hoaxyApi');
+jest.mock('../../services/hoaxyApi');
 const uniqid = jest.genMockFromModule('uniqid');
 uniqid.uniqid = jest.fn(()=> '123abc')
 

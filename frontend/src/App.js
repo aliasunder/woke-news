@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { withSize } from 'react-sizeme';
 import { AppContent } from './news-main-landing';

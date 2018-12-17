@@ -1,6 +1,6 @@
 import React from 'react';
 import { App } from './App';
-import MainAppContainer from './AppContent';
+import { AppContent } from './news-main-landing';
 
 // mock data for testing
 const mockSize = {
@@ -20,5 +20,5 @@ it ('activeFilter in state and the value is the correct string', () => {
 });
 
 it ('passes width down to child components', () => {
-   expect(wrapper.find(MainAppContainer)).toHaveProp('width');
+   expect(wrapper.find(AppContent)).toHaveProp('width');
 });

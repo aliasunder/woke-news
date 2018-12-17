@@ -27,7 +27,7 @@ const setup = (propOverrides) => {
       value: ''
    }, propOverrides);
 
-   const wrapper = shallow(<NewsSearchBar { ...props }/>);
+   const wrapper = shallow(<NewsSearchBarComponent { ...props }/>);
 
    return { props, wrapper };
 }
