@@ -1,7 +1,7 @@
 import React from 'react';
 import { Message } from 'semantic-ui-react';
 
-const AppHeader = (props) => {
+export const AppHeader = (props) => {
    return (
       <Message color="black" size="massive" style={{ textAlign: 'center' }}>
       <Message.Header as={ 'h1' }>
@@ -11,5 +11,3 @@ const AppHeader = (props) => {
       </Message>
    )
 }
-
-export default AppHeader;

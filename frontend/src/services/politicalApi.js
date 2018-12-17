@@ -13,15 +13,15 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
       .then(results => {
          let politicalResults = results.data.results;
          let politicalList = []
-         
+
          // for each result in the array, sort the political leanings from lowest value (least likely) to highest value (most likely)
          // and return an object with the political leaning key/value pairs in order from lowest to highest value
          politicalResults.forEach((article)=>{
             let politicalArray = Object.entries(article)
                .sort((a, b) => a[1] - b[1])
-               .reduce((object, [key, value]) => { 
-                  object[key] = value; 
-                  return object 
+               .reduce((object, [key, value]) => {
+                  object[key] = value;
+                  return object
                }, {})
             let politicalLabels = Object.keys(politicalArray);
             politicalList.push(politicalLabels)
@@ -48,7 +48,7 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
          };
 
          let newPoliticalList = createPoliticalObjects(updatedHeadlines);
-         
+
          // attach custom political objects to the corresponding news headlines object
          for (let i = 0; i < updatedHeadlines.length; i++){
             updatedHeadlines[i].politicalLabels = newPoliticalList[i]
@@ -65,5 +65,6 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
       .catch(error => {
          console.log(error)
       })
+      console.log(updatedHeadlinesCopy)
    return updatedHeadlinesCopy
 }

@@ -3,7 +3,7 @@ import uniqid from 'uniqid';
 import _ from 'lodash';
 
 export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
-   const indicoKeywordsUrl = 'https://apiv2.indico.io/keywords/batch?version=2';
+   const indicoKeywordsUrl = 'https://apiv2.indico.io/keywords/batch?version=4';
    const updatedHeadlinesCopy = await axios.post(indicoKeywordsUrl, JSON.stringify({
       api_key: process.env.REACT_APP_INDICOAPI,
       data: updatedUrls,
@@ -15,11 +15,11 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
          // create keyword objects for each news headline and push them to an array
          let createKeywordObjects = function(keywordResults){
             let keywordList = []
-      
+
             for (let i = 0; i < keywordResults.length; i++){
                let keywordLabels = Object.keys(keywordResults[i]);
                let keywordObjectArray = [];
-      
+
                for (let i = 0; i < keywordLabels.length; i++){
                   let keywordObject = {};
                   keywordObject.keyword = keywordLabels[i]
@@ -30,7 +30,7 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
             }
             return keywordList;
          }
-      
+
          let newKeywordList = createKeywordObjects(keywordResults);
          // for each headline, add a 'keywords' key and assign the corresponding keywords value
          for (let i = 0; i < updatedHeadlines.length; i++){
@@ -46,5 +46,5 @@ export default async (headlinesInState, updatedHeadlines, updatedUrls) => {
       .catch(error => {
          console.log(error)
          })
-   return updatedHeadlinesCopy; 
+   return updatedHeadlinesCopy;
 }
